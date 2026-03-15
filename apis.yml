@@ -9,5 +9,35 @@ tags:
 - GitOps
 created: '2025'
 modified: '2025'
-apis: []
-common: []
+apis:
+- name: Argo Workflows API
+  description: REST API for managing Argo Workflows, workflow templates, cron workflows,
+    and archived workflow records on Kubernetes clusters.
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://{host}:2746/api/v1
+  properties:
+  - type: openapi
+    url: openapi.yml
+  - type: json-schema
+    url: workflow-schema.json
+  - type: json-ld-context
+    url: context.jsonld
+- name: Argo CD API
+  description: API for managing Argo CD GitOps applications, projects, repositories,
+    clusters, and sync operations for Kubernetes declarative continuous delivery.
+  humanURL: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+  baseURL: https://{host}/api/v1
+  properties:
+  - type: json-schema
+    url: application-schema.json
+  - type: json-ld-context
+    url: context.jsonld
+common:
+- type: documentation
+  url: https://argo-workflows.readthedocs.io/en/latest/
+- type: documentation
+  url: https://argo-cd.readthedocs.io/en/stable/
+- type: github-repository
+  url: https://github.com/argoproj/argo-workflows
+- type: github-repository
+  url: https://github.com/argoproj/argo-cd
