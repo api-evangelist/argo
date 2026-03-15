@@ -1,0 +1,13 @@
+name: Argo
+description: Open source tool for Kubernetes-native workflows, events, CI/CD, and
+  progressive delivery
+url: https://argoproj.github.io/
+tags:
+- Kubernetes
+- Workflows
+- CI/CD
+- GitOps
+created: '2025'
+modified: '2025'
+apis: []
+common: []
