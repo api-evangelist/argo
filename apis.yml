@@ -1,43 +1,66 @@
+aid: argo
 name: Argo
-description: Open source tool for Kubernetes-native workflows, events, CI/CD, and
-  progressive delivery
-url: https://argoproj.github.io/
+description: >-
+  Argo is a collection of open source tools for Kubernetes-native workflows,
+  events, CI/CD, and progressive delivery. It includes Argo Workflows for
+  orchestrating parallel jobs, Argo CD for GitOps continuous delivery, Argo
+  Events for event-driven automation, and Argo Rollouts for progressive delivery
+  strategies.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Kubernetes
-- Workflows
-- CI/CD
-- GitOps
-created: '2025'
-modified: '2025'
+  - Kubernetes
+  - Workflows
+  - CI/CD
+  - GitOps
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/apis.yml
+created: '2025-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis:
-- name: Argo Workflows API
-  description: REST API for managing Argo Workflows, workflow templates, cron workflows,
-    and archived workflow records on Kubernetes clusters.
-  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
-  baseURL: https://{host}:2746/api/v1
-  properties:
-  - type: openapi
-    url: openapi.yml
-  - type: json-schema
-    url: workflow-schema.json
-  - type: json-ld-context
-    url: context.jsonld
-- name: Argo CD API
-  description: API for managing Argo CD GitOps applications, projects, repositories,
-    clusters, and sync operations for Kubernetes declarative continuous delivery.
-  humanURL: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
-  baseURL: https://{host}/api/v1
-  properties:
-  - type: json-schema
-    url: application-schema.json
-  - type: json-ld-context
-    url: context.jsonld
+  - aid: argo:argo-workflows-api
+    name: Argo Workflows API
+    description: >-
+      REST API for managing Argo Workflows, workflow templates, cron workflows,
+      and archived workflow records on Kubernetes clusters.
+    humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+    baseURL: https://localhost:2746/api/v1
+    tags:
+      - Kubernetes
+      - Workflows
+      - Automation
+    properties:
+      - type: Documentation
+        url: https://argo-workflows.readthedocs.io/en/latest/
+      - type: Reference
+        url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - aid: argo:argo-cd-api
+    name: Argo CD API
+    description: >-
+      API for managing Argo CD GitOps applications, projects, repositories,
+      clusters, and sync operations for Kubernetes declarative continuous
+      delivery.
+    humanURL: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+    baseURL: https://localhost/api/v1
+    tags:
+      - GitOps
+      - Continuous Delivery
+      - Kubernetes
+    properties:
+      - type: Documentation
+        url: https://argo-cd.readthedocs.io/en/stable/
+      - type: Reference
+        url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
 common:
-- type: documentation
-  url: https://argo-workflows.readthedocs.io/en/latest/
-- type: documentation
-  url: https://argo-cd.readthedocs.io/en/stable/
-- type: github-repository
-  url: https://github.com/argoproj/argo-workflows
-- type: github-repository
-  url: https://github.com/argoproj/argo-cd
+  - type: Website
+    url: https://argoproj.github.io/
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: GitHub Organization
+    url: https://github.com/argoproj
+  - type: Community
+    url: https://argoproj.github.io/community/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
