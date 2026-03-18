@@ -1,0 +1,410 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/argo/blob/main/json-schema/argo-rollout-schema.json",
+  "title": "Argo Rollout Spec",
+  "description": "JSON Schema for the Argo Rollouts Rollout CRD, which enables progressive delivery strategies including canary and blue-green deployments with automated traffic management and analysis.",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "description": "API version for Argo Rollouts resources.",
+      "enum": ["argoproj.io/v1alpha1"]
+    },
+    "kind": {
+      "type": "string",
+      "description": "Resource kind for Argo Rollouts.",
+      "enum": ["Rollout", "AnalysisTemplate", "ClusterAnalysisTemplate", "AnalysisRun"]
+    },
+    "metadata": {
+      "$ref": "#/$defs/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/$defs/RolloutSpec"
+    },
+    "status": {
+      "$ref": "#/$defs/RolloutStatus"
+    }
+  },
+  "$defs": {
+    "ObjectMeta": {
+      "type": "object",
+      "title": "ObjectMeta",
+      "description": "Standard Kubernetes object metadata.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Rollout resource, unique within its namespace."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Kubernetes namespace for the Rollout."
+        },
+        "labels": {
+          "type": "object",
+          "description": "Key-value labels for the resource.",
+          "additionalProperties": { "type": "string" }
+        },
+        "annotations": {
+          "type": "object",
+          "description": "Key-value annotations for the resource.",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "RolloutSpec": {
+      "type": "object",
+      "title": "RolloutSpec",
+      "description": "Specification for an Argo Rollout defining the pod template, replica count, selector, and deployment strategy.",
+      "required": ["selector", "template", "strategy"],
+      "properties": {
+        "replicas": {
+          "type": "integer",
+          "description": "Desired number of pod replicas.",
+          "minimum": 0
+        },
+        "selector": {
+          "type": "object",
+          "description": "Label selector for pods managed by this Rollout.",
+          "properties": {
+            "matchLabels": {
+              "type": "object",
+              "description": "Map of label key-value pairs that pods must have.",
+              "additionalProperties": { "type": "string" }
+            }
+          }
+        },
+        "template": {
+          "type": "object",
+          "description": "Pod template specification for the Rollout pods."
+        },
+        "minReadySeconds": {
+          "type": "integer",
+          "description": "Minimum number of seconds a pod must be ready before it is considered available.",
+          "minimum": 0
+        },
+        "revisionHistoryLimit": {
+          "type": "integer",
+          "description": "Number of old ReplicaSets to retain for rollback.",
+          "minimum": 0
+        },
+        "strategy": {
+          "$ref": "#/$defs/RolloutStrategy"
+        },
+        "workloadRef": {
+          "type": "object",
+          "description": "Reference to an existing Deployment to adopt as a Rollout.",
+          "properties": {
+            "apiVersion": { "type": "string", "description": "API version of the referenced workload." },
+            "kind": { "type": "string", "description": "Kind of the referenced workload (Deployment)." },
+            "name": { "type": "string", "description": "Name of the referenced workload." }
+          }
+        }
+      }
+    },
+    "RolloutStrategy": {
+      "type": "object",
+      "title": "RolloutStrategy",
+      "description": "Progressive delivery strategy configuration. Only one of canary or blueGreen may be specified.",
+      "properties": {
+        "canary": {
+          "$ref": "#/$defs/CanaryStrategy"
+        },
+        "blueGreen": {
+          "$ref": "#/$defs/BlueGreenStrategy"
+        }
+      }
+    },
+    "CanaryStrategy": {
+      "type": "object",
+      "title": "CanaryStrategy",
+      "description": "Canary deployment strategy that gradually shifts traffic to the new version using weighted routing steps.",
+      "properties": {
+        "steps": {
+          "type": "array",
+          "description": "Ordered list of canary steps. Each step sets a traffic weight, pauses for manual approval or a duration, or runs an analysis.",
+          "items": {
+            "$ref": "#/$defs/CanaryStep"
+          }
+        },
+        "maxSurge": {
+          "description": "Maximum number of pods that can be scheduled above the desired replica count during an update. Can be an integer or a percentage string.",
+          "oneOf": [
+            { "type": "integer", "minimum": 0 },
+            { "type": "string", "pattern": "^[0-9]+%$" }
+          ]
+        },
+        "maxUnavailable": {
+          "description": "Maximum number of pods that can be unavailable during an update. Can be an integer or percentage.",
+          "oneOf": [
+            { "type": "integer", "minimum": 0 },
+            { "type": "string", "pattern": "^[0-9]+%$" }
+          ]
+        },
+        "analysis": {
+          "$ref": "#/$defs/RolloutAnalysis"
+        },
+        "trafficRouting": {
+          "$ref": "#/$defs/RolloutTrafficRouting"
+        },
+        "canaryService": {
+          "type": "string",
+          "description": "Name of the Kubernetes Service to use for canary traffic."
+        },
+        "stableService": {
+          "type": "string",
+          "description": "Name of the Kubernetes Service to use for stable traffic."
+        }
+      }
+    },
+    "CanaryStep": {
+      "type": "object",
+      "title": "CanaryStep",
+      "description": "A single step in a canary deployment. One of setWeight, pause, analysis, or setCanaryScale should be specified.",
+      "properties": {
+        "setWeight": {
+          "type": "integer",
+          "description": "Percentage of traffic to route to the canary (new version). Value between 0 and 100.",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "pause": {
+          "type": "object",
+          "description": "Pause the rollout for manual approval or a fixed duration.",
+          "properties": {
+            "duration": {
+              "type": "string",
+              "description": "Duration to pause before automatically continuing (e.g., 5m, 1h). If omitted, pause is indefinite until manually resumed."
+            }
+          }
+        },
+        "analysis": {
+          "type": "object",
+          "description": "Run an AnalysisTemplate to evaluate metrics and determine whether to proceed.",
+          "properties": {
+            "templates": {
+              "type": "array",
+              "description": "Analysis templates to run.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "templateName": { "type": "string", "description": "Name of the AnalysisTemplate." },
+                  "clusterScope": { "type": "boolean", "description": "Reference a ClusterAnalysisTemplate." }
+                }
+              }
+            },
+            "args": {
+              "type": "array",
+              "description": "Arguments to pass to the analysis template.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "description": "Argument name." },
+                  "value": { "type": "string", "description": "Argument value." }
+                }
+              }
+            }
+          }
+        },
+        "setCanaryScale": {
+          "type": "object",
+          "description": "Set the scale of the canary ReplicaSet independently of traffic weight.",
+          "properties": {
+            "weight": {
+              "type": "integer",
+              "description": "Scale canary to this percentage of stable replicas.",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "replicas": {
+              "type": "integer",
+              "description": "Explicit replica count for the canary.",
+              "minimum": 0
+            },
+            "matchTrafficWeight": {
+              "type": "boolean",
+              "description": "Scale canary to match the current traffic weight."
+            }
+          }
+        }
+      }
+    },
+    "BlueGreenStrategy": {
+      "type": "object",
+      "title": "BlueGreenStrategy",
+      "description": "Blue-green deployment strategy that maintains two environments (blue=stable, green=preview) and switches traffic atomically.",
+      "required": ["activeService"],
+      "properties": {
+        "activeService": {
+          "type": "string",
+          "description": "Name of the Kubernetes Service that receives live production traffic (blue)."
+        },
+        "previewService": {
+          "type": "string",
+          "description": "Name of the Kubernetes Service that receives preview traffic (green) before promotion."
+        },
+        "autoPromotionEnabled": {
+          "type": "boolean",
+          "description": "Automatically promote the green ReplicaSet to active without manual approval.",
+          "default": true
+        },
+        "autoPromotionSeconds": {
+          "type": "integer",
+          "description": "Seconds to wait before automatically promoting the green environment.",
+          "minimum": 0
+        },
+        "previewReplicaCount": {
+          "type": "integer",
+          "description": "Number of replicas to run in the preview (green) environment.",
+          "minimum": 0
+        },
+        "scaleDownDelaySeconds": {
+          "type": "integer",
+          "description": "Seconds to delay scaling down the old (blue) ReplicaSet after promotion.",
+          "minimum": 0
+        },
+        "prePromotionAnalysis": {
+          "$ref": "#/$defs/RolloutAnalysis"
+        },
+        "postPromotionAnalysis": {
+          "$ref": "#/$defs/RolloutAnalysis"
+        }
+      }
+    },
+    "RolloutAnalysis": {
+      "type": "object",
+      "title": "RolloutAnalysis",
+      "description": "Analysis configuration for running AnalysisTemplates during a rollout step.",
+      "properties": {
+        "templates": {
+          "type": "array",
+          "description": "List of AnalysisTemplate references to run.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "templateName": { "type": "string", "description": "Name of the AnalysisTemplate." },
+              "clusterScope": { "type": "boolean", "description": "Use ClusterAnalysisTemplate." }
+            }
+          }
+        },
+        "args": {
+          "type": "array",
+          "description": "Arguments passed to the analysis templates.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "description": "Argument name." },
+              "value": { "type": "string", "description": "Static argument value." },
+              "valueFrom": {
+                "type": "object",
+                "description": "Dynamic value sourced from a field reference.",
+                "properties": {
+                  "fieldRef": {
+                    "type": "object",
+                    "properties": {
+                      "fieldPath": { "type": "string", "description": "Field path (e.g., metadata.name)." }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "RolloutTrafficRouting": {
+      "type": "object",
+      "title": "RolloutTrafficRouting",
+      "description": "Traffic routing configuration for canary deployments using a supported ingress controller or service mesh.",
+      "properties": {
+        "istio": {
+          "type": "object",
+          "description": "Istio VirtualService-based traffic routing.",
+          "properties": {
+            "virtualService": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "description": "Name of the Istio VirtualService." },
+                "routes": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Route names within the VirtualService to manage."
+                }
+              }
+            }
+          }
+        },
+        "nginx": {
+          "type": "object",
+          "description": "NGINX Ingress-based traffic routing.",
+          "properties": {
+            "stableIngress": {
+              "type": "string",
+              "description": "Name of the stable NGINX Ingress resource."
+            }
+          }
+        },
+        "alb": {
+          "type": "object",
+          "description": "AWS Application Load Balancer-based traffic routing.",
+          "properties": {
+            "ingress": {
+              "type": "string",
+              "description": "Name of the ALB Ingress resource."
+            }
+          }
+        }
+      }
+    },
+    "RolloutStatus": {
+      "type": "object",
+      "title": "RolloutStatus",
+      "description": "Observed status of an Argo Rollout.",
+      "properties": {
+        "phase": {
+          "type": "string",
+          "description": "Current rollout phase.",
+          "enum": ["Progressing", "Paused", "Healthy", "Degraded", "Unknown"]
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable status message."
+        },
+        "currentPodHash": {
+          "type": "string",
+          "description": "Pod template hash of the current (canary/green) ReplicaSet."
+        },
+        "stablePodHash": {
+          "type": "string",
+          "description": "Pod template hash of the stable ReplicaSet."
+        },
+        "currentStepIndex": {
+          "type": "integer",
+          "description": "Index of the current canary step being executed.",
+          "minimum": 0
+        },
+        "replicas": {
+          "type": "integer",
+          "description": "Total number of non-terminated pods.",
+          "minimum": 0
+        },
+        "updatedReplicas": {
+          "type": "integer",
+          "description": "Number of pods running the updated pod template.",
+          "minimum": 0
+        },
+        "readyReplicas": {
+          "type": "integer",
+          "description": "Number of ready pods.",
+          "minimum": 0
+        },
+        "availableReplicas": {
+          "type": "integer",
+          "description": "Number of available (ready for min readySeconds) pods.",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

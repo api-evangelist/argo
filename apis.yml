@@ -16,7 +16,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/apis.yml
 created: '2025-01-01'
-modified: '2026-03-16'
+modified: '2026-03-18'
 specificationVersion: '0.19'
 apis:
   - aid: argo:argo-workflows-api
@@ -35,6 +35,10 @@ apis:
         url: https://argo-workflows.readthedocs.io/en/latest/
       - type: Reference
         url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+      - type: OpenAPI
+        url: openapi/argo-workflows-openapi.yml
+      - type: JSONSchema
+        url: json-schema/argo-workflow-schema.json
   - aid: argo:argo-cd-api
     name: Argo CD API
     description: >-
@@ -52,6 +56,53 @@ apis:
         url: https://argo-cd.readthedocs.io/en/stable/
       - type: Reference
         url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+      - type: OpenAPI
+        url: openapi/argo-cd-openapi.yml
+      - type: JSONSchema
+        url: json-schema/argo-application-schema.json
+  - aid: argo:argo-events-api
+    name: Argo Events API
+    description: >-
+      Kubernetes-native API for the Argo Events event-driven automation
+      framework. Exposes CRD-based resources including EventSource, EventBus,
+      and Sensor that enable triggering Argo Workflows and other Kubernetes
+      actions in response to over 20 event types such as webhooks, S3, cron
+      schedules, and messaging queues.
+    humanURL: https://argoproj.github.io/argo-events/APIs/
+    tags:
+      - Events
+      - Event-Driven
+      - Kubernetes
+      - Automation
+    properties:
+      - type: Documentation
+        url: https://argoproj.github.io/argo-events/
+      - type: Reference
+        url: https://argoproj.github.io/argo-events/APIs/
+      - type: GitHubRepository
+        url: https://github.com/argoproj/argo-events
+      - type: AsyncAPI
+        url: asyncapi/argo-events-asyncapi.yml
+  - aid: argo:argo-rollouts-api
+    name: Argo Rollouts API
+    description: >-
+      Kubernetes CRD-based API for the Argo Rollouts progressive delivery
+      controller. Provides Rollout and AnalysisTemplate resources for managing
+      canary and blue-green deployment strategies with automated analysis,
+      traffic splitting, and rollback capabilities on Kubernetes.
+    humanURL: https://argo-rollouts.readthedocs.io/en/stable/
+    tags:
+      - Progressive Delivery
+      - Canary
+      - Kubernetes
+      - Deployments
+    properties:
+      - type: Documentation
+        url: https://argo-rollouts.readthedocs.io/en/stable/
+      - type: GitHubRepository
+        url: https://github.com/argoproj/argo-rollouts
+      - type: JSONSchema
+        url: json-schema/argo-rollout-schema.json
 common:
   - type: Website
     url: https://argoproj.github.io/
@@ -59,8 +110,16 @@ common:
     url: https://argo-workflows.readthedocs.io/en/latest/
   - type: GitHub Organization
     url: https://github.com/argoproj
+  - type: GitHubRepository
+    url: https://github.com/argoproj/argo-workflows
+  - type: Blog
+    url: https://blog.argoproj.io/
   - type: Community
     url: https://argoproj.github.io/community/
+  - type: Slack
+    url: https://argoproj.github.io/community/join-slack/
+  - type: JSON-LD
+    url: json-ld/argo-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

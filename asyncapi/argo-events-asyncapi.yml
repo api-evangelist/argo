@@ -1,0 +1,364 @@
+asyncapi: 2.6.0
+info:
+  title: Argo Events
+  description: >-
+    Argo Events is a Kubernetes-native event-driven automation framework that
+    listens to over 20 event sources and triggers Argo Workflows, Kubernetes
+    objects, HTTP requests, and other actions in response. Event sources include
+    webhooks, S3 bucket notifications, GitHub/GitLab webhooks, Kafka topics,
+    NATS subjects, Redis streams, GCP Pub/Sub, SNS/SQS, cron schedules, and
+    resource watches. Sensors define the event dependencies and trigger targets.
+  version: 'v1.9'
+  contact:
+    name: Argo Events Community
+    url: https://argoproj.github.io/argo-events/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: Argo Events Documentation
+  url: https://argoproj.github.io/argo-events/
+servers:
+  argoEventsWebhook:
+    url: 'http://{eventsource-service}:{port}'
+    protocol: http
+    description: >-
+      Argo Events webhook EventSource service. Each EventSource that exposes
+      an HTTP endpoint is deployed as a Kubernetes Service. The host and port
+      depend on the EventSource configuration.
+    variables:
+      eventsource-service:
+        description: Kubernetes service name for the EventSource.
+        default: webhook-eventsource-svc
+      port:
+        description: Port configured in the EventSource spec.
+        default: '12000'
+channels:
+  /webhook/{eventName}:
+    description: >-
+      HTTP webhook channel for receiving events from external systems such as
+      GitHub, GitLab, Bitbucket, or custom HTTP callers. Each EventSource can
+      define multiple named webhook endpoints on different ports.
+    parameters:
+      eventName:
+        description: The name of the event defined in the EventSource spec.
+        schema:
+          type: string
+    subscribe:
+      operationId: receiveWebhookEvent
+      summary: Receive an HTTP webhook event
+      description: >-
+        An external system posts an HTTP request to this endpoint. The
+        EventSource validates the request (including optional HMAC signature
+        verification), wraps the payload in a CloudEvent, and publishes it
+        to the EventBus for matching Sensors to consume.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/GitHubEvent'
+          - $ref: '#/components/messages/GitLabEvent'
+          - $ref: '#/components/messages/WebhookEvent'
+  /eventsource/{namespace}/{eventSourceName}/{eventName}:
+    description: >-
+      Internal EventBus channel through which EventSources publish events
+      and Sensors consume them. The EventBus is backed by NATS JetStream
+      or Apache Kafka depending on the EventBus configuration.
+    parameters:
+      namespace:
+        description: Kubernetes namespace of the EventSource.
+        schema:
+          type: string
+      eventSourceName:
+        description: Name of the EventSource resource.
+        schema:
+          type: string
+      eventName:
+        description: Name of the event within the EventSource.
+        schema:
+          type: string
+    publish:
+      operationId: publishEventToEventBus
+      summary: EventSource publishes event to EventBus
+      description: >-
+        When an EventSource detects an event (webhook call received, S3
+        object created, cron schedule triggered, Kafka message received, etc.),
+        it wraps the raw payload in a CloudEvent envelope and publishes it to
+        the EventBus. Sensors subscribe to the EventBus and evaluate their
+        dependency conditions against incoming events.
+      message:
+        $ref: '#/components/messages/CloudEvent'
+    subscribe:
+      operationId: consumeEventFromEventBus
+      summary: Sensor consumes event from EventBus
+      description: >-
+        Sensors subscribe to one or more EventBus subjects matching their
+        declared event dependencies. When all dependency conditions in a
+        Sensor's trigger are satisfied, the Sensor fires its configured
+        triggers such as creating an Argo Workflow, submitting a Kubernetes
+        resource, or calling an HTTP endpoint.
+      message:
+        $ref: '#/components/messages/CloudEvent'
+components:
+  securitySchemes:
+    hmacSignature:
+      type: httpApiKey
+      in: header
+      name: X-Hub-Signature-256
+      description: >-
+        HMAC-SHA256 signature of the request body, prefixed with 'sha256='.
+        Used by GitHub and GitLab webhooks. Argo Events validates this
+        signature against a configured secret when securePort or signature
+        validation is enabled on the EventSource.
+  messages:
+    WebhookEvent:
+      name: WebhookEvent
+      title: Generic Webhook Event
+      summary: A generic HTTP webhook payload received by an EventSource
+      description: >-
+        An arbitrary HTTP POST body received by the Argo Events webhook
+        EventSource. The raw body bytes are wrapped in a CloudEvent and
+        published to the EventBus. The content type and structure depend
+        on the sending application.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/GenericWebhookPayload'
+    GitHubEvent:
+      name: GitHubEvent
+      title: GitHub Webhook Event
+      summary: A GitHub webhook event payload
+      description: >-
+        A webhook event delivered by GitHub to the Argo Events GitHub
+        EventSource. The event type is identified by the X-GitHub-Event
+        header. Argo Events validates the HMAC signature and publishes
+        the event to the EventBus. Common event types include push,
+        pull_request, release, and create.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          X-GitHub-Event:
+            type: string
+            description: GitHub event type (e.g., push, pull_request, release).
+          X-Hub-Signature-256:
+            type: string
+            description: HMAC-SHA256 signature for payload verification.
+          X-GitHub-Delivery:
+            type: string
+            description: Unique delivery ID for the webhook event.
+      payload:
+        $ref: '#/components/schemas/GitHubEventPayload'
+    GitLabEvent:
+      name: GitLabEvent
+      title: GitLab Webhook Event
+      summary: A GitLab webhook event payload
+      description: >-
+        A webhook event delivered by GitLab to the Argo Events GitLab
+        EventSource. The event type is identified by the X-Gitlab-Event
+        header. Argo Events validates the X-Gitlab-Token secret header
+        and publishes the event to the EventBus.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          X-Gitlab-Event:
+            type: string
+            description: >-
+              GitLab event type (e.g., Push Hook, Merge Request Hook,
+              Tag Push Hook).
+          X-Gitlab-Token:
+            type: string
+            description: Secret token for webhook validation.
+      payload:
+        $ref: '#/components/schemas/GitLabEventPayload'
+    CloudEvent:
+      name: CloudEvent
+      title: Argo Events CloudEvent
+      summary: A CloudEvents 1.0 envelope wrapping an Argo Events payload
+      description: >-
+        All events flowing through the Argo Events EventBus are wrapped in
+        a CloudEvents 1.0 envelope. The data field contains the original
+        event payload from the EventSource. Sensors use the source and type
+        fields to match events to their dependency conditions.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CloudEventEnvelope'
+  schemas:
+    CloudEventEnvelope:
+      type: object
+      description: >-
+        A CloudEvents 1.0 envelope used by Argo Events to wrap all event
+        payloads flowing through the EventBus.
+      required: [specversion, id, source, type]
+      properties:
+        specversion:
+          type: string
+          description: CloudEvents spec version.
+          enum: ['1.0']
+        id:
+          type: string
+          description: Unique event identifier.
+        source:
+          type: string
+          description: >-
+            Event source identifier in the format
+            eventsource/{namespace}/{eventSourceName}/{eventName}.
+        type:
+          type: string
+          description: >-
+            Event type in the format
+            com.github.argoproj.argo-events.{eventSourceType}.
+        time:
+          type: string
+          format: date-time
+          description: Event timestamp in RFC 3339 format.
+        datacontenttype:
+          type: string
+          description: Content type of the data payload (typically application/json).
+        subject:
+          type: string
+          description: Subject of the event, typically the event name.
+        data:
+          type: object
+          description: The raw event payload from the EventSource.
+          additionalProperties: true
+    GenericWebhookPayload:
+      type: object
+      description: >-
+        An arbitrary HTTP webhook payload received by the Argo Events webhook
+        EventSource. Structure varies by sending application.
+      additionalProperties: true
+      properties:
+        body:
+          type: object
+          description: Parsed JSON request body, if the Content-Type is application/json.
+          additionalProperties: true
+        headers:
+          type: object
+          description: HTTP request headers as key-value pairs.
+          additionalProperties:
+            type: string
+        queryString:
+          type: object
+          description: URL query parameters as key-value pairs.
+          additionalProperties:
+            type: string
+    GitHubEventPayload:
+      type: object
+      description: >-
+        A GitHub webhook event payload. The structure depends on the event
+        type. Common fields are present in all events.
+      properties:
+        action:
+          type: string
+          description: >-
+            The action that triggered the event (e.g., opened, closed,
+            created, deleted).
+        repository:
+          type: object
+          description: The repository in which the event occurred.
+          properties:
+            id:
+              type: integer
+              description: Repository ID.
+            name:
+              type: string
+              description: Repository name.
+            full_name:
+              type: string
+              description: Full repository name including owner (owner/repo).
+            html_url:
+              type: string
+              format: uri
+              description: Repository HTML URL.
+            default_branch:
+              type: string
+              description: Default branch name.
+        sender:
+          type: object
+          description: The GitHub user that triggered the event.
+          properties:
+            login:
+              type: string
+              description: GitHub username.
+            id:
+              type: integer
+              description: GitHub user ID.
+        ref:
+          type: string
+          description: >-
+            Git ref that was pushed to (for push events), e.g.
+            refs/heads/main.
+        commits:
+          type: array
+          description: List of commits included in a push event.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Commit SHA.
+              message:
+                type: string
+                description: Commit message.
+              author:
+                type: object
+                description: Commit author.
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+    GitLabEventPayload:
+      type: object
+      description: >-
+        A GitLab webhook event payload. Structure depends on the event type
+        (push, merge request, tag, etc.).
+      properties:
+        object_kind:
+          type: string
+          description: >-
+            Type of the event (push, merge_request, tag_push, issue, etc.).
+        event_name:
+          type: string
+          description: Event name (e.g., push, merge_request).
+        project:
+          type: object
+          description: The GitLab project in which the event occurred.
+          properties:
+            id:
+              type: integer
+              description: Project ID.
+            name:
+              type: string
+              description: Project name.
+            web_url:
+              type: string
+              format: uri
+              description: Project web URL.
+            namespace:
+              type: string
+              description: Project namespace.
+        user_name:
+          type: string
+          description: Username of the user who triggered the event.
+        ref:
+          type: string
+          description: Git ref for push events (e.g., refs/heads/main).
+        commits:
+          type: array
+          description: List of commits for push events.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Commit SHA.
+              message:
+                type: string
+                description: Commit message.
+              author:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string

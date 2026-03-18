@@ -1,0 +1,227 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "argo": "https://argoproj.github.io/argo-workflows/schema#",
+    "argocd": "https://argoproj.github.io/argo-cd/schema#",
+    "k8s": "https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#",
+    "devops": "https://w3id.org/devops#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL#",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "wot": "https://www.w3.org/2019/wot/td#",
+
+    "Workflow": {
+      "@id": "argo:Workflow",
+      "@type": "@id",
+      "rdfs:subClassOf": "bpmn:Process",
+      "rdfs:comment": "A Kubernetes-native workflow definition that orchestrates container execution as a sequence of steps or a directed acyclic graph"
+    },
+    "WorkflowTemplate": {
+      "@id": "argo:WorkflowTemplate",
+      "@type": "@id",
+      "rdfs:subClassOf": "CreativeWork",
+      "rdfs:comment": "A reusable workflow definition that can be referenced by Workflows"
+    },
+    "CronWorkflow": {
+      "@id": "argo:CronWorkflow",
+      "@type": "@id",
+      "rdfs:subClassOf": "ScheduleAction",
+      "rdfs:comment": "A workflow scheduled to run on a cron-based time schedule"
+    },
+    "Application": {
+      "@id": "argocd:Application",
+      "@type": "@id",
+      "rdfs:subClassOf": "SoftwareApplication",
+      "rdfs:comment": "An Argo CD Application representing a deployed set of Kubernetes resources managed through GitOps"
+    },
+    "ApplicationSet": {
+      "@id": "argocd:ApplicationSet",
+      "@type": "@id",
+      "rdfs:subClassOf": "ItemList",
+      "rdfs:comment": "A template for generating multiple Argo CD Applications from a single definition"
+    },
+    "AppProject": {
+      "@id": "argocd:AppProject",
+      "@type": "@id",
+      "rdfs:subClassOf": "Project",
+      "rdfs:comment": "An Argo CD project that provides logical grouping and access control for applications"
+    },
+
+    "template": {
+      "@id": "argo:template",
+      "@type": "@id",
+      "rdfs:comment": "A template defining a unit of execution within a workflow"
+    },
+    "entrypoint": {
+      "@id": "argo:entrypoint",
+      "@type": "xsd:string",
+      "rdfs:comment": "The name of the template used as the starting point of a workflow"
+    },
+    "steps": {
+      "@id": "argo:steps",
+      "@type": "@id",
+      "rdfs:subClassOf": "bpmn:SequenceFlow",
+      "rdfs:comment": "Sequential groups of parallel steps in a workflow"
+    },
+    "dag": {
+      "@id": "argo:dag",
+      "@type": "@id",
+      "rdfs:comment": "A directed acyclic graph of tasks defining execution dependencies"
+    },
+    "dagTask": {
+      "@id": "argo:dagTask",
+      "@type": "@id",
+      "rdfs:subClassOf": "bpmn:Task",
+      "rdfs:comment": "A single task within a DAG template"
+    },
+    "dependencies": {
+      "@id": "argo:dependencies",
+      "@type": "@id",
+      "owl:sameAs": "prov:wasDerivedFrom",
+      "rdfs:comment": "Tasks that must complete before this task can execute"
+    },
+    "container": {
+      "@id": "argo:container",
+      "@type": "@id",
+      "rdfs:subClassOf": "k8s:Container",
+      "rdfs:comment": "Container specification for executing a workflow step"
+    },
+    "script": {
+      "@id": "argo:script",
+      "@type": "@id",
+      "rdfs:comment": "Inline script to execute in a container"
+    },
+    "resource": {
+      "@id": "argo:resource",
+      "@type": "@id",
+      "rdfs:comment": "Kubernetes resource to create, patch, or delete"
+    },
+    "artifact": {
+      "@id": "argo:artifact",
+      "@type": "@id",
+      "owl:sameAs": "prov:Entity",
+      "rdfs:comment": "A data artifact passed between workflow steps"
+    },
+    "parameter": {
+      "@id": "argo:parameter",
+      "@type": "@id",
+      "rdfs:subClassOf": "PropertyValue",
+      "rdfs:comment": "A named parameter for passing values between workflow steps"
+    },
+    "retryStrategy": {
+      "@id": "argo:retryStrategy",
+      "@type": "@id",
+      "rdfs:comment": "Strategy defining how failed steps should be retried"
+    },
+
+    "source": {
+      "@id": "argocd:source",
+      "@type": "@id",
+      "rdfs:subClassOf": "codeRepository",
+      "rdfs:comment": "Git repository or Helm chart source for application manifests"
+    },
+    "destination": {
+      "@id": "argocd:destination",
+      "@type": "@id",
+      "rdfs:comment": "Target Kubernetes cluster and namespace for deployment"
+    },
+    "syncPolicy": {
+      "@id": "argocd:syncPolicy",
+      "@type": "@id",
+      "rdfs:comment": "Policy controlling how and when application state is synced"
+    },
+    "syncStatus": {
+      "@id": "argocd:syncStatus",
+      "@type": "xsd:string",
+      "rdfs:comment": "Current sync status of the application (Synced, OutOfSync, Unknown)"
+    },
+    "healthStatus": {
+      "@id": "argocd:healthStatus",
+      "@type": "xsd:string",
+      "rdfs:comment": "Current health status of the application (Healthy, Degraded, Progressing, Missing)"
+    },
+    "automatedSync": {
+      "@id": "argocd:automatedSync",
+      "@type": "@id",
+      "rdfs:comment": "Configuration for automatic synchronization of application state"
+    },
+    "selfHeal": {
+      "@id": "argocd:selfHeal",
+      "@type": "xsd:boolean",
+      "rdfs:comment": "Whether Argo CD automatically corrects drift from desired state"
+    },
+    "prune": {
+      "@id": "argocd:prune",
+      "@type": "xsd:boolean",
+      "rdfs:comment": "Whether to delete resources no longer defined in the source"
+    },
+    "revision": {
+      "@id": "argocd:revision",
+      "@type": "xsd:string",
+      "owl:sameAs": "dcterms:hasVersion",
+      "rdfs:comment": "Git commit SHA, branch, or tag being deployed"
+    },
+
+    "namespace": {
+      "@id": "k8s:namespace",
+      "@type": "xsd:string",
+      "rdfs:comment": "Kubernetes namespace for the resource"
+    },
+    "cluster": {
+      "@id": "k8s:cluster",
+      "@type": "@id",
+      "rdfs:comment": "Target Kubernetes cluster for deployment"
+    },
+    "serviceAccountName": {
+      "@id": "k8s:serviceAccountName",
+      "@type": "xsd:string",
+      "rdfs:comment": "Kubernetes service account for running pods"
+    },
+
+    "schedule": {
+      "@id": "argo:schedule",
+      "@type": "xsd:string",
+      "rdfs:comment": "Cron expression defining when a CronWorkflow runs"
+    },
+    "phase": {
+      "@id": "argo:phase",
+      "@type": "xsd:string",
+      "rdfs:comment": "Current execution phase (Pending, Running, Succeeded, Failed, Error)"
+    },
+    "startedAt": {
+      "@id": "argo:startedAt",
+      "@type": "xsd:dateTime",
+      "owl:sameAs": "prov:startedAtTime",
+      "rdfs:comment": "Timestamp when the workflow or step started execution"
+    },
+    "finishedAt": {
+      "@id": "argo:finishedAt",
+      "@type": "xsd:dateTime",
+      "owl:sameAs": "prov:endedAtTime",
+      "rdfs:comment": "Timestamp when the workflow or step finished execution"
+    },
+    "image": {
+      "@id": "argo:image",
+      "@type": "xsd:string",
+      "owl:sameAs": "SoftwareApplication",
+      "rdfs:comment": "Container image reference for executing a step"
+    },
+
+    "name": "rdfs:label",
+    "description": "rdfs:comment",
+    "created": "dcterms:created",
+    "modified": "dcterms:modified",
+    "repoURL": {
+      "@id": "codeRepository",
+      "@type": "@id"
+    },
+    "project": {
+      "@id": "argocd:project",
+      "@type": "xsd:string",
+      "rdfs:comment": "Argo CD project providing governance and access control"
+    }
+  }
+}
