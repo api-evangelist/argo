@@ -35,7 +35,7 @@ paths:
   /info:
     get:
       operationId: getInfo
-      summary: Get server info
+      summary: Argo Get server info
       description: Returns information about the Argo Workflows server including version and managed namespace.
       tags:
         - Info
@@ -49,7 +49,7 @@ paths:
   /version:
     get:
       operationId: getVersion
-      summary: Get server version
+      summary: Argo Get server version
       description: Returns the version of the Argo Workflows server.
       tags:
         - Info
@@ -63,7 +63,7 @@ paths:
   /workflows/{namespace}:
     get:
       operationId: listWorkflows
-      summary: List workflows
+      summary: Argo List workflows
       description: Returns a list of workflows in the specified namespace.
       tags:
         - Workflows
@@ -104,7 +104,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowList'
     post:
       operationId: createWorkflow
-      summary: Create a workflow
+      summary: Argo Create a workflow
       description: Creates a new workflow in the specified namespace.
       tags:
         - Workflows
@@ -126,7 +126,7 @@ paths:
   /workflows/{namespace}/{name}:
     get:
       operationId: getWorkflow
-      summary: Get a workflow
+      summary: Argo Get a workflow
       description: Returns a specific workflow by name in the specified namespace.
       tags:
         - Workflows
@@ -152,7 +152,7 @@ paths:
                 $ref: '#/components/schemas/Workflow'
     delete:
       operationId: deleteWorkflow
-      summary: Delete a workflow
+      summary: Argo Delete a workflow
       description: Deletes a specific workflow by name in the specified namespace.
       tags:
         - Workflows
@@ -180,7 +180,7 @@ paths:
   /workflows/{namespace}/{name}/retry:
     put:
       operationId: retryWorkflow
-      summary: Retry a workflow
+      summary: Argo Retry a workflow
       description: Retries a failed or errored workflow.
       tags:
         - Workflows
@@ -203,7 +203,7 @@ paths:
   /workflows/{namespace}/{name}/resubmit:
     put:
       operationId: resubmitWorkflow
-      summary: Resubmit a workflow
+      summary: Argo Resubmit a workflow
       description: Resubmits a completed workflow as a new workflow.
       tags:
         - Workflows
@@ -226,7 +226,7 @@ paths:
   /workflows/{namespace}/{name}/resume:
     put:
       operationId: resumeWorkflow
-      summary: Resume a workflow
+      summary: Argo Resume a workflow
       description: Resumes a suspended workflow.
       tags:
         - Workflows
@@ -249,7 +249,7 @@ paths:
   /workflows/{namespace}/{name}/suspend:
     put:
       operationId: suspendWorkflow
-      summary: Suspend a workflow
+      summary: Argo Suspend a workflow
       description: Suspends a running workflow.
       tags:
         - Workflows
@@ -277,7 +277,7 @@ paths:
   /workflows/{namespace}/{name}/stop:
     put:
       operationId: stopWorkflow
-      summary: Stop a workflow
+      summary: Argo Stop a workflow
       description: Stops a running workflow.
       tags:
         - Workflows
@@ -300,7 +300,7 @@ paths:
   /workflows/{namespace}/{name}/terminate:
     put:
       operationId: terminateWorkflow
-      summary: Terminate a workflow
+      summary: Argo Terminate a workflow
       description: Terminates a running workflow immediately.
       tags:
         - Workflows
@@ -328,7 +328,7 @@ paths:
   /workflows/{namespace}/{name}/log:
     get:
       operationId: getWorkflowLog
-      summary: Get workflow logs
+      summary: Argo Get workflow logs
       description: Returns logs for a specific workflow.
       tags:
         - Workflows
@@ -377,7 +377,7 @@ paths:
   /workflow-templates/{namespace}:
     get:
       operationId: listWorkflowTemplates
-      summary: List workflow templates
+      summary: Argo List workflow templates
       description: Returns a list of workflow templates in the specified namespace.
       tags:
         - Workflow Templates
@@ -397,7 +397,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTemplateList'
     post:
       operationId: createWorkflowTemplate
-      summary: Create a workflow template
+      summary: Argo Create a workflow template
       description: Creates a new workflow template in the specified namespace.
       tags:
         - Workflow Templates
@@ -419,7 +419,7 @@ paths:
   /workflow-templates/{namespace}/{name}:
     get:
       operationId: getWorkflowTemplate
-      summary: Get a workflow template
+      summary: Argo Get a workflow template
       description: Returns a specific workflow template by name.
       tags:
         - Workflow Templates
@@ -435,7 +435,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTemplate'
     put:
       operationId: updateWorkflowTemplate
-      summary: Update a workflow template
+      summary: Argo Update a workflow template
       description: Updates an existing workflow template.
       tags:
         - Workflow Templates
@@ -457,7 +457,7 @@ paths:
                 $ref: '#/components/schemas/WorkflowTemplate'
     delete:
       operationId: deleteWorkflowTemplate
-      summary: Delete a workflow template
+      summary: Argo Delete a workflow template
       description: Deletes a specific workflow template by name.
       tags:
         - Workflow Templates
@@ -474,7 +474,7 @@ paths:
   /cron-workflows/{namespace}:
     get:
       operationId: listCronWorkflows
-      summary: List cron workflows
+      summary: Argo List cron workflows
       description: Returns a list of cron workflows in the specified namespace.
       tags:
         - Cron Workflows
@@ -494,7 +494,7 @@ paths:
                 $ref: '#/components/schemas/CronWorkflowList'
     post:
       operationId: createCronWorkflow
-      summary: Create a cron workflow
+      summary: Argo Create a cron workflow
       description: Creates a new cron workflow in the specified namespace.
       tags:
         - Cron Workflows
@@ -516,7 +516,7 @@ paths:
   /cron-workflows/{namespace}/{name}:
     get:
       operationId: getCronWorkflow
-      summary: Get a cron workflow
+      summary: Argo Get a cron workflow
       description: Returns a specific cron workflow by name.
       tags:
         - Cron Workflows
@@ -532,7 +532,7 @@ paths:
                 $ref: '#/components/schemas/CronWorkflow'
     put:
       operationId: updateCronWorkflow
-      summary: Update a cron workflow
+      summary: Argo Update a cron workflow
       description: Updates an existing cron workflow.
       tags:
         - Cron Workflows
@@ -554,7 +554,7 @@ paths:
                 $ref: '#/components/schemas/CronWorkflow'
     delete:
       operationId: deleteCronWorkflow
-      summary: Delete a cron workflow
+      summary: Argo Delete a cron workflow
       description: Deletes a specific cron workflow by name.
       tags:
         - Cron Workflows
@@ -571,7 +571,7 @@ paths:
   /cron-workflows/{namespace}/{name}/resume:
     put:
       operationId: resumeCronWorkflow
-      summary: Resume a cron workflow
+      summary: Argo Resume a cron workflow
       description: Resumes a previously suspended cron workflow.
       tags:
         - Cron Workflows
@@ -588,7 +588,7 @@ paths:
   /cron-workflows/{namespace}/{name}/suspend:
     put:
       operationId: suspendCronWorkflow
-      summary: Suspend a cron workflow
+      summary: Argo Suspend a cron workflow
       description: Suspends an active cron workflow.
       tags:
         - Cron Workflows
@@ -605,7 +605,7 @@ paths:
   /archived-workflows:
     get:
       operationId: listArchivedWorkflows
-      summary: List archived workflows
+      summary: Argo List archived workflows
       description: Returns a list of archived workflows.
       tags:
         - Workflow Archives
@@ -641,7 +641,7 @@ paths:
   /archived-workflows/{uid}:
     get:
       operationId: getArchivedWorkflow
-      summary: Get an archived workflow
+      summary: Argo Get an archived workflow
       description: Returns a specific archived workflow by UID.
       tags:
         - Workflow Archives
@@ -661,7 +661,7 @@ paths:
                 $ref: '#/components/schemas/Workflow'
     delete:
       operationId: deleteArchivedWorkflow
-      summary: Delete an archived workflow
+      summary: Argo Delete an archived workflow
       description: Deletes a specific archived workflow by UID.
       tags:
         - Workflow Archives

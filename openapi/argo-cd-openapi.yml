@@ -58,7 +58,7 @@ paths:
   /applications:
     get:
       operationId: listApplications
-      summary: List applications
+      summary: Argo List applications
       description: >-
         Returns a list of all Argo CD applications, optionally filtered by
         project, namespace, or name. Each application includes its current
@@ -96,7 +96,7 @@ paths:
           description: Forbidden. Insufficient permissions.
     post:
       operationId: createApplication
-      summary: Create an application
+      summary: Argo Create an application
       description: >-
         Creates a new Argo CD application from the provided Application
         manifest. The application must reference a valid project, source
@@ -134,7 +134,7 @@ paths:
   /applications/{name}:
     get:
       operationId: getApplication
-      summary: Get an application
+      summary: Argo Get an application
       description: >-
         Returns the full specification and current status of a named Argo
         CD application, including sync status, health status, resource tree,
@@ -161,7 +161,7 @@ paths:
           description: Application not found.
     put:
       operationId: updateApplication
-      summary: Update an application
+      summary: Argo Update an application
       description: >-
         Replaces the specification of an existing Argo CD application with
         the provided manifest. Used to update source, destination, sync
@@ -191,7 +191,7 @@ paths:
           description: Application not found.
     delete:
       operationId: deleteApplication
-      summary: Delete an application
+      summary: Argo Delete an application
       description: >-
         Deletes the named Argo CD application. Optionally cascades deletion
         to all managed Kubernetes resources in the destination cluster.
@@ -223,7 +223,7 @@ paths:
   /applications/{name}/sync:
     post:
       operationId: syncApplication
-      summary: Sync an application
+      summary: Argo Sync an application
       description: >-
         Triggers a synchronization of the named Argo CD application,
         reconciling the live Kubernetes state with the desired state
@@ -252,7 +252,7 @@ paths:
   /applications/{name}/rollback:
     post:
       operationId: rollbackApplication
-      summary: Rollback an application
+      summary: Argo Rollback an application
       description: >-
         Rolls back the named application to a previous deployed revision.
         Requires the ID of a history entry from the application's
@@ -291,7 +291,7 @@ paths:
   /projects:
     get:
       operationId: listProjects
-      summary: List projects
+      summary: Argo List projects
       description: >-
         Returns all Argo CD projects. Projects provide logical grouping,
         access control, and policy enforcement for applications.
@@ -308,7 +308,7 @@ paths:
           description: Unauthorized.
     post:
       operationId: createProject
-      summary: Create a project
+      summary: Argo Create a project
       description: >-
         Creates a new Argo CD project with the specified source repositories,
         destination clusters/namespaces, and resource allow/deny policies.
@@ -334,7 +334,7 @@ paths:
   /projects/{name}:
     get:
       operationId: getProject
-      summary: Get a project
+      summary: Argo Get a project
       description: Returns the specification and detailed information for a named project.
       tags:
         - Projects
@@ -353,7 +353,7 @@ paths:
           description: Project not found.
     delete:
       operationId: deleteProject
-      summary: Delete a project
+      summary: Argo Delete a project
       description: >-
         Deletes the named Argo CD project. The project must have no
         associated applications before it can be deleted.
@@ -371,7 +371,7 @@ paths:
   /repositories:
     get:
       operationId: listRepositories
-      summary: List repositories
+      summary: Argo List repositories
       description: >-
         Returns all registered Git and Helm chart repositories, including
         their connection status and type.
@@ -388,7 +388,7 @@ paths:
           description: Unauthorized.
     post:
       operationId: createRepository
-      summary: Register a repository
+      summary: Argo Register a repository
       description: >-
         Registers a new Git or Helm chart repository with Argo CD. Supports
         HTTPS, SSH, and GitHub App authentication methods.
@@ -414,7 +414,7 @@ paths:
   /repositories/{repo}:
     delete:
       operationId: deleteRepository
-      summary: Delete a repository
+      summary: Argo Delete a repository
       description: Removes the named repository registration from Argo CD.
       tags:
         - Repositories
@@ -435,7 +435,7 @@ paths:
   /clusters:
     get:
       operationId: listClusters
-      summary: List clusters
+      summary: Argo List clusters
       description: >-
         Returns all registered Kubernetes clusters available as deployment
         targets for Argo CD applications.
@@ -452,7 +452,7 @@ paths:
           description: Unauthorized.
     post:
       operationId: createCluster
-      summary: Register a cluster
+      summary: Argo Register a cluster
       description: >-
         Registers a new Kubernetes cluster as a deployment target. The
         cluster must be reachable from the Argo CD server and the provided
@@ -479,7 +479,7 @@ paths:
   /session:
     post:
       operationId: createSession
-      summary: Create a session (login)
+      summary: Argo Create a session (login)
       description: >-
         Authenticates with username and password or SSO token and returns
         a bearer token for use in subsequent API requests.
@@ -515,7 +515,7 @@ paths:
           description: Invalid credentials.
     delete:
       operationId: deleteSession
-      summary: Delete a session (logout)
+      summary: Argo Delete a session (logout)
       description: Invalidates the current bearer token, logging out the authenticated user.
       tags:
         - Session
@@ -527,7 +527,7 @@ paths:
   /version:
     get:
       operationId: getVersion
-      summary: Get server version
+      summary: Argo Get server version
       description: >-
         Returns the Argo CD server version, build date, Git commit SHA,
         Go version, and Kubernetes server version.
@@ -544,7 +544,7 @@ paths:
   /settings:
     get:
       operationId: getSettings
-      summary: Get server settings
+      summary: Argo Get server settings
       description: >-
         Returns the Argo CD server configuration including OIDC settings,
         Helm settings, resource tracking method, and UI customization.
