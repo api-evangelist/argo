@@ -21,16 +21,16 @@ servers:
       port:
         default: '2746'
 tags:
-  - name: Workflows
-    description: Operations for managing workflow executions
-  - name: Workflow Templates
-    description: Operations for managing reusable workflow templates
   - name: Cron Workflows
     description: Operations for managing scheduled cron workflows
-  - name: Workflow Archives
-    description: Operations for accessing archived workflow records
   - name: Info
     description: Server information and version endpoints
+  - name: Workflow Archives
+    description: Operations for accessing archived workflow records
+  - name: Workflow Templates
+    description: Operations for managing reusable workflow templates
+  - name: Workflows
+    description: Operations for managing workflow executions
 paths:
   /info:
     get:

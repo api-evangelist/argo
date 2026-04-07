@@ -9,10 +9,10 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Kubernetes
-  - Workflows
   - CI/CD
   - GitOps
+  - Kubernetes
+  - Workflows
 url: >-
   https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/apis.yml
 created: '2025-01-01'
@@ -27,9 +27,9 @@ apis:
     humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
     baseURL: https://localhost:2746/api/v1
     tags:
+      - Automation
       - Kubernetes
       - Workflows
-      - Automation
     properties:
       - type: Documentation
         url: https://argo-workflows.readthedocs.io/en/latest/
@@ -48,8 +48,8 @@ apis:
     humanURL: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
     baseURL: https://localhost/api/v1
     tags:
-      - GitOps
       - Continuous Delivery
+      - GitOps
       - Kubernetes
     properties:
       - type: Documentation
@@ -70,10 +70,10 @@ apis:
       schedules, and messaging queues.
     humanURL: https://argoproj.github.io/argo-events/APIs/
     tags:
-      - Events
-      - Event-Driven
-      - Kubernetes
       - Automation
+      - Event-Driven
+      - Events
+      - Kubernetes
     properties:
       - type: Documentation
         url: https://argoproj.github.io/argo-events/
@@ -92,10 +92,10 @@ apis:
       traffic splitting, and rollback capabilities on Kubernetes.
     humanURL: https://argo-rollouts.readthedocs.io/en/stable/
     tags:
-      - Progressive Delivery
       - Canary
-      - Kubernetes
       - Deployments
+      - Kubernetes
+      - Progressive Delivery
     properties:
       - type: Documentation
         url: https://argo-rollouts.readthedocs.io/en/stable/

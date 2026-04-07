@@ -27,10 +27,10 @@ tags:
     description: >-
       Operations for creating, querying, syncing, and deleting Argo CD
       GitOps applications.
-  - name: ApplicationSets
+  - name: Clusters
     description: >-
-      Operations for managing ApplicationSet resources that generate
-      multiple applications from a single template.
+      Operations for registering and managing target Kubernetes clusters
+      for application deployment.
   - name: Projects
     description: >-
       Operations for managing Argo CD projects that provide governance
@@ -39,10 +39,6 @@ tags:
     description: >-
       Operations for registering and managing Git and Helm chart
       repositories used as application sources.
-  - name: Clusters
-    description: >-
-      Operations for registering and managing target Kubernetes clusters
-      for application deployment.
   - name: Session
     description: >-
       Authentication operations for obtaining and invalidating bearer tokens.
