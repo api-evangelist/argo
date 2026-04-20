@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-workflow-retry-request-structure.json",
+  "name": "WorkflowRetryRequest",
+  "description": "WorkflowRetryRequest schema from Argo API",
+  "type": "object",
+  "properties": {
+    "namespace": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "restartSuccessful": {
+      "type": "boolean"
+    },
+    "nodeFieldSelector": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

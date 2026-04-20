@@ -1,0 +1,98 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Argo Workflows API"
+  description: "Argo Workflows REST API for Kubernetes-native workflow orchestration."
+  tags:
+    - Argo Workflows
+    - Kubernetes
+    - Workflow Engine
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      ARGO_TOKEN: ARGO_TOKEN
+      ARGO_SERVER: ARGO_SERVER
+
+capability:
+  consumes:
+    - type: http
+      namespace: argoworkflows
+      baseUri: "{{env.ARGO_SERVER}}/api/v1"
+      description: "Argo Workflows REST API"
+      authentication:
+        type: apikey
+        key: Authorization
+        value: "Bearer {{env.ARGO_TOKEN}}"
+        placement: header
+      resources:
+        - name: workflows
+          path: /workflows/{namespace}
+          description: "Workflow instances"
+          operations:
+            - name: list-workflows
+              method: GET
+              description: "List workflows"
+              inputParameters:
+                - name: namespace
+                  in: path
+                  type: string
+                  required: true
+                  description: "Namespace"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-workflow
+              method: POST
+              description: "Submit workflow"
+              inputParameters:
+                - name: namespace
+                  in: path
+                  type: string
+                  required: true
+                  description: "Namespace"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  workflow: "{{tools.workflow}}"
+
+  exposes:
+    - type: rest
+      port: 8102
+      namespace: argo-workflows-rest
+      resources:
+        - path: /v1/workflows/{namespace}
+          name: workflows
+          operations:
+            - method: GET
+              name: list-workflows
+              call: "argoworkflows.list-workflows"
+              with:
+                namespace: "rest.namespace"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      port: 9102
+      namespace: argo-workflows-mcp
+      transport: http
+      tools:
+        - name: list-workflows
+          description: "List Argo Workflows"
+          hints:
+            readOnly: true
+          call: "argoworkflows.list-workflows"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."

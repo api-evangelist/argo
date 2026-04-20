@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-cron-workflow-spec-structure.json",
+  "name": "CronWorkflowSpec",
+  "description": "Specification of a cron workflow",
+  "type": "object",
+  "properties": {
+    "schedule": {
+      "type": "string",
+      "description": "Cron schedule expression"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "Timezone for the cron schedule"
+    },
+    "startingDeadlineSeconds": {
+      "type": "int64"
+    },
+    "concurrencyPolicy": {
+      "type": "string",
+      "enum": [
+        "Allow",
+        "Forbid",
+        "Replace"
+      ]
+    },
+    "suspend": {
+      "type": "boolean",
+      "description": "Whether the cron workflow is suspended"
+    },
+    "successfulJobsHistoryLimit": {
+      "type": "int32"
+    },
+    "failedJobsHistoryLimit": {
+      "type": "int32"
+    },
+    "workflowSpec": {
+      "$ref": "#/components/schemas/WorkflowSpec"
+    },
+    "workflowMetadata": {
+      "type": "object"
+    }
+  }
+}

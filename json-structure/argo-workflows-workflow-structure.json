@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-workflow-structure.json",
+  "name": "Workflow",
+  "description": "An Argo Workflow resource",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "default": "argoproj.io/v1alpha1"
+    },
+    "kind": {
+      "type": "string",
+      "default": "Workflow"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/components/schemas/WorkflowSpec"
+    },
+    "status": {
+      "$ref": "#/components/schemas/WorkflowStatus"
+    }
+  }
+}

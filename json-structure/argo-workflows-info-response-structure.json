@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-info-response-structure.json",
+  "name": "InfoResponse",
+  "description": "InfoResponse schema from Argo API",
+  "type": "object",
+  "properties": {
+    "managedNamespace": {
+      "type": "string",
+      "description": "The namespace managed by this Argo server"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

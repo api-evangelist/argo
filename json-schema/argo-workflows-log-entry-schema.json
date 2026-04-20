@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-log-entry-schema.json",
+  "title": "LogEntry",
+  "description": "LogEntry schema from Argo API",
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "string"
+    },
+    "podName": {
+      "type": "string"
+    }
+  }
+}

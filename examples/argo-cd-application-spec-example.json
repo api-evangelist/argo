@@ -1,0 +1,24 @@
+{
+  "source": "example-value",
+  "destination": "example-value",
+  "project": "example-value",
+  "syncPolicy": "example-value",
+  "ignoreDifferences": [
+    {
+      "group": "example-value",
+      "kind": "example-value",
+      "jsonPointers": [
+        null,
+        null
+      ]
+    },
+    {
+      "group": "example-value",
+      "kind": "example-value",
+      "jsonPointers": [
+        null,
+        null
+      ]
+    }
+  ]
+}

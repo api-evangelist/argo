@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-workflow-create-request-schema.json",
+  "title": "WorkflowCreateRequest",
+  "description": "WorkflowCreateRequest schema from Argo API",
+  "type": "object",
+  "properties": {
+    "namespace": {
+      "type": "string"
+    },
+    "workflow": {
+      "$ref": "#/components/schemas/Workflow"
+    },
+    "serverDryRun": {
+      "type": "boolean"
+    },
+    "createOptions": {
+      "type": "object"
+    }
+  }
+}

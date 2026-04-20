@@ -1,0 +1,9 @@
+{
+  "repo": "example-value",
+  "type": "git",
+  "name": "my-workflow",
+  "connectionState": {
+    "status": "Running",
+    "message": "Completed successfully"
+  }
+}

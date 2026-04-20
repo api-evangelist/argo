@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-dag-task-structure.json",
+  "name": "DAGTask",
+  "description": "A task in a DAG template",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "template": {
+      "type": "string"
+    },
+    "arguments": {
+      "$ref": "#/components/schemas/Arguments"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "when": {
+      "type": "string",
+      "description": "Conditional expression for task execution"
+    },
+    "withItems": {
+      "type": "array",
+      "items": {}
+    },
+    "withParam": {
+      "type": "string"
+    },
+    "continueOn": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "boolean"
+        },
+        "failed": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

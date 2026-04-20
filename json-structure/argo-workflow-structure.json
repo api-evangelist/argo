@@ -1,0 +1,1099 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflow-structure.json",
+  "name": "Argo Workflow Spec",
+  "description": "JSON Schema for the Argo Workflows Workflow resource specification, defining the structure of Kubernetes-native workflow definitions.",
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "argoproj.io/v1alpha1",
+      "description": "API version for Argo Workflow resources"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "Workflow",
+        "WorkflowTemplate",
+        "CronWorkflow",
+        "ClusterWorkflowTemplate"
+      ],
+      "description": "Kind of the Argo resource"
+    },
+    "metadata": {
+      "$ref": "#/$defs/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/$defs/WorkflowSpec"
+    }
+  },
+  "$defs": {
+    "ObjectMeta": {
+      "type": "object",
+      "description": "Kubernetes object metadata",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the workflow"
+        },
+        "generateName": {
+          "type": "string",
+          "description": "Prefix for auto-generated workflow names"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Kubernetes namespace for the workflow"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Labels to apply to the workflow"
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Annotations to apply to the workflow"
+        }
+      }
+    },
+    "WorkflowSpec": {
+      "type": "object",
+      "description": "Specification of a workflow",
+      "required": [
+        "entrypoint",
+        "templates"
+      ],
+      "properties": {
+        "entrypoint": {
+          "type": "string",
+          "description": "Name of the template used as the entry point"
+        },
+        "arguments": {
+          "$ref": "#/$defs/Arguments"
+        },
+        "templates": {
+          "type": "array",
+          "description": "List of template definitions for the workflow",
+          "items": {
+            "$ref": "#/$defs/Template"
+          },
+          "minItems": 1
+        },
+        "serviceAccountName": {
+          "type": "string",
+          "description": "Service account to run workflow pods under"
+        },
+        "volumes": {
+          "type": "array",
+          "description": "Volumes available to all workflow steps",
+          "items": {
+            "$ref": "#/$defs/Volume"
+          }
+        },
+        "activeDeadlineSeconds": {
+          "type": "int32",
+          "minimum": 0,
+          "description": "Maximum duration of the workflow in seconds"
+        },
+        "nodeSelector": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Node selector constraints for workflow pods"
+        },
+        "tolerations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Tolerations for workflow pods"
+        },
+        "parallelism": {
+          "type": "int32",
+          "minimum": 0,
+          "description": "Maximum number of steps running in parallel"
+        },
+        "ttlStrategy": {
+          "$ref": "#/$defs/TTLStrategy"
+        },
+        "podGC": {
+          "$ref": "#/$defs/PodGC"
+        },
+        "workflowTemplateRef": {
+          "$ref": "#/$defs/WorkflowTemplateRef"
+        },
+        "archiveLogs": {
+          "type": "boolean",
+          "description": "Whether to archive workflow logs"
+        },
+        "onExit": {
+          "type": "string",
+          "description": "Template to execute when the workflow exits"
+        },
+        "retryStrategy": {
+          "$ref": "#/$defs/RetryStrategy"
+        },
+        "hooks": {
+          "type": "object",
+          "description": "Lifecycle hooks for the workflow",
+          "additionalProperties": {
+            "$ref": "#/$defs/LifecycleHook"
+          }
+        },
+        "workflowMetadata": {
+          "type": "object",
+          "description": "Metadata to apply to workflow pods",
+          "properties": {
+            "labels": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "podMetadata": {
+          "type": "object",
+          "description": "Default metadata for all pods in the workflow",
+          "properties": {
+            "labels": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "suspend": {
+          "type": "boolean",
+          "description": "Whether to suspend the workflow on creation"
+        },
+        "artifactRepositoryRef": {
+          "type": "object",
+          "description": "Reference to the artifact repository configuration",
+          "properties": {
+            "configMap": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            }
+          }
+        },
+        "securityContext": {
+          "type": "object",
+          "description": "Pod-level security context for all workflow pods"
+        },
+        "imagePullSecrets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "dnsPolicy": {
+          "type": "string",
+          "enum": [
+            "Default",
+            "ClusterFirst",
+            "ClusterFirstWithHostNet",
+            "None"
+          ]
+        },
+        "priority": {
+          "type": "int32",
+          "description": "Priority of the workflow"
+        }
+      }
+    },
+    "Template": {
+      "type": "object",
+      "description": "A template defines a step, DAG task, or other execution unit",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the template"
+        },
+        "inputs": {
+          "$ref": "#/$defs/Inputs"
+        },
+        "outputs": {
+          "$ref": "#/$defs/Outputs"
+        },
+        "container": {
+          "$ref": "#/$defs/Container"
+        },
+        "script": {
+          "$ref": "#/$defs/Script"
+        },
+        "resource": {
+          "$ref": "#/$defs/Resource"
+        },
+        "dag": {
+          "$ref": "#/$defs/DAG"
+        },
+        "steps": {
+          "type": "array",
+          "description": "List of step groups executed sequentially",
+          "items": {
+            "type": "array",
+            "description": "Steps within a group executed in parallel",
+            "items": {
+              "$ref": "#/$defs/WorkflowStep"
+            }
+          }
+        },
+        "suspend": {
+          "type": "object",
+          "description": "Suspend template pauses workflow until resumed",
+          "properties": {
+            "duration": {
+              "type": "string",
+              "description": "Duration to wait before auto-resuming"
+            }
+          }
+        },
+        "activeDeadlineSeconds": {
+          "type": "int32",
+          "minimum": 0,
+          "description": "Maximum duration for this template in seconds"
+        },
+        "retryStrategy": {
+          "$ref": "#/$defs/RetryStrategy"
+        },
+        "nodeSelector": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "tolerations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "labels": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "initContainers": {
+          "type": "array",
+          "description": "Init containers for the template pod",
+          "items": {
+            "type": "object"
+          }
+        },
+        "sidecars": {
+          "type": "array",
+          "description": "Sidecar containers for the template pod",
+          "items": {
+            "type": "object"
+          }
+        },
+        "volumes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Volume"
+          }
+        },
+        "serviceAccountName": {
+          "type": "string"
+        },
+        "securityContext": {
+          "type": "object"
+        },
+        "timeout": {
+          "type": "string",
+          "description": "Timeout duration for the template"
+        }
+      }
+    },
+    "Container": {
+      "type": "object",
+      "description": "Container to run for a step",
+      "required": [
+        "image"
+      ],
+      "properties": {
+        "image": {
+          "type": "string",
+          "description": "Container image to use"
+        },
+        "command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Command to run in the container"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Arguments to the command"
+        },
+        "env": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EnvVar"
+          }
+        },
+        "envFrom": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "resources": {
+          "$ref": "#/$defs/Resources"
+        },
+        "volumeMounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VolumeMount"
+          }
+        },
+        "workingDir": {
+          "type": "string"
+        },
+        "imagePullPolicy": {
+          "type": "string",
+          "enum": [
+            "Always",
+            "Never",
+            "IfNotPresent"
+          ]
+        },
+        "securityContext": {
+          "type": "object"
+        }
+      }
+    },
+    "Script": {
+      "type": "object",
+      "description": "Script template runs inline code in a container",
+      "required": [
+        "image",
+        "source"
+      ],
+      "properties": {
+        "image": {
+          "type": "string"
+        },
+        "command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "Inline script source code"
+        },
+        "env": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EnvVar"
+          }
+        },
+        "resources": {
+          "$ref": "#/$defs/Resources"
+        },
+        "volumeMounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VolumeMount"
+          }
+        }
+      }
+    },
+    "Resource": {
+      "type": "object",
+      "description": "Resource template creates/patches/deletes Kubernetes resources",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "get",
+            "create",
+            "apply",
+            "delete",
+            "replace",
+            "patch"
+          ]
+        },
+        "manifest": {
+          "type": "string",
+          "description": "Kubernetes manifest YAML"
+        },
+        "setOwnerReference": {
+          "type": "boolean"
+        },
+        "successCondition": {
+          "type": "string",
+          "description": "JSON path condition for success"
+        },
+        "failureCondition": {
+          "type": "string",
+          "description": "JSON path condition for failure"
+        }
+      }
+    },
+    "DAG": {
+      "type": "object",
+      "description": "DAG template definition",
+      "required": [
+        "tasks"
+      ],
+      "properties": {
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DAGTask"
+          }
+        },
+        "failFast": {
+          "type": "boolean",
+          "description": "Whether to fail the DAG immediately on first task failure"
+        },
+        "target": {
+          "type": "string",
+          "description": "Target task to execute (for sub-DAGs)"
+        }
+      }
+    },
+    "DAGTask": {
+      "type": "object",
+      "description": "A task within a DAG",
+      "required": [
+        "name",
+        "template"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "template": {
+          "type": "string"
+        },
+        "arguments": {
+          "$ref": "#/$defs/Arguments"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tasks that must complete before this task runs"
+        },
+        "when": {
+          "type": "string",
+          "description": "Conditional expression for task execution"
+        },
+        "withItems": {
+          "type": "array",
+          "description": "List of items to fan out over"
+        },
+        "withParam": {
+          "type": "string",
+          "description": "JSON list to fan out over"
+        },
+        "withSequence": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "string"
+            },
+            "start": {
+              "type": "string"
+            },
+            "end": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string"
+            }
+          }
+        },
+        "continueOn": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "boolean"
+            },
+            "failed": {
+              "type": "boolean"
+            }
+          }
+        },
+        "onExit": {
+          "type": "string"
+        },
+        "hooks": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/LifecycleHook"
+          }
+        }
+      }
+    },
+    "WorkflowStep": {
+      "type": "object",
+      "description": "A step within a steps template",
+      "required": [
+        "name",
+        "template"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "template": {
+          "type": "string"
+        },
+        "arguments": {
+          "$ref": "#/$defs/Arguments"
+        },
+        "when": {
+          "type": "string"
+        },
+        "withItems": {
+          "type": "array"
+        },
+        "withParam": {
+          "type": "string"
+        },
+        "continueOn": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "boolean"
+            },
+            "failed": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "Arguments": {
+      "type": "object",
+      "description": "Arguments to pass to templates",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Parameter"
+          }
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Artifact"
+          }
+        }
+      }
+    },
+    "Parameter": {
+      "type": "object",
+      "description": "A named parameter",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "default": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "enum": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "globalName": {
+          "type": "string"
+        },
+        "valueFrom": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "jsonPath": {
+              "type": "string"
+            },
+            "jqFilter": {
+              "type": "string"
+            },
+            "parameter": {
+              "type": "string"
+            },
+            "expression": {
+              "type": "string"
+            },
+            "configMapKeyRef": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Artifact": {
+      "type": "object",
+      "description": "A named artifact input or output",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "description": "Path in container where artifact is placed"
+        },
+        "from": {
+          "type": "string"
+        },
+        "fromExpression": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        },
+        "s3": {
+          "type": "object",
+          "properties": {
+            "bucket": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "endpoint": {
+              "type": "string"
+            },
+            "accessKeySecret": {
+              "type": "object"
+            },
+            "secretKeySecret": {
+              "type": "object"
+            }
+          }
+        },
+        "gcs": {
+          "type": "object",
+          "properties": {
+            "bucket": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            }
+          }
+        },
+        "git": {
+          "type": "object",
+          "properties": {
+            "repo": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "string"
+            },
+            "depth": {
+              "type": "int32"
+            },
+            "branch": {
+              "type": "string"
+            }
+          }
+        },
+        "http": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "headers": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "archive": {
+          "type": "object",
+          "properties": {
+            "none": {
+              "type": "object"
+            },
+            "tar": {
+              "type": "object",
+              "properties": {
+                "compressionLevel": {
+                  "type": "int32"
+                }
+              }
+            },
+            "zip": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "Inputs": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Parameter"
+          }
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Artifact"
+          }
+        }
+      }
+    },
+    "Outputs": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Parameter"
+          }
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Artifact"
+          }
+        },
+        "result": {
+          "type": "string",
+          "description": "Result from a script template"
+        },
+        "exitCode": {
+          "type": "string",
+          "description": "Exit code from the template execution"
+        }
+      }
+    },
+    "RetryStrategy": {
+      "type": "object",
+      "description": "Strategy for retrying failed steps",
+      "properties": {
+        "limit": {
+          "type": "int32",
+          "minimum": 0,
+          "description": "Maximum number of retry attempts"
+        },
+        "retryPolicy": {
+          "type": "string",
+          "enum": [
+            "Always",
+            "OnFailure",
+            "OnError",
+            "OnTransientError"
+          ]
+        },
+        "backoff": {
+          "type": "object",
+          "properties": {
+            "duration": {
+              "type": "string"
+            },
+            "factor": {
+              "type": "int32"
+            },
+            "maxDuration": {
+              "type": "string"
+            }
+          }
+        },
+        "affinity": {
+          "type": "object",
+          "properties": {
+            "nodeAntiAffinity": {
+              "type": "object"
+            }
+          }
+        },
+        "expression": {
+          "type": "string",
+          "description": "Expression to determine if a retry should occur"
+        }
+      }
+    },
+    "TTLStrategy": {
+      "type": "object",
+      "description": "Strategy for automatic cleanup of completed workflows",
+      "properties": {
+        "secondsAfterCompletion": {
+          "type": "int32",
+          "minimum": 0
+        },
+        "secondsAfterSuccess": {
+          "type": "int32",
+          "minimum": 0
+        },
+        "secondsAfterFailure": {
+          "type": "int32",
+          "minimum": 0
+        }
+      }
+    },
+    "PodGC": {
+      "type": "object",
+      "description": "Strategy for garbage collecting completed pods",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": [
+            "OnPodCompletion",
+            "OnPodSuccess",
+            "OnWorkflowCompletion",
+            "OnWorkflowSuccess"
+          ]
+        },
+        "labelSelector": {
+          "type": "object"
+        },
+        "deleteDelayDuration": {
+          "type": "string"
+        }
+      }
+    },
+    "WorkflowTemplateRef": {
+      "type": "object",
+      "description": "Reference to a WorkflowTemplate resource",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the WorkflowTemplate"
+        },
+        "clusterScope": {
+          "type": "boolean",
+          "description": "Whether to reference a ClusterWorkflowTemplate"
+        }
+      }
+    },
+    "LifecycleHook": {
+      "type": "object",
+      "description": "Lifecycle hook for workflow or task events",
+      "properties": {
+        "template": {
+          "type": "string"
+        },
+        "arguments": {
+          "$ref": "#/$defs/Arguments"
+        },
+        "expression": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvVar": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "valueFrom": {
+          "type": "object",
+          "properties": {
+            "configMapKeyRef": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              }
+            },
+            "secretKeyRef": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              }
+            },
+            "fieldRef": {
+              "type": "object",
+              "properties": {
+                "fieldPath": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Resources": {
+      "type": "object",
+      "properties": {
+        "limits": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Resource limits (cpu, memory)"
+        },
+        "requests": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Resource requests (cpu, memory)"
+        }
+      }
+    },
+    "Volume": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "emptyDir": {
+          "type": "object"
+        },
+        "secret": {
+          "type": "object",
+          "properties": {
+            "secretName": {
+              "type": "string"
+            }
+          }
+        },
+        "configMap": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "persistentVolumeClaim": {
+          "type": "object",
+          "properties": {
+            "claimName": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "VolumeMount": {
+      "type": "object",
+      "required": [
+        "name",
+        "mountPath"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "mountPath": {
+          "type": "string"
+        },
+        "subPath": {
+          "type": "string"
+        },
+        "readOnly": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

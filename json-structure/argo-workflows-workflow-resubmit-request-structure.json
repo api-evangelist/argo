@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-workflow-resubmit-request-structure.json",
+  "name": "WorkflowResubmitRequest",
+  "description": "WorkflowResubmitRequest schema from Argo API",
+  "type": "object",
+  "properties": {
+    "namespace": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "memoized": {
+      "type": "boolean"
+    }
+  }
+}

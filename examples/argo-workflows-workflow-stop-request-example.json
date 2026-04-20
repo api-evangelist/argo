@@ -1,0 +1,6 @@
+{
+  "namespace": "my-workflow",
+  "name": "my-workflow",
+  "nodeFieldSelector": "example-value",
+  "message": "Completed successfully"
+}

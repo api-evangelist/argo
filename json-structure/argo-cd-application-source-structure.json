@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-cd-application-source-structure.json",
+  "name": "ApplicationSource",
+  "description": "Git or Helm chart source for the application manifests.",
+  "type": "object",
+  "properties": {
+    "repoURL": {
+      "type": "uri",
+      "description": "URL of the Git repository or Helm chart repository."
+    },
+    "path": {
+      "type": "string",
+      "description": "Path within the repository where manifests are located. Used for Git repositories."
+    },
+    "targetRevision": {
+      "type": "string",
+      "description": "Git branch, tag, or commit SHA to deploy. Defaults to HEAD."
+    },
+    "chart": {
+      "type": "string",
+      "description": "Helm chart name. Used when repoURL points to a Helm registry."
+    },
+    "helm": {
+      "type": "object",
+      "description": "Helm-specific source configuration.",
+      "properties": {
+        "valueFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of Helm value file paths."
+        },
+        "values": {
+          "type": "string",
+          "description": "Inline Helm values as a YAML string."
+        },
+        "releaseName": {
+          "type": "string",
+          "description": "Helm release name override."
+        }
+      }
+    },
+    "kustomize": {
+      "type": "object",
+      "description": "Kustomize-specific source configuration.",
+      "properties": {
+        "namePrefix": {
+          "type": "string",
+          "description": "Prefix to append to all resource names."
+        },
+        "nameSuffix": {
+          "type": "string",
+          "description": "Suffix to append to all resource names."
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of image overrides in name=tag format."
+        }
+      }
+    }
+  },
+  "required": [
+    "repoURL"
+  ]
+}

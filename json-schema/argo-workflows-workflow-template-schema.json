@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-workflow-template-schema.json",
+  "title": "WorkflowTemplate",
+  "description": "A reusable workflow template resource",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "default": "argoproj.io/v1alpha1"
+    },
+    "kind": {
+      "type": "string",
+      "default": "WorkflowTemplate"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/components/schemas/WorkflowSpec"
+    }
+  }
+}

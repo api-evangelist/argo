@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-cron-workflow-structure.json",
+  "name": "CronWorkflow",
+  "description": "A scheduled workflow resource",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "default": "argoproj.io/v1alpha1"
+    },
+    "kind": {
+      "type": "string",
+      "default": "CronWorkflow"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/components/schemas/CronWorkflowSpec"
+    },
+    "status": {
+      "$ref": "#/components/schemas/CronWorkflowStatus"
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-template-structure.json",
+  "name": "Template",
+  "description": "A workflow template definition",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the template"
+    },
+    "inputs": {
+      "$ref": "#/components/schemas/Inputs"
+    },
+    "outputs": {
+      "$ref": "#/components/schemas/Outputs"
+    },
+    "container": {
+      "type": "object",
+      "description": "Container to run",
+      "properties": {
+        "image": {
+          "type": "string"
+        },
+        "command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "env": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "resources": {
+          "type": "object",
+          "properties": {
+            "limits": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "requests": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "volumeMounts": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "script": {
+      "type": "object",
+      "description": "Script to run in a container",
+      "properties": {
+        "image": {
+          "type": "string"
+        },
+        "command": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "description": "Kubernetes resource to create/patch/delete",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "get",
+            "create",
+            "apply",
+            "delete",
+            "replace",
+            "patch"
+          ]
+        },
+        "manifest": {
+          "type": "string"
+        },
+        "successCondition": {
+          "type": "string"
+        },
+        "failureCondition": {
+          "type": "string"
+        }
+      }
+    },
+    "dag": {
+      "type": "object",
+      "description": "DAG template definition",
+      "properties": {
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/DAGTask"
+          }
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "description": "Steps template definition (list of parallel step groups)",
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/WorkflowStep"
+        }
+      }
+    },
+    "suspend": {
+      "type": "object",
+      "description": "Suspend template for manual approval",
+      "properties": {
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "activeDeadlineSeconds": {
+      "type": "int64"
+    },
+    "retryStrategy": {
+      "$ref": "#/components/schemas/RetryStrategy"
+    },
+    "nodeSelector": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Metadata to set on step pods",
+      "properties": {
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

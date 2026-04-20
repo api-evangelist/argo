@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-info-response-schema.json",
+  "title": "InfoResponse",
+  "description": "InfoResponse schema from Argo API",
+  "type": "object",
+  "properties": {
+    "managedNamespace": {
+      "type": "string",
+      "description": "The namespace managed by this Argo server"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

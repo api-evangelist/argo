@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-cd-settings-schema.json",
+  "title": "Settings",
+  "description": "Argo CD server configuration settings.",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "description": "External URL of the Argo CD server.",
+      "format": "uri"
+    },
+    "dexConfig": {
+      "type": "string",
+      "description": "Dex OAuth provider configuration YAML."
+    },
+    "oidcConfig": {
+      "type": "string",
+      "description": "OIDC provider configuration YAML."
+    },
+    "statusBadgeEnabled": {
+      "type": "boolean",
+      "description": "Whether application status badges are enabled."
+    },
+    "googleAnalytics": {
+      "type": "object",
+      "description": "Google Analytics tracking configuration.",
+      "properties": {
+        "trackingID": {
+          "type": "string",
+          "description": "Google Analytics tracking ID."
+        },
+        "anonymizeUsers": {
+          "type": "boolean",
+          "description": "Anonymize user tracking data."
+        }
+      }
+    },
+    "help": {
+      "type": "object",
+      "description": "Help link configuration.",
+      "properties": {
+        "chatUrl": {
+          "type": "string",
+          "description": "URL for community chat (e.g., Slack)."
+        },
+        "chatText": {
+          "type": "string",
+          "description": "Display text for the chat link."
+        }
+      }
+    }
+  }
+}

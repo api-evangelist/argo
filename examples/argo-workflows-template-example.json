@@ -1,0 +1,66 @@
+{
+  "name": "my-workflow",
+  "inputs": "example-value",
+  "outputs": "example-value",
+  "container": {
+    "image": "example-value",
+    "command": [
+      "example-value",
+      "example-value"
+    ],
+    "args": [
+      "example-value",
+      "example-value"
+    ],
+    "env": [
+      {
+        "name": null,
+        "value": null
+      },
+      {
+        "name": null,
+        "value": null
+      }
+    ]
+  },
+  "script": {
+    "image": "example-value",
+    "command": [
+      "example-value",
+      "example-value"
+    ],
+    "source": "example-value"
+  },
+  "resource": {
+    "action": "create",
+    "manifest": "example-value",
+    "successCondition": "example-value",
+    "failureCondition": "example-value"
+  },
+  "dag": {
+    "tasks": [
+      "example-value",
+      "example-value"
+    ]
+  },
+  "steps": [
+    [
+      "example-value",
+      "example-value"
+    ],
+    [
+      "example-value",
+      "example-value"
+    ]
+  ],
+  "suspend": {
+    "duration": "example-value"
+  },
+  "activeDeadlineSeconds": 2,
+  "retryStrategy": "example-value",
+  "nodeSelector": {},
+  "metadata": {
+    "labels": {},
+    "annotations": {}
+  }
+}

@@ -1,0 +1,80 @@
+# Argo Project Spectral Ruleset
+
+rules:
+
+  info-title-required:
+    description: API title must be present
+    severity: error
+    given: "$.info"
+    then:
+      field: title
+      function: truthy
+
+  info-description-required:
+    description: API must have a description
+    severity: error
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  operation-summary-required:
+    description: Every operation must have a summary
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: summary
+      function: truthy
+
+  operation-operationid-required:
+    description: Every operation must have an operationId
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-tags-required:
+    description: Operations should be tagged
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: tags
+      function: truthy
+
+  paths-versioned:
+    description: All paths should be versioned
+    severity: info
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/api/v"
+
+  response-success-required:
+    description: Every operation must define at least one response
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 1
+
+  response-description-required:
+    description: All responses must have a description
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch].responses[*]"
+    then:
+      field: description
+      function: truthy
+
+  no-empty-summaries:
+    description: Summaries must not be empty
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: ".+"

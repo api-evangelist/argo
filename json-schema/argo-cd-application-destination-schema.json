@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-cd-application-destination-schema.json",
+  "title": "ApplicationDestination",
+  "description": "Target Kubernetes cluster and namespace for application deployment.",
+  "type": "object",
+  "properties": {
+    "server": {
+      "type": "string",
+      "description": "Kubernetes API server URL of the target cluster. Use https://kubernetes.default.svc for the in-cluster target.",
+      "format": "uri"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the registered cluster. Mutually exclusive with server."
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Target namespace in the destination cluster."
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-object-meta-structure.json",
+  "name": "ObjectMeta",
+  "description": "Kubernetes object metadata",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "generateName": {
+      "type": "string"
+    },
+    "namespace": {
+      "type": "string"
+    },
+    "uid": {
+      "type": "string"
+    },
+    "resourceVersion": {
+      "type": "string"
+    },
+    "generation": {
+      "type": "int64"
+    },
+    "creationTimestamp": {
+      "type": "datetime"
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "annotations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

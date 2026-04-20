@@ -1,0 +1,14 @@
+{
+  "server": "https://example.com",
+  "name": "my-workflow",
+  "config": {
+    "bearerToken": "example-value",
+    "tlsClientConfig": {
+      "insecure": true
+    }
+  },
+  "info": {
+    "serverVersion": "v3.6.0",
+    "applicationsCount": 65
+  }
+}

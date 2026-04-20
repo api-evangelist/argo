@@ -1,0 +1,6 @@
+{
+  "namespace": "my-workflow",
+  "workflow": "example-value",
+  "serverDryRun": true,
+  "createOptions": {}
+}

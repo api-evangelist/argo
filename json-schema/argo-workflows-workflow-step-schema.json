@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-workflow-step-schema.json",
+  "title": "WorkflowStep",
+  "description": "A step in a steps template",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "template": {
+      "type": "string"
+    },
+    "arguments": {
+      "$ref": "#/components/schemas/Arguments"
+    },
+    "when": {
+      "type": "string"
+    },
+    "withItems": {
+      "type": "array",
+      "items": {}
+    },
+    "withParam": {
+      "type": "string"
+    },
+    "continueOn": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "boolean"
+        },
+        "failed": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

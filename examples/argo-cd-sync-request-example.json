@@ -1,0 +1,27 @@
+{
+  "revision": "example-value",
+  "dryRun": true,
+  "prune": true,
+  "strategy": {
+    "apply": {
+      "force": true
+    },
+    "hook": {
+      "force": true
+    }
+  },
+  "resources": [
+    {
+      "group": "example-value",
+      "kind": "example-value",
+      "name": "my-workflow",
+      "namespace": "my-workflow"
+    },
+    {
+      "group": "example-value",
+      "kind": "example-value",
+      "name": "my-workflow",
+      "namespace": "my-workflow"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-retry-strategy-schema.json",
+  "title": "RetryStrategy",
+  "description": "Strategy for retrying failed steps",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "type": "integer",
+      "description": "Maximum number of retries"
+    },
+    "retryPolicy": {
+      "type": "string",
+      "enum": [
+        "Always",
+        "OnFailure",
+        "OnError",
+        "OnTransientError"
+      ]
+    },
+    "backoff": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "type": "string"
+        },
+        "factor": {
+          "type": "integer"
+        },
+        "maxDuration": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

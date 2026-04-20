@@ -1,0 +1,14 @@
+{
+  "url": "https://example.com",
+  "dexConfig": "example-value",
+  "oidcConfig": "wf-abc123",
+  "statusBadgeEnabled": true,
+  "googleAnalytics": {
+    "trackingID": "wf-abc123",
+    "anonymizeUsers": true
+  },
+  "help": {
+    "chatUrl": "https://example.com",
+    "chatText": "example-value"
+  }
+}

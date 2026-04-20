@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-cd-cluster-schema.json",
+  "title": "Cluster",
+  "description": "A registered Kubernetes cluster deployment target.",
+  "type": "object",
+  "properties": {
+    "server": {
+      "type": "string",
+      "description": "Kubernetes API server URL.",
+      "format": "uri"
+    },
+    "name": {
+      "type": "string",
+      "description": "Cluster display name."
+    },
+    "config": {
+      "type": "object",
+      "description": "Cluster connection configuration.",
+      "properties": {
+        "bearerToken": {
+          "type": "string",
+          "description": "Service account bearer token for cluster access."
+        },
+        "tlsClientConfig": {
+          "type": "object",
+          "description": "TLS client configuration.",
+          "properties": {
+            "insecure": {
+              "type": "boolean",
+              "description": "Skip TLS verification."
+            }
+          }
+        }
+      }
+    },
+    "info": {
+      "type": "object",
+      "description": "Cluster information.",
+      "properties": {
+        "serverVersion": {
+          "type": "string",
+          "description": "Kubernetes server version."
+        },
+        "applicationsCount": {
+          "type": "integer",
+          "description": "Number of applications targeting this cluster."
+        }
+      }
+    }
+  }
+}

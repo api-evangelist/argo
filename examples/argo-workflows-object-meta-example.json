@@ -1,0 +1,11 @@
+{
+  "name": "my-workflow",
+  "generateName": "my-workflow",
+  "namespace": "my-workflow",
+  "uid": "wf-abc123",
+  "resourceVersion": "v3.6.0",
+  "generation": 80,
+  "creationTimestamp": "example-value",
+  "labels": {},
+  "annotations": {}
+}

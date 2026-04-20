@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-workflow-stop-request-structure.json",
+  "name": "WorkflowStopRequest",
+  "description": "WorkflowStopRequest schema from Argo API",
+  "type": "object",
+  "properties": {
+    "namespace": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "nodeFieldSelector": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  }
+}

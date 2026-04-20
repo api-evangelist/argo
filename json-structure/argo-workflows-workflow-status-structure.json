@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-workflow-status-structure.json",
+  "name": "WorkflowStatus",
+  "description": "Status of a workflow execution",
+  "type": "object",
+  "properties": {
+    "phase": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Running",
+        "Succeeded",
+        "Failed",
+        "Error"
+      ]
+    },
+    "startedAt": {
+      "type": "datetime"
+    },
+    "finishedAt": {
+      "type": "datetime"
+    },
+    "progress": {
+      "type": "string",
+      "description": "Progress of the workflow (e.g. 2/4)"
+    },
+    "message": {
+      "type": "string"
+    },
+    "estimatedDuration": {
+      "type": "int32"
+    },
+    "nodes": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/NodeStatus"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outputs": {
+      "$ref": "#/components/schemas/Outputs"
+    },
+    "storedTemplates": {
+      "type": "object"
+    },
+    "artifactRepositoryRef": {
+      "type": "object",
+      "properties": {
+        "configMap": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

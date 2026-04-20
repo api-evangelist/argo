@@ -1,0 +1,36 @@
+{
+  "entrypoint": "example-value",
+  "arguments": "example-value",
+  "templates": [
+    "example-value",
+    "example-value"
+  ],
+  "serviceAccountName": "my-workflow",
+  "volumes": [
+    {},
+    {}
+  ],
+  "activeDeadlineSeconds": 15,
+  "nodeSelector": {},
+  "tolerations": [
+    {},
+    {}
+  ],
+  "parallelism": 35,
+  "ttlStrategy": {
+    "secondsAfterCompletion": 69,
+    "secondsAfterSuccess": 2,
+    "secondsAfterFailure": 41
+  },
+  "podGC": {
+    "strategy": "OnPodSuccess"
+  },
+  "workflowTemplateRef": {
+    "name": "my-workflow",
+    "clusterScope": true
+  },
+  "archiveLogs": true,
+  "hooks": {},
+  "onExit": "example-value",
+  "retryStrategy": "example-value"
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-cd-repository-structure.json",
+  "name": "Repository",
+  "description": "A registered Git or Helm chart repository.",
+  "type": "object",
+  "properties": {
+    "repo": {
+      "type": "uri",
+      "description": "Repository URL."
+    },
+    "type": {
+      "type": "string",
+      "description": "Repository type.",
+      "enum": [
+        "git",
+        "helm"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable repository name."
+    },
+    "connectionState": {
+      "type": "object",
+      "description": "Current connection status.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Connection status (Successful, Failed, Unknown)."
+        },
+        "message": {
+          "type": "string",
+          "description": "Status message."
+        }
+      }
+    }
+  }
+}

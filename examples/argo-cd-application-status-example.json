@@ -1,0 +1,16 @@
+{
+  "sync": {
+    "status": "OutOfSync",
+    "revision": "example-value"
+  },
+  "health": {
+    "status": "Unknown",
+    "message": "Completed successfully"
+  },
+  "operationState": {
+    "phase": "Running",
+    "message": "Completed successfully",
+    "startedAt": "example-value",
+    "finishedAt": "example-value"
+  }
+}

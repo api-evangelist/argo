@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "name": "my-workflow"
+  },
+  "spec": {
+    "description": "example-value",
+    "sourceRepos": [
+      "example-value",
+      "example-value"
+    ],
+    "destinations": [
+      {
+        "server": null,
+        "namespace": null
+      },
+      {
+        "server": null,
+        "namespace": null
+      }
+    ],
+    "clusterResourceWhitelist": [
+      {
+        "group": null,
+        "kind": null
+      },
+      {
+        "group": null,
+        "kind": null
+      }
+    ]
+  }
+}

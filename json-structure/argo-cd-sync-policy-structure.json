@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-cd-sync-policy-structure.json",
+  "name": "SyncPolicy",
+  "description": "Policy controlling how and when the application is synchronized.",
+  "type": "object",
+  "properties": {
+    "automated": {
+      "type": "object",
+      "description": "Configuration for automatic synchronization.",
+      "properties": {
+        "prune": {
+          "type": "boolean",
+          "description": "Automatically delete resources removed from the source.",
+          "default": false
+        },
+        "selfHeal": {
+          "type": "boolean",
+          "description": "Automatically sync when live state drifts from desired state.",
+          "default": false
+        },
+        "allowEmpty": {
+          "type": "boolean",
+          "description": "Allows apps to have an empty source.",
+          "default": false
+        }
+      }
+    },
+    "syncOptions": {
+      "type": "array",
+      "description": "List of sync option flags (e.g., CreateNamespace=true, PrunePropagationPolicy=foreground).",
+      "items": {
+        "type": "string"
+      }
+    },
+    "retry": {
+      "type": "object",
+      "description": "Retry configuration for failed sync operations.",
+      "properties": {
+        "limit": {
+          "type": "int64",
+          "description": "Maximum number of retry attempts. -1 for unlimited."
+        },
+        "backoff": {
+          "type": "object",
+          "description": "Backoff strategy for retries.",
+          "properties": {
+            "duration": {
+              "type": "string",
+              "description": "Initial retry backoff duration."
+            },
+            "factor": {
+              "type": "int64",
+              "description": "Multiplicative factor applied to duration on each retry."
+            },
+            "maxDuration": {
+              "type": "string",
+              "description": "Maximum duration between retries."
+            }
+          }
+        }
+      }
+    }
+  }
+}

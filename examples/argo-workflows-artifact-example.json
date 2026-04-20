@@ -1,0 +1,29 @@
+{
+  "name": "my-workflow",
+  "path": "example-value",
+  "from": "example-value",
+  "s3": {
+    "bucket": "example-value",
+    "key": "example-value",
+    "endpoint": "example-value"
+  },
+  "git": {
+    "repo": "example-value",
+    "revision": "example-value",
+    "depth": 73
+  },
+  "http": {
+    "url": "https://example.com",
+    "headers": [
+      {},
+      {}
+    ]
+  },
+  "archive": {
+    "none": {},
+    "tar": {
+      "compressionLevel": 37
+    },
+    "zip": {}
+  }
+}

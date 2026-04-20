@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-cd-application-schema.json",
+  "title": "Application",
+  "description": "An Argo CD Application represents a deployed set of Kubernetes resources managed through GitOps.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "description": "API version, always argoproj.io/v1alpha1."
+    },
+    "kind": {
+      "type": "string",
+      "description": "Resource kind, always Application."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Kubernetes object metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Application name."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Application namespace."
+        }
+      }
+    },
+    "spec": {
+      "$ref": "#/components/schemas/ApplicationSpec"
+    },
+    "status": {
+      "$ref": "#/components/schemas/ApplicationStatus"
+    }
+  }
+}

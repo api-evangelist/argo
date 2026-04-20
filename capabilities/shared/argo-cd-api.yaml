@@ -1,0 +1,84 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Argo CD API"
+  description: "Argo CD REST API for GitOps continuous delivery on Kubernetes."
+  tags:
+    - Argo CD
+    - GitOps
+    - Kubernetes
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      ARGOCD_TOKEN: ARGOCD_TOKEN
+      ARGOCD_SERVER: ARGOCD_SERVER
+
+capability:
+  consumes:
+    - type: http
+      namespace: argocd
+      baseUri: "{{env.ARGOCD_SERVER}}/api/v1"
+      description: "Argo CD REST API"
+      authentication:
+        type: apikey
+        key: Authorization
+        value: "Bearer {{env.ARGOCD_TOKEN}}"
+        placement: header
+      resources:
+        - name: applications
+          path: /application
+          description: "Argo CD applications"
+          operations:
+            - name: list-applications
+              method: GET
+              description: "List applications"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: sync-application
+              method: POST
+              description: "Sync application"
+              inputParameters:
+                - name: name
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8103
+      namespace: argo-cd-rest
+      resources:
+        - path: /v1/applications
+          name: applications
+          operations:
+            - method: GET
+              name: list-applications
+              call: "argocd.list-applications"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      port: 9103
+      namespace: argo-cd-mcp
+      transport: http
+      tools:
+        - name: list-applications
+          description: "List Argo CD applications"
+          hints:
+            readOnly: true
+          call: "argocd.list-applications"
+          outputParameters:
+            - type: object
+              mapping: "$."

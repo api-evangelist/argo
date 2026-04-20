@@ -1,0 +1,27 @@
+{
+  "phase": "Error",
+  "startedAt": "example-value",
+  "finishedAt": "example-value",
+  "progress": "example-value",
+  "message": "Completed successfully",
+  "estimatedDuration": 52,
+  "nodes": {},
+  "conditions": [
+    {
+      "type": "example-value",
+      "status": "Running",
+      "message": "Completed successfully"
+    },
+    {
+      "type": "example-value",
+      "status": "Running",
+      "message": "Completed successfully"
+    }
+  ],
+  "outputs": "example-value",
+  "storedTemplates": {},
+  "artifactRepositoryRef": {
+    "configMap": "example-value",
+    "key": "example-value"
+  }
+}

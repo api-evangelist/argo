@@ -1,0 +1,11 @@
+{
+  "apiVersion": "v3.6.0",
+  "metadata": {
+    "resourceVersion": "v3.6.0",
+    "continue": "example-value"
+  },
+  "items": [
+    "example-value",
+    "example-value"
+  ]
+}

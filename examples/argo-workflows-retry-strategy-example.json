@@ -1,0 +1,9 @@
+{
+  "limit": 59,
+  "retryPolicy": "OnError",
+  "backoff": {
+    "duration": "example-value",
+    "factor": 66,
+    "maxDuration": "example-value"
+  }
+}

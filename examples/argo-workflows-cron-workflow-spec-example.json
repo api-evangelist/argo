@@ -1,0 +1,11 @@
+{
+  "schedule": "example-value",
+  "timezone": "example-value",
+  "startingDeadlineSeconds": 32,
+  "concurrencyPolicy": "Allow",
+  "suspend": true,
+  "successfulJobsHistoryLimit": 66,
+  "failedJobsHistoryLimit": 12,
+  "workflowSpec": "example-value",
+  "workflowMetadata": {}
+}

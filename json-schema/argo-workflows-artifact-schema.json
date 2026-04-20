@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-artifact-schema.json",
+  "title": "Artifact",
+  "description": "A workflow artifact",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string",
+      "description": "Path in the container where artifact is placed"
+    },
+    "from": {
+      "type": "string",
+      "description": "Source artifact reference"
+    },
+    "s3": {
+      "type": "object",
+      "properties": {
+        "bucket": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        }
+      }
+    },
+    "git": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        },
+        "depth": {
+          "type": "integer"
+        }
+      }
+    },
+    "http": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "headers": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "archive": {
+      "type": "object",
+      "properties": {
+        "none": {
+          "type": "object"
+        },
+        "tar": {
+          "type": "object",
+          "properties": {
+            "compressionLevel": {
+              "type": "integer"
+            }
+          }
+        },
+        "zip": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

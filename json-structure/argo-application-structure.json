@@ -1,0 +1,552 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-application-structure.json",
+  "name": "Argo CD Application Spec",
+  "description": "JSON Schema for the Argo CD Application resource specification, defining the structure of GitOps application definitions for Kubernetes declarative continuous delivery.",
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "argoproj.io/v1alpha1",
+      "description": "API version for Argo CD resources"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "Application",
+        "ApplicationSet",
+        "AppProject"
+      ],
+      "description": "Kind of the Argo CD resource"
+    },
+    "metadata": {
+      "$ref": "#/$defs/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/$defs/ApplicationSpec"
+    }
+  },
+  "$defs": {
+    "ObjectMeta": {
+      "type": "object",
+      "description": "Kubernetes object metadata",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the application"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace where the Application resource lives (typically argocd)"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "finalizers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Finalizers for cascade deletion of resources"
+        }
+      }
+    },
+    "ApplicationSpec": {
+      "type": "object",
+      "description": "Specification of an Argo CD Application",
+      "required": [
+        "source",
+        "destination"
+      ],
+      "properties": {
+        "project": {
+          "type": "string",
+          "description": "The Argo CD project the application belongs to",
+          "default": "default"
+        },
+        "source": {
+          "$ref": "#/$defs/ApplicationSource"
+        },
+        "sources": {
+          "type": "array",
+          "description": "Multiple sources for multi-source applications",
+          "items": {
+            "$ref": "#/$defs/ApplicationSource"
+          }
+        },
+        "destination": {
+          "$ref": "#/$defs/ApplicationDestination"
+        },
+        "syncPolicy": {
+          "$ref": "#/$defs/SyncPolicy"
+        },
+        "ignoreDifferences": {
+          "type": "array",
+          "description": "Resources and fields to ignore during diff",
+          "items": {
+            "$ref": "#/$defs/ResourceIgnoreDifferences"
+          }
+        },
+        "info": {
+          "type": "array",
+          "description": "Informational metadata about the application",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "revisionHistoryLimit": {
+          "type": "int32",
+          "minimum": 0,
+          "description": "Number of deployment revisions to keep"
+        }
+      }
+    },
+    "ApplicationSource": {
+      "type": "object",
+      "description": "Source of the application manifests",
+      "required": [
+        "repoURL"
+      ],
+      "properties": {
+        "repoURL": {
+          "type": "string",
+          "description": "URL of the Git repository or Helm chart repository"
+        },
+        "path": {
+          "type": "string",
+          "description": "Path within the repository to the application manifests"
+        },
+        "targetRevision": {
+          "type": "string",
+          "description": "Target revision (branch, tag, commit SHA, or HEAD)"
+        },
+        "chart": {
+          "type": "string",
+          "description": "Helm chart name (for Helm repositories)"
+        },
+        "ref": {
+          "type": "string",
+          "description": "Reference name for multi-source applications"
+        },
+        "helm": {
+          "$ref": "#/$defs/HelmSource"
+        },
+        "kustomize": {
+          "$ref": "#/$defs/KustomizeSource"
+        },
+        "directory": {
+          "$ref": "#/$defs/DirectorySource"
+        },
+        "plugin": {
+          "$ref": "#/$defs/PluginSource"
+        }
+      }
+    },
+    "HelmSource": {
+      "type": "object",
+      "description": "Helm-specific source configuration",
+      "properties": {
+        "releaseName": {
+          "type": "string",
+          "description": "Helm release name"
+        },
+        "valueFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Paths to Helm values files"
+        },
+        "values": {
+          "type": "string",
+          "description": "Inline Helm values YAML"
+        },
+        "valuesObject": {
+          "type": "object",
+          "description": "Helm values as a structured object"
+        },
+        "parameters": {
+          "type": "array",
+          "description": "Helm parameter overrides",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "forceString": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "fileParameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "version": {
+          "type": "string",
+          "description": "Helm version to use (v2 or v3)"
+        },
+        "passCredentials": {
+          "type": "boolean",
+          "description": "Pass credentials to all domains"
+        },
+        "ignoreMissingValueFiles": {
+          "type": "boolean"
+        },
+        "skipCrds": {
+          "type": "boolean",
+          "description": "Skip installation of CRDs"
+        }
+      }
+    },
+    "KustomizeSource": {
+      "type": "object",
+      "description": "Kustomize-specific source configuration",
+      "properties": {
+        "namePrefix": {
+          "type": "string"
+        },
+        "nameSuffix": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Image overrides in the format image:tag or image=newimage:tag"
+        },
+        "commonLabels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "commonAnnotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "version": {
+          "type": "string"
+        },
+        "forceCommonLabels": {
+          "type": "boolean"
+        },
+        "forceCommonAnnotations": {
+          "type": "boolean"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "patches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "patch": {
+                "type": "string"
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "namespace": {
+                    "type": "string"
+                  },
+                  "labelSelector": {
+                    "type": "string"
+                  },
+                  "annotationSelector": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "DirectorySource": {
+      "type": "object",
+      "description": "Directory-specific source configuration",
+      "properties": {
+        "recurse": {
+          "type": "boolean",
+          "description": "Recurse into subdirectories"
+        },
+        "jsonnet": {
+          "type": "object",
+          "properties": {
+            "extVars": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "tlas": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "libs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "exclude": {
+          "type": "string",
+          "description": "Glob pattern to exclude files"
+        },
+        "include": {
+          "type": "string",
+          "description": "Glob pattern to include files"
+        }
+      }
+    },
+    "PluginSource": {
+      "type": "object",
+      "description": "Config management plugin configuration",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the config management plugin"
+        },
+        "env": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Plugin parameters"
+        }
+      }
+    },
+    "ApplicationDestination": {
+      "type": "object",
+      "description": "Target cluster and namespace for deployment",
+      "properties": {
+        "server": {
+          "type": "string",
+          "description": "Kubernetes API server URL"
+        },
+        "name": {
+          "type": "string",
+          "description": "Cluster name (alternative to server URL)"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Target namespace for deployment"
+        }
+      }
+    },
+    "SyncPolicy": {
+      "type": "object",
+      "description": "Sync policy configuration",
+      "properties": {
+        "automated": {
+          "type": "object",
+          "description": "Automated sync settings",
+          "properties": {
+            "prune": {
+              "type": "boolean",
+              "description": "Automatically delete resources not in Git"
+            },
+            "selfHeal": {
+              "type": "boolean",
+              "description": "Automatically sync when cluster state drifts"
+            },
+            "allowEmpty": {
+              "type": "boolean",
+              "description": "Allow empty application sync"
+            }
+          }
+        },
+        "syncOptions": {
+          "type": "array",
+          "description": "Sync option flags",
+          "items": {
+            "type": "string"
+          },
+          "examples": [
+            [
+              "Validate=false",
+              "CreateNamespace=true",
+              "PrunePropagationPolicy=foreground",
+              "PruneLast=true",
+              "ApplyOutOfSyncOnly=true",
+              "ServerSideApply=true",
+              "RespectIgnoreDifferences=true"
+            ]
+          ]
+        },
+        "retry": {
+          "type": "object",
+          "description": "Retry strategy for failed syncs",
+          "properties": {
+            "limit": {
+              "type": "int32",
+              "description": "Maximum number of sync retries"
+            },
+            "backoff": {
+              "type": "object",
+              "properties": {
+                "duration": {
+                  "type": "string"
+                },
+                "factor": {
+                  "type": "int32"
+                },
+                "maxDuration": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "managedNamespaceMetadata": {
+          "type": "object",
+          "properties": {
+            "labels": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ResourceIgnoreDifferences": {
+      "type": "object",
+      "description": "Configuration for ignoring differences in specific resources",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "jsonPointers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "jqPathExpressions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "managedFieldsManagers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "server": "https://example.com",
+  "name": "my-workflow",
+  "namespace": "my-workflow"
+}

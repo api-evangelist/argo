@@ -1,0 +1,15 @@
+{
+  "managedNamespace": "my-workflow",
+  "links": [
+    {
+      "name": "my-workflow",
+      "scope": "example-value",
+      "url": "https://example.com"
+    },
+    {
+      "name": "my-workflow",
+      "scope": "example-value",
+      "url": "https://example.com"
+    }
+  ]
+}

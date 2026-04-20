@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-cd-app-project-schema.json",
+  "title": "AppProject",
+  "description": "An Argo CD project providing logical grouping and RBAC for applications.",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Project name."
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "description": "Project specification.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Human-readable project description."
+        },
+        "sourceRepos": {
+          "type": "array",
+          "description": "Allowed source repositories. Use '*' for any.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "destinations": {
+          "type": "array",
+          "description": "Allowed destination clusters and namespaces.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "server": {
+                "type": "string",
+                "description": "Cluster server URL."
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Allowed namespace pattern."
+              }
+            }
+          }
+        },
+        "clusterResourceWhitelist": {
+          "type": "array",
+          "description": "Allowed cluster-scoped resource types.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "group": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

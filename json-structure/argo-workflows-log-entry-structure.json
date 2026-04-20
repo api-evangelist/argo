@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-log-entry-structure.json",
+  "name": "LogEntry",
+  "description": "LogEntry schema from Argo API",
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "string"
+    },
+    "podName": {
+      "type": "string"
+    }
+  }
+}

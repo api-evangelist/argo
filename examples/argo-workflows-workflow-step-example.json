@@ -1,0 +1,15 @@
+{
+  "name": "my-workflow",
+  "template": "example-value",
+  "arguments": "example-value",
+  "when": "example-value",
+  "withItems": [
+    "example-value",
+    "example-value"
+  ],
+  "withParam": "example-value",
+  "continueOn": {
+    "error": true,
+    "failed": true
+  }
+}

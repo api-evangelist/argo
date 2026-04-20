@@ -20,65 +20,65 @@ externalDocs:
   description: Argo CD API Documentation
   url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
 servers:
-  - url: https://localhost/api/v1
-    description: Argo CD Server (default in-cluster address)
+- url: https://localhost/api/v1
+  description: Argo CD Server (default in-cluster address)
 tags:
-  - name: Applications
-    description: >-
-      Operations for creating, querying, syncing, and deleting Argo CD
-      GitOps applications.
-  - name: Clusters
-    description: >-
-      Operations for registering and managing target Kubernetes clusters
-      for application deployment.
-  - name: Projects
-    description: >-
-      Operations for managing Argo CD projects that provide governance
-      and access control for applications.
-  - name: Repositories
-    description: >-
-      Operations for registering and managing Git and Helm chart
-      repositories used as application sources.
-  - name: Session
-    description: >-
-      Authentication operations for obtaining and invalidating bearer tokens.
-  - name: Settings
-    description: >-
-      Operations for reading Argo CD server configuration and settings.
-  - name: Version
-    description: >-
-      Server version information endpoint.
+- name: Applications
+  description: >-
+    Operations for creating, querying, syncing, and deleting Argo CD
+    GitOps applications.
+- name: Clusters
+  description: >-
+    Operations for registering and managing target Kubernetes clusters
+    for application deployment.
+- name: Projects
+  description: >-
+    Operations for managing Argo CD projects that provide governance
+    and access control for applications.
+- name: Repositories
+  description: >-
+    Operations for registering and managing Git and Helm chart
+    repositories used as application sources.
+- name: Session
+  description: >-
+    Authentication operations for obtaining and invalidating bearer tokens.
+- name: Settings
+  description: >-
+    Operations for reading Argo CD server configuration and settings.
+- name: Version
+  description: >-
+    Server version information endpoint.
 security:
-  - bearerAuth: []
+- bearerAuth: []
 paths:
   /applications:
     get:
       operationId: listApplications
-      summary: Argo List applications
+      summary: Argo CD Argo List Applications
       description: >-
         Returns a list of all Argo CD applications, optionally filtered by
         project, namespace, or name. Each application includes its current
         sync status, health status, source configuration, and destination
         cluster details.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/projectParam'
-        - name: name
-          in: query
-          description: Filter applications by name.
-          schema:
-            type: string
-        - name: namespace
-          in: query
-          description: Filter applications by destination namespace.
-          schema:
-            type: string
-        - name: appNamespace
-          in: query
-          description: The application namespace to filter by.
-          schema:
-            type: string
+      - $ref: '#/components/parameters/projectParam'
+      - name: name
+        in: query
+        description: Filter applications by name.
+        schema:
+          type: string
+      - name: namespace
+        in: query
+        description: Filter applications by destination namespace.
+        schema:
+          type: string
+      - name: appNamespace
+        in: query
+        description: The application namespace to filter by.
+        schema:
+          type: string
       responses:
         '200':
           description: List of applications.
@@ -90,24 +90,27 @@ paths:
           description: Unauthorized. Missing or invalid authentication token.
         '403':
           description: Forbidden. Insufficient permissions.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createApplication
-      summary: Argo Create an application
+      summary: Argo CD Argo Create an Application
       description: >-
         Creates a new Argo CD application from the provided Application
         manifest. The application must reference a valid project, source
         repository, and destination cluster. Optionally upsert to update
         an existing application with the same name.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - name: upsert
-          in: query
-          description: >-
-            If true, perform an upsert rather than a create, updating the
-            application if it already exists.
-          schema:
-            type: boolean
+      - name: upsert
+        in: query
+        description: >-
+          If true, perform an upsert rather than a create, updating the
+          application if it already exists.
+        schema:
+          type: boolean
       requestBody:
         required: true
         content:
@@ -127,23 +130,26 @@ paths:
           description: Unauthorized.
         '403':
           description: Forbidden.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /applications/{name}:
     get:
       operationId: getApplication
-      summary: Argo Get an application
+      summary: Argo CD Argo Get an Application
       description: >-
         Returns the full specification and current status of a named Argo
         CD application, including sync status, health status, resource tree,
         and operation state.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/appNameParam'
-        - name: appNamespace
-          in: query
-          description: Application namespace.
-          schema:
-            type: string
+      - $ref: '#/components/parameters/appNameParam'
+      - name: appNamespace
+        in: query
+        description: Application namespace.
+        schema:
+          type: string
       responses:
         '200':
           description: Application details.
@@ -155,17 +161,20 @@ paths:
           description: Unauthorized.
         '404':
           description: Application not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateApplication
-      summary: Argo Update an application
+      summary: Argo CD Argo Update an Application
       description: >-
         Replaces the specification of an existing Argo CD application with
         the provided manifest. Used to update source, destination, sync
         policy, or other application configuration.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/appNameParam'
+      - $ref: '#/components/parameters/appNameParam'
       requestBody:
         required: true
         content:
@@ -185,30 +194,33 @@ paths:
           description: Unauthorized.
         '404':
           description: Application not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteApplication
-      summary: Argo Delete an application
+      summary: Argo CD Argo Delete an Application
       description: >-
         Deletes the named Argo CD application. Optionally cascades deletion
         to all managed Kubernetes resources in the destination cluster.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/appNameParam'
-        - name: cascade
-          in: query
-          description: Cascade deletion to managed Kubernetes resources.
-          schema:
-            type: boolean
-            default: true
-        - name: propagationPolicy
-          in: query
-          description: >-
-            Kubernetes resource deletion propagation policy
-            (foreground, background, orphan).
-          schema:
-            type: string
-            enum: [foreground, background, orphan]
+      - $ref: '#/components/parameters/appNameParam'
+      - name: cascade
+        in: query
+        description: Cascade deletion to managed Kubernetes resources.
+        schema:
+          type: boolean
+          default: true
+      - name: propagationPolicy
+        in: query
+        description: >-
+          Kubernetes resource deletion propagation policy
+          (foreground, background, orphan).
+        schema:
+          type: string
+          enum: [foreground, background, orphan]
       responses:
         '200':
           description: Application deleted.
@@ -216,19 +228,22 @@ paths:
           description: Unauthorized.
         '404':
           description: Application not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /applications/{name}/sync:
     post:
       operationId: syncApplication
-      summary: Argo Sync an application
+      summary: Argo CD Argo Sync an Application
       description: >-
         Triggers a synchronization of the named Argo CD application,
         reconciling the live Kubernetes state with the desired state
         from the Git source. Supports selective resource sync, dry-run
         mode, force sync, and prune of removed resources.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/appNameParam'
+      - $ref: '#/components/parameters/appNameParam'
       requestBody:
         content:
           application/json:
@@ -245,18 +260,21 @@ paths:
           description: Unauthorized.
         '404':
           description: Application not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /applications/{name}/rollback:
     post:
       operationId: rollbackApplication
-      summary: Argo Rollback an application
+      summary: Argo CD Argo Rollback an Application
       description: >-
         Rolls back the named application to a previous deployed revision.
         Requires the ID of a history entry from the application's
         deployment history.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/appNameParam'
+      - $ref: '#/components/parameters/appNameParam'
       requestBody:
         content:
           application/json:
@@ -284,15 +302,18 @@ paths:
           description: Unauthorized.
         '404':
           description: Application not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /projects:
     get:
       operationId: listProjects
-      summary: Argo List projects
+      summary: Argo CD Argo List Projects
       description: >-
         Returns all Argo CD projects. Projects provide logical grouping,
         access control, and policy enforcement for applications.
       tags:
-        - Projects
+      - Projects
       responses:
         '200':
           description: List of projects.
@@ -302,14 +323,17 @@ paths:
                 $ref: '#/components/schemas/ProjectList'
         '401':
           description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createProject
-      summary: Argo Create a project
+      summary: Argo CD Argo Create a Project
       description: >-
         Creates a new Argo CD project with the specified source repositories,
         destination clusters/namespaces, and resource allow/deny policies.
       tags:
-        - Projects
+      - Projects
       requestBody:
         required: true
         content:
@@ -327,15 +351,18 @@ paths:
           description: Bad request.
         '401':
           description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /projects/{name}:
     get:
       operationId: getProject
-      summary: Argo Get a project
+      summary: Argo CD Argo Get a Project
       description: Returns the specification and detailed information for a named project.
       tags:
-        - Projects
+      - Projects
       parameters:
-        - $ref: '#/components/parameters/projectNameParam'
+      - $ref: '#/components/parameters/projectNameParam'
       responses:
         '200':
           description: Project details.
@@ -347,16 +374,19 @@ paths:
           description: Unauthorized.
         '404':
           description: Project not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteProject
-      summary: Argo Delete a project
+      summary: Argo CD Argo Delete a Project
       description: >-
         Deletes the named Argo CD project. The project must have no
         associated applications before it can be deleted.
       tags:
-        - Projects
+      - Projects
       parameters:
-        - $ref: '#/components/parameters/projectNameParam'
+      - $ref: '#/components/parameters/projectNameParam'
       responses:
         '200':
           description: Project deleted.
@@ -364,15 +394,18 @@ paths:
           description: Unauthorized.
         '404':
           description: Project not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /repositories:
     get:
       operationId: listRepositories
-      summary: Argo List repositories
+      summary: Argo CD Argo List Repositories
       description: >-
         Returns all registered Git and Helm chart repositories, including
         their connection status and type.
       tags:
-        - Repositories
+      - Repositories
       responses:
         '200':
           description: List of repositories.
@@ -382,14 +415,17 @@ paths:
                 $ref: '#/components/schemas/RepositoryList'
         '401':
           description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createRepository
-      summary: Argo Register a repository
+      summary: Argo CD Argo Register a Repository
       description: >-
         Registers a new Git or Helm chart repository with Argo CD. Supports
         HTTPS, SSH, and GitHub App authentication methods.
       tags:
-        - Repositories
+      - Repositories
       requestBody:
         required: true
         content:
@@ -407,20 +443,23 @@ paths:
           description: Bad request.
         '401':
           description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /repositories/{repo}:
     delete:
       operationId: deleteRepository
-      summary: Argo Delete a repository
+      summary: Argo CD Argo Delete a Repository
       description: Removes the named repository registration from Argo CD.
       tags:
-        - Repositories
+      - Repositories
       parameters:
-        - name: repo
-          in: path
-          required: true
-          description: Repository URL (URL-encoded).
-          schema:
-            type: string
+      - name: repo
+        in: path
+        required: true
+        description: Repository URL (URL-encoded).
+        schema:
+          type: string
       responses:
         '200':
           description: Repository deleted.
@@ -428,15 +467,18 @@ paths:
           description: Unauthorized.
         '404':
           description: Repository not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /clusters:
     get:
       operationId: listClusters
-      summary: Argo List clusters
+      summary: Argo CD Argo List Clusters
       description: >-
         Returns all registered Kubernetes clusters available as deployment
         targets for Argo CD applications.
       tags:
-        - Clusters
+      - Clusters
       responses:
         '200':
           description: List of clusters.
@@ -446,15 +488,18 @@ paths:
                 $ref: '#/components/schemas/ClusterList'
         '401':
           description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createCluster
-      summary: Argo Register a cluster
+      summary: Argo CD Argo Register a Cluster
       description: >-
         Registers a new Kubernetes cluster as a deployment target. The
         cluster must be reachable from the Argo CD server and the provided
         credentials must have sufficient permissions.
       tags:
-        - Clusters
+      - Clusters
       requestBody:
         required: true
         content:
@@ -472,15 +517,18 @@ paths:
           description: Bad request.
         '401':
           description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /session:
     post:
       operationId: createSession
-      summary: Argo Create a session (login)
+      summary: Argo CD Argo Create a Session (login)
       description: >-
         Authenticates with username and password or SSO token and returns
         a bearer token for use in subsequent API requests.
       tags:
-        - Session
+      - Session
       security: []
       requestBody:
         required: true
@@ -509,26 +557,32 @@ paths:
                     description: Bearer token for subsequent API calls.
         '401':
           description: Invalid credentials.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteSession
-      summary: Argo Delete a session (logout)
+      summary: Argo CD Argo Delete a Session (logout)
       description: Invalidates the current bearer token, logging out the authenticated user.
       tags:
-        - Session
+      - Session
       responses:
         '200':
           description: Session deleted.
         '401':
           description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /version:
     get:
       operationId: getVersion
-      summary: Argo Get server version
+      summary: Argo CD Argo Get Server Version
       description: >-
         Returns the Argo CD server version, build date, Git commit SHA,
         Go version, and Kubernetes server version.
       tags:
-        - Version
+      - Version
       security: []
       responses:
         '200':
@@ -537,15 +591,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VersionMessage'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /settings:
     get:
       operationId: getSettings
-      summary: Argo Get server settings
+      summary: Argo CD Argo Get Server Settings
       description: >-
         Returns the Argo CD server configuration including OIDC settings,
         Helm settings, resource tracking method, and UI customization.
       tags:
-        - Settings
+      - Settings
       responses:
         '200':
           description: Server settings.
@@ -555,6 +612,9 @@ paths:
                 $ref: '#/components/schemas/Settings'
         '401':
           description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:

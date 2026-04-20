@@ -1,0 +1,10 @@
+{
+  "version": "v3.6.0",
+  "buildDate": "example-value",
+  "gitCommit": "example-value",
+  "gitTag": "example-value",
+  "gitTreeState": "example-value",
+  "goVersion": "v3.6.0",
+  "compiler": "example-value",
+  "platform": "example-value"
+}

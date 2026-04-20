@@ -1,0 +1,17 @@
+{
+  "id": "wf-abc123",
+  "name": "my-workflow",
+  "displayName": "my-workflow",
+  "type": "Suspend",
+  "templateName": "my-workflow",
+  "phase": "Running",
+  "startedAt": "example-value",
+  "finishedAt": "example-value",
+  "message": "Completed successfully",
+  "children": [
+    "example-value",
+    "example-value"
+  ],
+  "inputs": "example-value",
+  "outputs": "example-value"
+}

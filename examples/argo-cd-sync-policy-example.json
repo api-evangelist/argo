@@ -1,0 +1,19 @@
+{
+  "automated": {
+    "prune": false,
+    "selfHeal": false,
+    "allowEmpty": false
+  },
+  "syncOptions": [
+    "example-value",
+    "example-value"
+  ],
+  "retry": {
+    "limit": 70,
+    "backoff": {
+      "duration": "example-value",
+      "factor": 82,
+      "maxDuration": "example-value"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-cron-workflow-status-schema.json",
+  "title": "CronWorkflowStatus",
+  "description": "Status of a cron workflow",
+  "type": "object",
+  "properties": {
+    "active": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "lastScheduledTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

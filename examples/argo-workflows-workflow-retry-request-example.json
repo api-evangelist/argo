@@ -1,0 +1,10 @@
+{
+  "namespace": "my-workflow",
+  "name": "my-workflow",
+  "restartSuccessful": true,
+  "nodeFieldSelector": "example-value",
+  "parameters": [
+    "example-value",
+    "example-value"
+  ]
+}

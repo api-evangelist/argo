@@ -13,32 +13,32 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-  - url: https://{host}:{port}/api/v1
-    description: Argo Workflows Server
-    variables:
-      host:
-        default: localhost
-      port:
-        default: '2746'
+- url: https://{host}:{port}/api/v1
+  description: Argo Workflows Server
+  variables:
+    host:
+      default: localhost
+    port:
+      default: '2746'
 tags:
-  - name: Cron Workflows
-    description: Operations for managing scheduled cron workflows
-  - name: Info
-    description: Server information and version endpoints
-  - name: Workflow Archives
-    description: Operations for accessing archived workflow records
-  - name: Workflow Templates
-    description: Operations for managing reusable workflow templates
-  - name: Workflows
-    description: Operations for managing workflow executions
+- name: Cron Workflows
+  description: Operations for managing scheduled cron workflows
+- name: Info
+  description: Server information and version endpoints
+- name: Workflow Archives
+  description: Operations for accessing archived workflow records
+- name: Workflow Templates
+  description: Operations for managing reusable workflow templates
+- name: Workflows
+  description: Operations for managing workflow executions
 paths:
   /info:
     get:
       operationId: getInfo
-      summary: Argo Get server info
+      summary: Argo Workflows Argo Get Server Info
       description: Returns information about the Argo Workflows server including version and managed namespace.
       tags:
-        - Info
+      - Info
       responses:
         '200':
           description: Server information
@@ -46,13 +46,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InfoResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /version:
     get:
       operationId: getVersion
-      summary: Argo Get server version
+      summary: Argo Workflows Argo Get Server Version
       description: Returns the version of the Argo Workflows server.
       tags:
-        - Info
+      - Info
       responses:
         '200':
           description: Version information
@@ -60,41 +63,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Version'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows/{namespace}:
     get:
       operationId: listWorkflows
-      summary: Argo List workflows
+      summary: Argo Workflows Argo List Workflows
       description: Returns a list of workflows in the specified namespace.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - name: listOptions.labelSelector
-          in: query
-          description: Label selector to filter workflows
-          schema:
-            type: string
-        - name: listOptions.fieldSelector
-          in: query
-          description: Field selector to filter workflows
-          schema:
-            type: string
-        - name: listOptions.limit
-          in: query
-          description: Maximum number of workflows to return
-          schema:
-            type: integer
-            format: int64
-        - name: listOptions.continue
-          in: query
-          description: Continue token for pagination
-          schema:
-            type: string
-        - name: fields
-          in: query
-          description: Fields to include in the response
-          schema:
-            type: string
+      - $ref: '#/components/parameters/Namespace'
+      - name: listOptions.labelSelector
+        in: query
+        description: Label selector to filter workflows
+        schema:
+          type: string
+      - name: listOptions.fieldSelector
+        in: query
+        description: Field selector to filter workflows
+        schema:
+          type: string
+      - name: listOptions.limit
+        in: query
+        description: Maximum number of workflows to return
+        schema:
+          type: integer
+          format: int64
+      - name: listOptions.continue
+        in: query
+        description: Continue token for pagination
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Fields to include in the response
+        schema:
+          type: string
       responses:
         '200':
           description: List of workflows
@@ -102,14 +108,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowList'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createWorkflow
-      summary: Argo Create a workflow
+      summary: Argo Workflows Argo Create a Workflow
       description: Creates a new workflow in the specified namespace.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Namespace'
       requestBody:
         required: true
         content:
@@ -123,26 +132,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows/{namespace}/{name}:
     get:
       operationId: getWorkflow
-      summary: Argo Get a workflow
+      summary: Argo Workflows Argo Get a Workflow
       description: Returns a specific workflow by name in the specified namespace.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/WorkflowName'
-        - name: getOptions.resourceVersion
-          in: query
-          description: Resource version for optimistic concurrency
-          schema:
-            type: string
-        - name: fields
-          in: query
-          description: Fields to include in the response
-          schema:
-            type: string
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      - name: getOptions.resourceVersion
+        in: query
+        description: Resource version for optimistic concurrency
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Fields to include in the response
+        schema:
+          type: string
       responses:
         '200':
           description: Workflow details
@@ -150,26 +162,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteWorkflow
-      summary: Argo Delete a workflow
+      summary: Argo Workflows Argo Delete a Workflow
       description: Deletes a specific workflow by name in the specified namespace.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/WorkflowName'
-        - name: deleteOptions.gracePeriodSeconds
-          in: query
-          description: Grace period for deletion in seconds
-          schema:
-            type: integer
-            format: int64
-        - name: force
-          in: query
-          description: Force deletion of the workflow
-          schema:
-            type: boolean
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      - name: deleteOptions.gracePeriodSeconds
+        in: query
+        description: Grace period for deletion in seconds
+        schema:
+          type: integer
+          format: int64
+      - name: force
+        in: query
+        description: Force deletion of the workflow
+        schema:
+          type: boolean
       responses:
         '200':
           description: Workflow deleted
@@ -177,16 +192,19 @@ paths:
             application/json:
               schema:
                 type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows/{namespace}/{name}/retry:
     put:
       operationId: retryWorkflow
-      summary: Argo Retry a workflow
+      summary: Argo Workflows Argo Retry a Workflow
       description: Retries a failed or errored workflow.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/WorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
       requestBody:
         required: true
         content:
@@ -200,16 +218,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows/{namespace}/{name}/resubmit:
     put:
       operationId: resubmitWorkflow
-      summary: Argo Resubmit a workflow
+      summary: Argo Workflows Argo Resubmit a Workflow
       description: Resubmits a completed workflow as a new workflow.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/WorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
       requestBody:
         required: true
         content:
@@ -223,16 +244,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows/{namespace}/{name}/resume:
     put:
       operationId: resumeWorkflow
-      summary: Argo Resume a workflow
+      summary: Argo Workflows Argo Resume a Workflow
       description: Resumes a suspended workflow.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/WorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
       requestBody:
         required: true
         content:
@@ -246,16 +270,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows/{namespace}/{name}/suspend:
     put:
       operationId: suspendWorkflow
-      summary: Argo Suspend a workflow
+      summary: Argo Workflows Argo Suspend a Workflow
       description: Suspends a running workflow.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/WorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
       requestBody:
         required: true
         content:
@@ -274,16 +301,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows/{namespace}/{name}/stop:
     put:
       operationId: stopWorkflow
-      summary: Argo Stop a workflow
+      summary: Argo Workflows Argo Stop a Workflow
       description: Stops a running workflow.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/WorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
       requestBody:
         required: true
         content:
@@ -297,16 +327,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows/{namespace}/{name}/terminate:
     put:
       operationId: terminateWorkflow
-      summary: Argo Terminate a workflow
+      summary: Argo Workflows Argo Terminate a Workflow
       description: Terminates a running workflow immediately.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/WorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
       requestBody:
         required: true
         content:
@@ -325,48 +358,51 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflows/{namespace}/{name}/log:
     get:
       operationId: getWorkflowLog
-      summary: Argo Get workflow logs
+      summary: Argo Workflows Argo Get Workflow Logs
       description: Returns logs for a specific workflow.
       tags:
-        - Workflows
+      - Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/WorkflowName'
-        - name: podName
-          in: query
-          description: Name of the pod to get logs from
-          schema:
-            type: string
-        - name: logOptions.container
-          in: query
-          description: Container name to get logs from
-          schema:
-            type: string
-        - name: logOptions.follow
-          in: query
-          description: Follow the log stream
-          schema:
-            type: boolean
-        - name: logOptions.sinceSeconds
-          in: query
-          description: Relative time in seconds to start streaming logs
-          schema:
-            type: integer
-            format: int64
-        - name: logOptions.tailLines
-          in: query
-          description: Number of lines from the end of the logs to show
-          schema:
-            type: integer
-            format: int64
-        - name: grep
-          in: query
-          description: Grep pattern to filter log lines
-          schema:
-            type: string
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      - name: podName
+        in: query
+        description: Name of the pod to get logs from
+        schema:
+          type: string
+      - name: logOptions.container
+        in: query
+        description: Container name to get logs from
+        schema:
+          type: string
+      - name: logOptions.follow
+        in: query
+        description: Follow the log stream
+        schema:
+          type: boolean
+      - name: logOptions.sinceSeconds
+        in: query
+        description: Relative time in seconds to start streaming logs
+        schema:
+          type: integer
+          format: int64
+      - name: logOptions.tailLines
+        in: query
+        description: Number of lines from the end of the logs to show
+        schema:
+          type: integer
+          format: int64
+      - name: grep
+        in: query
+        description: Grep pattern to filter log lines
+        schema:
+          type: string
       responses:
         '200':
           description: Workflow logs
@@ -374,20 +410,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogEntry'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflow-templates/{namespace}:
     get:
       operationId: listWorkflowTemplates
-      summary: Argo List workflow templates
+      summary: Argo Workflows Argo List Workflow Templates
       description: Returns a list of workflow templates in the specified namespace.
       tags:
-        - Workflow Templates
+      - Workflow Templates
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - name: listOptions.labelSelector
-          in: query
-          description: Label selector to filter templates
-          schema:
-            type: string
+      - $ref: '#/components/parameters/Namespace'
+      - name: listOptions.labelSelector
+        in: query
+        description: Label selector to filter templates
+        schema:
+          type: string
       responses:
         '200':
           description: List of workflow templates
@@ -395,14 +434,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowTemplateList'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createWorkflowTemplate
-      summary: Argo Create a workflow template
+      summary: Argo Workflows Argo Create a Workflow Template
       description: Creates a new workflow template in the specified namespace.
       tags:
-        - Workflow Templates
+      - Workflow Templates
       parameters:
-        - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Namespace'
       requestBody:
         required: true
         content:
@@ -416,16 +458,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowTemplate'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /workflow-templates/{namespace}/{name}:
     get:
       operationId: getWorkflowTemplate
-      summary: Argo Get a workflow template
+      summary: Argo Workflows Argo Get a Workflow Template
       description: Returns a specific workflow template by name.
       tags:
-        - Workflow Templates
+      - Workflow Templates
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/TemplateName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/TemplateName'
       responses:
         '200':
           description: Workflow template details
@@ -433,15 +478,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowTemplate'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateWorkflowTemplate
-      summary: Argo Update a workflow template
+      summary: Argo Workflows Argo Update a Workflow Template
       description: Updates an existing workflow template.
       tags:
-        - Workflow Templates
+      - Workflow Templates
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/TemplateName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/TemplateName'
       requestBody:
         required: true
         content:
@@ -455,15 +503,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowTemplate'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteWorkflowTemplate
-      summary: Argo Delete a workflow template
+      summary: Argo Workflows Argo Delete a Workflow Template
       description: Deletes a specific workflow template by name.
       tags:
-        - Workflow Templates
+      - Workflow Templates
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/TemplateName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/TemplateName'
       responses:
         '200':
           description: Workflow template deleted
@@ -471,20 +522,23 @@ paths:
             application/json:
               schema:
                 type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cron-workflows/{namespace}:
     get:
       operationId: listCronWorkflows
-      summary: Argo List cron workflows
+      summary: Argo Workflows Argo List Cron Workflows
       description: Returns a list of cron workflows in the specified namespace.
       tags:
-        - Cron Workflows
+      - Cron Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - name: listOptions.labelSelector
-          in: query
-          description: Label selector to filter cron workflows
-          schema:
-            type: string
+      - $ref: '#/components/parameters/Namespace'
+      - name: listOptions.labelSelector
+        in: query
+        description: Label selector to filter cron workflows
+        schema:
+          type: string
       responses:
         '200':
           description: List of cron workflows
@@ -492,14 +546,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CronWorkflowList'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createCronWorkflow
-      summary: Argo Create a cron workflow
+      summary: Argo Workflows Argo Create a Cron Workflow
       description: Creates a new cron workflow in the specified namespace.
       tags:
-        - Cron Workflows
+      - Cron Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Namespace'
       requestBody:
         required: true
         content:
@@ -513,16 +570,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CronWorkflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cron-workflows/{namespace}/{name}:
     get:
       operationId: getCronWorkflow
-      summary: Argo Get a cron workflow
+      summary: Argo Workflows Argo Get a Cron Workflow
       description: Returns a specific cron workflow by name.
       tags:
-        - Cron Workflows
+      - Cron Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/CronWorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/CronWorkflowName'
       responses:
         '200':
           description: Cron workflow details
@@ -530,15 +590,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CronWorkflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateCronWorkflow
-      summary: Argo Update a cron workflow
+      summary: Argo Workflows Argo Update a Cron Workflow
       description: Updates an existing cron workflow.
       tags:
-        - Cron Workflows
+      - Cron Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/CronWorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/CronWorkflowName'
       requestBody:
         required: true
         content:
@@ -552,15 +615,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CronWorkflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteCronWorkflow
-      summary: Argo Delete a cron workflow
+      summary: Argo Workflows Argo Delete a Cron Workflow
       description: Deletes a specific cron workflow by name.
       tags:
-        - Cron Workflows
+      - Cron Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/CronWorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/CronWorkflowName'
       responses:
         '200':
           description: Cron workflow deleted
@@ -568,16 +634,19 @@ paths:
             application/json:
               schema:
                 type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cron-workflows/{namespace}/{name}/resume:
     put:
       operationId: resumeCronWorkflow
-      summary: Argo Resume a cron workflow
+      summary: Argo Workflows Argo Resume a Cron Workflow
       description: Resumes a previously suspended cron workflow.
       tags:
-        - Cron Workflows
+      - Cron Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/CronWorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/CronWorkflowName'
       responses:
         '200':
           description: Cron workflow resumed
@@ -585,16 +654,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CronWorkflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cron-workflows/{namespace}/{name}/suspend:
     put:
       operationId: suspendCronWorkflow
-      summary: Argo Suspend a cron workflow
+      summary: Argo Workflows Argo Suspend a Cron Workflow
       description: Suspends an active cron workflow.
       tags:
-        - Cron Workflows
+      - Cron Workflows
       parameters:
-        - $ref: '#/components/parameters/Namespace'
-        - $ref: '#/components/parameters/CronWorkflowName'
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/CronWorkflowName'
       responses:
         '200':
           description: Cron workflow suspended
@@ -602,35 +674,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CronWorkflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /archived-workflows:
     get:
       operationId: listArchivedWorkflows
-      summary: Argo List archived workflows
+      summary: Argo Workflows Argo List Archived Workflows
       description: Returns a list of archived workflows.
       tags:
-        - Workflow Archives
+      - Workflow Archives
       parameters:
-        - name: listOptions.labelSelector
-          in: query
-          description: Label selector to filter archived workflows
-          schema:
-            type: string
-        - name: listOptions.limit
-          in: query
-          description: Maximum number of results to return
-          schema:
-            type: integer
-            format: int64
-        - name: listOptions.continue
-          in: query
-          description: Continue token for pagination
-          schema:
-            type: string
-        - name: namespace
-          in: query
-          description: Namespace to filter archived workflows
-          schema:
-            type: string
+      - name: listOptions.labelSelector
+        in: query
+        description: Label selector to filter archived workflows
+        schema:
+          type: string
+      - name: listOptions.limit
+        in: query
+        description: Maximum number of results to return
+        schema:
+          type: integer
+          format: int64
+      - name: listOptions.continue
+        in: query
+        description: Continue token for pagination
+        schema:
+          type: string
+      - name: namespace
+        in: query
+        description: Namespace to filter archived workflows
+        schema:
+          type: string
       responses:
         '200':
           description: List of archived workflows
@@ -638,20 +713,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowList'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /archived-workflows/{uid}:
     get:
       operationId: getArchivedWorkflow
-      summary: Argo Get an archived workflow
+      summary: Argo Workflows Argo Get an Archived Workflow
       description: Returns a specific archived workflow by UID.
       tags:
-        - Workflow Archives
+      - Workflow Archives
       parameters:
-        - name: uid
-          in: path
-          required: true
-          description: UID of the archived workflow
-          schema:
-            type: string
+      - name: uid
+        in: path
+        required: true
+        description: UID of the archived workflow
+        schema:
+          type: string
       responses:
         '200':
           description: Archived workflow details
@@ -659,19 +737,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteArchivedWorkflow
-      summary: Argo Delete an archived workflow
+      summary: Argo Workflows Argo Delete an Archived Workflow
       description: Deletes a specific archived workflow by UID.
       tags:
-        - Workflow Archives
+      - Workflow Archives
       parameters:
-        - name: uid
-          in: path
-          required: true
-          description: UID of the archived workflow
-          schema:
-            type: string
+      - name: uid
+        in: path
+        required: true
+        description: UID of the archived workflow
+        schema:
+          type: string
       responses:
         '200':
           description: Archived workflow deleted
@@ -679,6 +760,9 @@ paths:
             application/json:
               schema:
                 type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     BearerAuth:
@@ -849,10 +933,10 @@ components:
             strategy:
               type: string
               enum:
-                - OnPodCompletion
-                - OnPodSuccess
-                - OnWorkflowCompletion
-                - OnWorkflowSuccess
+              - OnPodCompletion
+              - OnPodSuccess
+              - OnWorkflowCompletion
+              - OnWorkflowSuccess
         workflowTemplateRef:
           type: object
           description: Reference to a WorkflowTemplate
@@ -942,12 +1026,12 @@ components:
             action:
               type: string
               enum:
-                - get
-                - create
-                - apply
-                - delete
-                - replace
-                - patch
+              - get
+              - create
+              - apply
+              - delete
+              - replace
+              - patch
             manifest:
               type: string
             successCondition:
@@ -1170,10 +1254,10 @@ components:
         retryPolicy:
           type: string
           enum:
-            - Always
-            - OnFailure
-            - OnError
-            - OnTransientError
+          - Always
+          - OnFailure
+          - OnError
+          - OnTransientError
         backoff:
           type: object
           properties:
@@ -1190,11 +1274,11 @@ components:
         phase:
           type: string
           enum:
-            - Pending
-            - Running
-            - Succeeded
-            - Failed
-            - Error
+          - Pending
+          - Running
+          - Succeeded
+          - Failed
+          - Error
         startedAt:
           type: string
           format: date-time
@@ -1247,14 +1331,14 @@ components:
         type:
           type: string
           enum:
-            - Pod
-            - Steps
-            - StepGroup
-            - DAG
-            - TaskGroup
-            - Retry
-            - Skipped
-            - Suspend
+          - Pod
+          - Steps
+          - StepGroup
+          - DAG
+          - TaskGroup
+          - Retry
+          - Skipped
+          - Suspend
         templateName:
           type: string
         phase:
@@ -1348,9 +1432,9 @@ components:
         concurrencyPolicy:
           type: string
           enum:
-            - Allow
-            - Forbid
-            - Replace
+          - Allow
+          - Forbid
+          - Replace
         suspend:
           type: boolean
           description: Whether the cron workflow is suspended
@@ -1487,4 +1571,4 @@ components:
         podName:
           type: string
 security:
-  - BearerAuth: []
+- BearerAuth: []

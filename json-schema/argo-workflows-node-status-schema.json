@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-node-status-schema.json",
+  "title": "NodeStatus",
+  "description": "Status of a workflow node",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Pod",
+        "Steps",
+        "StepGroup",
+        "DAG",
+        "TaskGroup",
+        "Retry",
+        "Skipped",
+        "Suspend"
+      ]
+    },
+    "templateName": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finishedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "message": {
+      "type": "string"
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "inputs": {
+      "$ref": "#/components/schemas/Inputs"
+    },
+    "outputs": {
+      "$ref": "#/components/schemas/Outputs"
+    }
+  }
+}

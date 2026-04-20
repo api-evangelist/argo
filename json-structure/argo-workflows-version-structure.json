@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-structure/argo-workflows-version-structure.json",
+  "name": "Version",
+  "description": "Version schema from Argo API",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "buildDate": {
+      "type": "string"
+    },
+    "gitCommit": {
+      "type": "string"
+    },
+    "gitTag": {
+      "type": "string"
+    },
+    "gitTreeState": {
+      "type": "string"
+    },
+    "goVersion": {
+      "type": "string"
+    },
+    "compiler": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string"
+    }
+  }
+}

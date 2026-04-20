@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-cd-application-status-schema.json",
+  "title": "ApplicationStatus",
+  "description": "Observed state and operational status of an Argo CD application.",
+  "type": "object",
+  "properties": {
+    "sync": {
+      "type": "object",
+      "description": "Current sync status.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Sync status (Synced, OutOfSync, Unknown).",
+          "enum": [
+            "Synced",
+            "OutOfSync",
+            "Unknown"
+          ]
+        },
+        "revision": {
+          "type": "string",
+          "description": "Deployed Git revision (commit SHA)."
+        }
+      }
+    },
+    "health": {
+      "type": "object",
+      "description": "Current health status.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Health status (Healthy, Progressing, Degraded, Suspended, Missing, Unknown).",
+          "enum": [
+            "Healthy",
+            "Progressing",
+            "Degraded",
+            "Suspended",
+            "Missing",
+            "Unknown"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable health status message."
+        }
+      }
+    },
+    "operationState": {
+      "type": "object",
+      "description": "State of the current or most recent operation.",
+      "properties": {
+        "phase": {
+          "type": "string",
+          "description": "Operation phase (Running, Failed, Succeeded, Error, Terminating)."
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable operation status message."
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the operation started."
+        },
+        "finishedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the operation finished."
+        }
+      }
+    }
+  }
+}

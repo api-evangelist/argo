@@ -1,0 +1,129 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Argo Platform"
+  description: "Unified capability combining all Argo Project tools — Workflows, CD, Events, and Rollouts — for a complete Kubernetes-native DevOps and ML platform. Serves Platform Engineers and DevOps teams."
+  tags:
+    - Argo
+    - GitOps
+    - Kubernetes
+    - Workflow Engine
+    - CNCF
+    - Platform Engineering
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      ARGO_TOKEN: ARGO_TOKEN
+      ARGO_SERVER: ARGO_SERVER
+      ARGOCD_TOKEN: ARGOCD_TOKEN
+      ARGOCD_SERVER: ARGOCD_SERVER
+
+capability:
+  consumes:
+    - import: argoworkflows
+      location: ./shared/argo-workflows-api.yaml
+    - import: argocd
+      location: ./shared/argo-cd-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8082
+      namespace: argo-platform-api
+      description: "Unified REST API for the complete Argo Project platform."
+      resources:
+        - path: /v1/workflows/{namespace}
+          name: workflows
+          description: "Workflow management"
+          operations:
+            - method: GET
+              name: list-workflows
+              description: "List all workflows"
+              call: "argoworkflows.list-workflows"
+              with:
+                namespace: "rest.namespace"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-workflow
+              description: "Submit a new workflow"
+              call: "argoworkflows.create-workflow"
+              with:
+                namespace: "rest.namespace"
+                workflow: "rest.workflow"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/applications
+          name: applications
+          description: "GitOps application management"
+          operations:
+            - method: GET
+              name: list-applications
+              description: "List Argo CD applications"
+              call: "argocd.list-applications"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: sync-application
+              description: "Sync an application from Git"
+              call: "argocd.sync-application"
+              with:
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9092
+      namespace: argo-platform-mcp
+      transport: http
+      description: "MCP server for AI-assisted Argo platform operations."
+      tools:
+        - name: workflows-list
+          description: "List all Argo Workflows in a namespace"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "argoworkflows.list-workflows"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: workflows-create
+          description: "Submit a new Argo Workflow"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "argoworkflows.create-workflow"
+          with:
+            namespace: "tools.namespace"
+            workflow: "tools.workflow"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: applications-list
+          description: "List all Argo CD applications with sync and health status"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "argocd.list-applications"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: applications-sync
+          description: "Trigger an Argo CD application sync from Git"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "argocd.sync-application"
+          with:
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."

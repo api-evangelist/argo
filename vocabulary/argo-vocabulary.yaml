@@ -1,0 +1,148 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Argo"
+  description: "Vocabulary for the Argo Project — a collection of open-source Kubernetes-native tools including Workflows, CD, Events, and Rollouts."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: argoworkflows
+      version: "3.6.0"
+      baseUrl: "/api/v1"
+      status: active
+      description: "Argo Workflows REST API"
+    - namespace: argocd
+      version: "2.14.0"
+      baseUrl: "/api/v1"
+      status: active
+      description: "Argo CD REST API"
+
+  resources:
+    - name: workflows
+      api: argoworkflows
+      actions: [list, get, create, delete, stop, retry]
+      description: "Workflow instances"
+    - name: workflow-templates
+      api: argoworkflows
+      actions: [list, get, create, update, delete]
+      description: "Reusable workflow templates"
+    - name: cron-workflows
+      api: argoworkflows
+      actions: [list, get, create, delete]
+      description: "Scheduled workflows"
+    - name: applications
+      api: argocd
+      actions: [list, get, create, update, delete, sync]
+      description: "Argo CD GitOps applications"
+    - name: clusters
+      api: argocd
+      actions: [list, get, create, delete]
+      description: "Registered Kubernetes clusters"
+    - name: repositories
+      api: argocd
+      actions: [list, get, create, delete]
+      description: "Git repositories"
+    - name: projects
+      api: argocd
+      actions: [list, get, create, update, delete]
+      description: "Argo CD projects"
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+    - name: get
+      httpMethod: GET
+      pattern: read
+    - name: create
+      httpMethod: POST
+      pattern: write
+    - name: update
+      httpMethod: PUT
+      pattern: write
+    - name: delete
+      httpMethod: DELETE
+      pattern: destructive
+    - name: sync
+      httpMethod: POST
+      pattern: write
+    - name: stop
+      httpMethod: PUT
+      pattern: write
+    - name: retry
+      httpMethod: PUT
+      pattern: write
+
+  authentication:
+    schemes:
+      - type: bearer
+        description: "JWT bearer token"
+        header: Authorization
+
+capability:
+  workflows:
+    - name: Argo Platform
+      file: capabilities/argo-platform.yaml
+      description: "Complete Argo Project platform combining Workflows and CD for DevOps teams"
+      apisCombined: [argoworkflows, argocd]
+      toolCount: 4
+      personas: [Platform Engineer, DevOps Engineer]
+      domains: [GitOps, Workflow Orchestration, Kubernetes]
+
+  personas:
+    - id: platform-engineer
+      name: Platform Engineer
+      description: "Manages Kubernetes platform tools including Argo Workflows and Argo CD"
+      workflows: [Argo Platform]
+    - id: devops-engineer
+      name: DevOps Engineer
+      description: "Uses Argo tools for CI/CD and GitOps workflows"
+      workflows: [Argo Platform]
+
+  domains:
+    - name: GitOps
+      description: "Git-driven deployment and infrastructure management"
+    - name: Workflow Orchestration
+      description: "Container-native workflow execution"
+    - name: Kubernetes
+      description: "Container orchestration platform"
+
+  namespaces:
+    - name: argoworkflows
+      type: consumed
+      source: shared/argo-workflows-api.yaml
+    - name: argocd
+      type: consumed
+      source: shared/argo-cd-api.yaml
+    - name: argo-platform-api
+      type: rest-exposed
+      port: 8082
+    - name: argo-platform-mcp
+      type: mcp-exposed
+      port: 9092
+
+  binds:
+    - name: ARGO_TOKEN
+      description: "Argo Workflows JWT token"
+      workflows: [Argo Platform]
+    - name: ARGO_SERVER
+      description: "Argo Workflows server URL"
+      workflows: [Argo Platform]
+    - name: ARGOCD_TOKEN
+      description: "Argo CD JWT token"
+      workflows: [Argo Platform]
+    - name: ARGOCD_SERVER
+      description: "Argo CD server URL"
+      workflows: [Argo Platform]
+
+crossReference:
+  - resource: workflows
+    operations: [list, create]
+    workflows: [Argo Platform]
+    personas: [Platform Engineer, DevOps Engineer]
+  - resource: applications
+    operations: [list, sync]
+    workflows: [Argo Platform]
+    personas: [Platform Engineer, DevOps Engineer]

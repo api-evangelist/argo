@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-cd-sync-request-schema.json",
+  "title": "SyncRequest",
+  "description": "Request body for triggering an application sync operation.",
+  "type": "object",
+  "properties": {
+    "revision": {
+      "type": "string",
+      "description": "Specific Git revision to sync to. Defaults to the current target revision."
+    },
+    "dryRun": {
+      "type": "boolean",
+      "description": "Preview sync without applying changes."
+    },
+    "prune": {
+      "type": "boolean",
+      "description": "Delete resources no longer defined in the source."
+    },
+    "strategy": {
+      "type": "object",
+      "description": "Sync strategy configuration.",
+      "properties": {
+        "apply": {
+          "type": "object",
+          "description": "Use kubectl apply sync strategy.",
+          "properties": {
+            "force": {
+              "type": "boolean",
+              "description": "Force resource updates through delete and recreate."
+            }
+          }
+        },
+        "hook": {
+          "type": "object",
+          "description": "Use hook-based sync strategy.",
+          "properties": {
+            "force": {
+              "type": "boolean",
+              "description": "Force resource updates."
+            }
+          }
+        }
+      }
+    },
+    "resources": {
+      "type": "array",
+      "description": "Specific resources to sync (partial sync).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "group": {
+            "type": "string",
+            "description": "Kubernetes API group."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Resource kind."
+          },
+          "name": {
+            "type": "string",
+            "description": "Resource name."
+          },
+          "namespace": {
+            "type": "string",
+            "description": "Resource namespace."
+          }
+        }
+      }
+    }
+  }
+}

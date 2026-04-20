@@ -1,0 +1,22 @@
+{
+  "repoURL": "https://example.com",
+  "path": "example-value",
+  "targetRevision": "example-value",
+  "chart": "example-value",
+  "helm": {
+    "valueFiles": [
+      "example-value",
+      "example-value"
+    ],
+    "values": "example-value",
+    "releaseName": "my-workflow"
+  },
+  "kustomize": {
+    "namePrefix": "my-workflow",
+    "nameSuffix": "my-workflow",
+    "images": [
+      "example-value",
+      "example-value"
+    ]
+  }
+}

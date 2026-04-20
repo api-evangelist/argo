@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/json-schema/argo-workflows-workflow-spec-schema.json",
+  "title": "WorkflowSpec",
+  "description": "Specification of a workflow",
+  "type": "object",
+  "properties": {
+    "entrypoint": {
+      "type": "string",
+      "description": "The name of the entrypoint template"
+    },
+    "arguments": {
+      "$ref": "#/components/schemas/Arguments"
+    },
+    "templates": {
+      "type": "array",
+      "description": "List of workflow templates",
+      "items": {
+        "$ref": "#/components/schemas/Template"
+      }
+    },
+    "serviceAccountName": {
+      "type": "string",
+      "description": "Service account to run workflow pods"
+    },
+    "volumes": {
+      "type": "array",
+      "description": "Volumes available to workflow steps",
+      "items": {
+        "type": "object"
+      }
+    },
+    "activeDeadlineSeconds": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Duration in seconds before workflow times out"
+    },
+    "nodeSelector": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "tolerations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "parallelism": {
+      "type": "integer",
+      "description": "Maximum number of parallel running pods"
+    },
+    "ttlStrategy": {
+      "type": "object",
+      "description": "Strategy for cleaning up completed workflows",
+      "properties": {
+        "secondsAfterCompletion": {
+          "type": "integer"
+        },
+        "secondsAfterSuccess": {
+          "type": "integer"
+        },
+        "secondsAfterFailure": {
+          "type": "integer"
+        }
+      }
+    },
+    "podGC": {
+      "type": "object",
+      "description": "Strategy for garbage collecting completed pods",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": [
+            "OnPodCompletion",
+            "OnPodSuccess",
+            "OnWorkflowCompletion",
+            "OnWorkflowSuccess"
+          ]
+        }
+      }
+    },
+    "workflowTemplateRef": {
+      "type": "object",
+      "description": "Reference to a WorkflowTemplate",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "clusterScope": {
+          "type": "boolean"
+        }
+      }
+    },
+    "archiveLogs": {
+      "type": "boolean",
+      "description": "Whether to archive workflow logs"
+    },
+    "hooks": {
+      "type": "object",
+      "description": "Lifecycle hooks for the workflow",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "onExit": {
+      "type": "string",
+      "description": "Template to execute on workflow exit"
+    },
+    "retryStrategy": {
+      "$ref": "#/components/schemas/RetryStrategy"
+    }
+  }
+}
