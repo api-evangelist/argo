@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Argo CD API — Session
+  description: 'Argo CD API — Session. 2 operations. Lead operation: Argo CD Argo Create a Session (login). Self-contained
+    Naftiko capability covering one Argo business surface.'
+  tags:
+  - Argo
+  - Session
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ARGO_API_KEY: ARGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cd-session
+    baseUri: https://localhost/api/v1
+    description: Argo CD API — Session business capability. Self-contained, no shared references.
+    resources:
+    - name: session
+      path: /session
+      operations:
+      - name: createsession
+        method: POST
+        description: Argo CD Argo Create a Session (login)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletesession
+        method: DELETE
+        description: Argo CD Argo Delete a Session (logout)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ARGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cd-session-rest
+    port: 8080
+    description: REST adapter for Argo CD API — Session. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/session
+      name: session
+      description: REST surface for session.
+      operations:
+      - method: POST
+        name: createsession
+        description: Argo CD Argo Create a Session (login)
+        call: cd-session.createsession
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesession
+        description: Argo CD Argo Delete a Session (logout)
+        call: cd-session.deletesession
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cd-session-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Argo CD API — Session. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: argo-cd-argo-create-session
+      description: Argo CD Argo Create a Session (login)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cd-session.createsession
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-cd-argo-delete-session
+      description: Argo CD Argo Delete a Session (logout)
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: cd-session.deletesession
+      outputParameters:
+      - type: object
+        mapping: $.

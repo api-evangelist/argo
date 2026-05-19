@@ -1,0 +1,548 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Argo Workflows API — Workflows
+  description: 'Argo Workflows API — Workflows. 11 operations. Lead operation: Argo Workflows Argo List Workflows. Self-contained
+    Naftiko capability covering one Argo business surface.'
+  tags:
+  - Argo
+  - Workflows
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ARGO_API_KEY: ARGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: workflows-workflows
+    baseUri: https://{host}:{port}/api/v1
+    description: Argo Workflows API — Workflows business capability. Self-contained, no shared references.
+    resources:
+    - name: workflows-namespace
+      path: /workflows/{namespace}
+      operations:
+      - name: listworkflows
+        method: GET
+        description: Argo Workflows Argo List Workflows
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: listOptions.labelSelector
+          in: query
+          type: string
+          description: Label selector to filter workflows
+        - name: listOptions.fieldSelector
+          in: query
+          type: string
+          description: Field selector to filter workflows
+        - name: listOptions.limit
+          in: query
+          type: integer
+          description: Maximum number of workflows to return
+        - name: listOptions.continue
+          in: query
+          type: string
+          description: Continue token for pagination
+        - name: fields
+          in: query
+          type: string
+          description: Fields to include in the response
+      - name: createworkflow
+        method: POST
+        description: Argo Workflows Argo Create a Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workflows-namespace-name
+      path: /workflows/{namespace}/{name}
+      operations:
+      - name: getworkflow
+        method: GET
+        description: Argo Workflows Argo Get a Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: getOptions.resourceVersion
+          in: query
+          type: string
+          description: Resource version for optimistic concurrency
+        - name: fields
+          in: query
+          type: string
+          description: Fields to include in the response
+      - name: deleteworkflow
+        method: DELETE
+        description: Argo Workflows Argo Delete a Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: deleteOptions.gracePeriodSeconds
+          in: query
+          type: integer
+          description: Grace period for deletion in seconds
+        - name: force
+          in: query
+          type: boolean
+          description: Force deletion of the workflow
+    - name: workflows-namespace-name-log
+      path: /workflows/{namespace}/{name}/log
+      operations:
+      - name: getworkflowlog
+        method: GET
+        description: Argo Workflows Argo Get Workflow Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: podName
+          in: query
+          type: string
+          description: Name of the pod to get logs from
+        - name: logOptions.container
+          in: query
+          type: string
+          description: Container name to get logs from
+        - name: logOptions.follow
+          in: query
+          type: boolean
+          description: Follow the log stream
+        - name: logOptions.sinceSeconds
+          in: query
+          type: integer
+          description: Relative time in seconds to start streaming logs
+        - name: logOptions.tailLines
+          in: query
+          type: integer
+          description: Number of lines from the end of the logs to show
+        - name: grep
+          in: query
+          type: string
+          description: Grep pattern to filter log lines
+    - name: workflows-namespace-name-resubmit
+      path: /workflows/{namespace}/{name}/resubmit
+      operations:
+      - name: resubmitworkflow
+        method: PUT
+        description: Argo Workflows Argo Resubmit a Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workflows-namespace-name-resume
+      path: /workflows/{namespace}/{name}/resume
+      operations:
+      - name: resumeworkflow
+        method: PUT
+        description: Argo Workflows Argo Resume a Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workflows-namespace-name-retry
+      path: /workflows/{namespace}/{name}/retry
+      operations:
+      - name: retryworkflow
+        method: PUT
+        description: Argo Workflows Argo Retry a Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workflows-namespace-name-stop
+      path: /workflows/{namespace}/{name}/stop
+      operations:
+      - name: stopworkflow
+        method: PUT
+        description: Argo Workflows Argo Stop a Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workflows-namespace-name-suspend
+      path: /workflows/{namespace}/{name}/suspend
+      operations:
+      - name: suspendworkflow
+        method: PUT
+        description: Argo Workflows Argo Suspend a Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workflows-namespace-name-terminate
+      path: /workflows/{namespace}/{name}/terminate
+      operations:
+      - name: terminateworkflow
+        method: PUT
+        description: Argo Workflows Argo Terminate a Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ARGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: workflows-workflows-rest
+    port: 8080
+    description: REST adapter for Argo Workflows API — Workflows. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/workflows/{namespace}
+      name: workflows-namespace
+      description: REST surface for workflows-namespace.
+      operations:
+      - method: GET
+        name: listworkflows
+        description: Argo Workflows Argo List Workflows
+        call: workflows-workflows.listworkflows
+        with:
+          listOptions.labelSelector: rest.listOptions.labelSelector
+          listOptions.fieldSelector: rest.listOptions.fieldSelector
+          listOptions.limit: rest.listOptions.limit
+          listOptions.continue: rest.listOptions.continue
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createworkflow
+        description: Argo Workflows Argo Create a Workflow
+        call: workflows-workflows.createworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{namespace}/{name}
+      name: workflows-namespace-name
+      description: REST surface for workflows-namespace-name.
+      operations:
+      - method: GET
+        name: getworkflow
+        description: Argo Workflows Argo Get a Workflow
+        call: workflows-workflows.getworkflow
+        with:
+          getOptions.resourceVersion: rest.getOptions.resourceVersion
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteworkflow
+        description: Argo Workflows Argo Delete a Workflow
+        call: workflows-workflows.deleteworkflow
+        with:
+          deleteOptions.gracePeriodSeconds: rest.deleteOptions.gracePeriodSeconds
+          force: rest.force
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{namespace}/{name}/log
+      name: workflows-namespace-name-log
+      description: REST surface for workflows-namespace-name-log.
+      operations:
+      - method: GET
+        name: getworkflowlog
+        description: Argo Workflows Argo Get Workflow Logs
+        call: workflows-workflows.getworkflowlog
+        with:
+          podName: rest.podName
+          logOptions.container: rest.logOptions.container
+          logOptions.follow: rest.logOptions.follow
+          logOptions.sinceSeconds: rest.logOptions.sinceSeconds
+          logOptions.tailLines: rest.logOptions.tailLines
+          grep: rest.grep
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{namespace}/{name}/resubmit
+      name: workflows-namespace-name-resubmit
+      description: REST surface for workflows-namespace-name-resubmit.
+      operations:
+      - method: PUT
+        name: resubmitworkflow
+        description: Argo Workflows Argo Resubmit a Workflow
+        call: workflows-workflows.resubmitworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{namespace}/{name}/resume
+      name: workflows-namespace-name-resume
+      description: REST surface for workflows-namespace-name-resume.
+      operations:
+      - method: PUT
+        name: resumeworkflow
+        description: Argo Workflows Argo Resume a Workflow
+        call: workflows-workflows.resumeworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{namespace}/{name}/retry
+      name: workflows-namespace-name-retry
+      description: REST surface for workflows-namespace-name-retry.
+      operations:
+      - method: PUT
+        name: retryworkflow
+        description: Argo Workflows Argo Retry a Workflow
+        call: workflows-workflows.retryworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{namespace}/{name}/stop
+      name: workflows-namespace-name-stop
+      description: REST surface for workflows-namespace-name-stop.
+      operations:
+      - method: PUT
+        name: stopworkflow
+        description: Argo Workflows Argo Stop a Workflow
+        call: workflows-workflows.stopworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{namespace}/{name}/suspend
+      name: workflows-namespace-name-suspend
+      description: REST surface for workflows-namespace-name-suspend.
+      operations:
+      - method: PUT
+        name: suspendworkflow
+        description: Argo Workflows Argo Suspend a Workflow
+        call: workflows-workflows.suspendworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflows/{namespace}/{name}/terminate
+      name: workflows-namespace-name-terminate
+      description: REST surface for workflows-namespace-name-terminate.
+      operations:
+      - method: PUT
+        name: terminateworkflow
+        description: Argo Workflows Argo Terminate a Workflow
+        call: workflows-workflows.terminateworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: workflows-workflows-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Argo Workflows API — Workflows. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: argo-workflows-argo-list-workflows
+      description: Argo Workflows Argo List Workflows
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.listworkflows
+      with:
+        listOptions.labelSelector: tools.listOptions.labelSelector
+        listOptions.fieldSelector: tools.listOptions.fieldSelector
+        listOptions.limit: tools.listOptions.limit
+        listOptions.continue: tools.listOptions.continue
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-create-workflow
+      description: Argo Workflows Argo Create a Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: workflows-workflows.createworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-get-workflow
+      description: Argo Workflows Argo Get a Workflow
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.getworkflow
+      with:
+        getOptions.resourceVersion: tools.getOptions.resourceVersion
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-delete-workflow
+      description: Argo Workflows Argo Delete a Workflow
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: workflows-workflows.deleteworkflow
+      with:
+        deleteOptions.gracePeriodSeconds: tools.deleteOptions.gracePeriodSeconds
+        force: tools.force
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-get-workflow-2
+      description: Argo Workflows Argo Get Workflow Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.getworkflowlog
+      with:
+        podName: tools.podName
+        logOptions.container: tools.logOptions.container
+        logOptions.follow: tools.logOptions.follow
+        logOptions.sinceSeconds: tools.logOptions.sinceSeconds
+        logOptions.tailLines: tools.logOptions.tailLines
+        grep: tools.grep
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-resubmit-workflow
+      description: Argo Workflows Argo Resubmit a Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.resubmitworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-resume-workflow
+      description: Argo Workflows Argo Resume a Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.resumeworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-retry-workflow
+      description: Argo Workflows Argo Retry a Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.retryworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-stop-workflow
+      description: Argo Workflows Argo Stop a Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.stopworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-suspend-workflow
+      description: Argo Workflows Argo Suspend a Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.suspendworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-terminate-workflow
+      description: Argo Workflows Argo Terminate a Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: workflows-workflows.terminateworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

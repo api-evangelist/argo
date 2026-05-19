@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Argo CD API — Settings
+  description: 'Argo CD API — Settings. 1 operations. Lead operation: Argo CD Argo Get Server Settings. Self-contained Naftiko
+    capability covering one Argo business surface.'
+  tags:
+  - Argo
+  - Settings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ARGO_API_KEY: ARGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cd-settings
+    baseUri: https://localhost/api/v1
+    description: Argo CD API — Settings business capability. Self-contained, no shared references.
+    resources:
+    - name: settings
+      path: /settings
+      operations:
+      - name: getsettings
+        method: GET
+        description: Argo CD Argo Get Server Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ARGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cd-settings-rest
+    port: 8080
+    description: REST adapter for Argo CD API — Settings. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/settings
+      name: settings
+      description: REST surface for settings.
+      operations:
+      - method: GET
+        name: getsettings
+        description: Argo CD Argo Get Server Settings
+        call: cd-settings.getsettings
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cd-settings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Argo CD API — Settings. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: argo-cd-argo-get-server
+      description: Argo CD Argo Get Server Settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cd-settings.getsettings
+      outputParameters:
+      - type: object
+        mapping: $.

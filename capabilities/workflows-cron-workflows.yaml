@@ -1,0 +1,270 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Argo Workflows API — Cron Workflows
+  description: 'Argo Workflows API — Cron Workflows. 7 operations. Lead operation: Argo Workflows Argo List Cron Workflows.
+    Self-contained Naftiko capability covering one Argo business surface.'
+  tags:
+  - Argo
+  - Cron Workflows
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ARGO_API_KEY: ARGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: workflows-cron-workflows
+    baseUri: https://{host}:{port}/api/v1
+    description: Argo Workflows API — Cron Workflows business capability. Self-contained, no shared references.
+    resources:
+    - name: cron-workflows-namespace
+      path: /cron-workflows/{namespace}
+      operations:
+      - name: listcronworkflows
+        method: GET
+        description: Argo Workflows Argo List Cron Workflows
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: listOptions.labelSelector
+          in: query
+          type: string
+          description: Label selector to filter cron workflows
+      - name: createcronworkflow
+        method: POST
+        description: Argo Workflows Argo Create a Cron Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: cron-workflows-namespace-name
+      path: /cron-workflows/{namespace}/{name}
+      operations:
+      - name: getcronworkflow
+        method: GET
+        description: Argo Workflows Argo Get a Cron Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecronworkflow
+        method: PUT
+        description: Argo Workflows Argo Update a Cron Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecronworkflow
+        method: DELETE
+        description: Argo Workflows Argo Delete a Cron Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: cron-workflows-namespace-name-resume
+      path: /cron-workflows/{namespace}/{name}/resume
+      operations:
+      - name: resumecronworkflow
+        method: PUT
+        description: Argo Workflows Argo Resume a Cron Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: cron-workflows-namespace-name-suspend
+      path: /cron-workflows/{namespace}/{name}/suspend
+      operations:
+      - name: suspendcronworkflow
+        method: PUT
+        description: Argo Workflows Argo Suspend a Cron Workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.ARGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: workflows-cron-workflows-rest
+    port: 8080
+    description: REST adapter for Argo Workflows API — Cron Workflows. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/cron-workflows/{namespace}
+      name: cron-workflows-namespace
+      description: REST surface for cron-workflows-namespace.
+      operations:
+      - method: GET
+        name: listcronworkflows
+        description: Argo Workflows Argo List Cron Workflows
+        call: workflows-cron-workflows.listcronworkflows
+        with:
+          listOptions.labelSelector: rest.listOptions.labelSelector
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcronworkflow
+        description: Argo Workflows Argo Create a Cron Workflow
+        call: workflows-cron-workflows.createcronworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cron-workflows/{namespace}/{name}
+      name: cron-workflows-namespace-name
+      description: REST surface for cron-workflows-namespace-name.
+      operations:
+      - method: GET
+        name: getcronworkflow
+        description: Argo Workflows Argo Get a Cron Workflow
+        call: workflows-cron-workflows.getcronworkflow
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecronworkflow
+        description: Argo Workflows Argo Update a Cron Workflow
+        call: workflows-cron-workflows.updatecronworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecronworkflow
+        description: Argo Workflows Argo Delete a Cron Workflow
+        call: workflows-cron-workflows.deletecronworkflow
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cron-workflows/{namespace}/{name}/resume
+      name: cron-workflows-namespace-name-resume
+      description: REST surface for cron-workflows-namespace-name-resume.
+      operations:
+      - method: PUT
+        name: resumecronworkflow
+        description: Argo Workflows Argo Resume a Cron Workflow
+        call: workflows-cron-workflows.resumecronworkflow
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cron-workflows/{namespace}/{name}/suspend
+      name: cron-workflows-namespace-name-suspend
+      description: REST surface for cron-workflows-namespace-name-suspend.
+      operations:
+      - method: PUT
+        name: suspendcronworkflow
+        description: Argo Workflows Argo Suspend a Cron Workflow
+        call: workflows-cron-workflows.suspendcronworkflow
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: workflows-cron-workflows-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Argo Workflows API — Cron Workflows. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: argo-workflows-argo-list-cron
+      description: Argo Workflows Argo List Cron Workflows
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: workflows-cron-workflows.listcronworkflows
+      with:
+        listOptions.labelSelector: tools.listOptions.labelSelector
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-create-cron
+      description: Argo Workflows Argo Create a Cron Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: workflows-cron-workflows.createcronworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-get-cron
+      description: Argo Workflows Argo Get a Cron Workflow
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: workflows-cron-workflows.getcronworkflow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-update-cron
+      description: Argo Workflows Argo Update a Cron Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: workflows-cron-workflows.updatecronworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-delete-cron
+      description: Argo Workflows Argo Delete a Cron Workflow
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: workflows-cron-workflows.deletecronworkflow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-resume-cron
+      description: Argo Workflows Argo Resume a Cron Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: workflows-cron-workflows.resumecronworkflow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: argo-workflows-argo-suspend-cron
+      description: Argo Workflows Argo Suspend a Cron Workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: workflows-cron-workflows.suspendcronworkflow
+      outputParameters:
+      - type: object
+        mapping: $.
