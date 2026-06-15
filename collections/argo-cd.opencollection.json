@@ -1,0 +1,440 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Argo CD API",
+    "version": "v2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo List Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/applications",
+            "params": [
+              {
+                "name": "project",
+                "value": "",
+                "type": "query",
+                "description": "Filter by project name."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter applications by name."
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query",
+                "description": "Filter applications by destination namespace."
+              },
+              {
+                "name": "appNamespace",
+                "value": "",
+                "type": "query",
+                "description": "The application namespace to filter by."
+              }
+            ]
+          },
+          "docs": "Returns a list of all Argo CD applications, optionally filtered by project, namespace, or name. Each application includes its current sync status, health status, source configuration, and destination cluster details."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Create an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/applications",
+            "params": [
+              {
+                "name": "upsert",
+                "value": "",
+                "type": "query",
+                "description": "If true, perform an upsert rather than a create, updating the application if it already exists."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Argo CD application from the provided Application manifest. The application must reference a valid project, source repository, and destination cluster. Optionally upsert to update an existing application with the same name."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Get an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/applications/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Argo CD application."
+              },
+              {
+                "name": "appNamespace",
+                "value": "",
+                "type": "query",
+                "description": "Application namespace."
+              }
+            ]
+          },
+          "docs": "Returns the full specification and current status of a named Argo CD application, including sync status, health status, resource tree, and operation state."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Update an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://localhost/api/v1/applications/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Argo CD application."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the specification of an existing Argo CD application with the provided manifest. Used to update source, destination, sync policy, or other application configuration."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Delete an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://localhost/api/v1/applications/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Argo CD application."
+              },
+              {
+                "name": "cascade",
+                "value": "",
+                "type": "query",
+                "description": "Cascade deletion to managed Kubernetes resources."
+              },
+              {
+                "name": "propagationPolicy",
+                "value": "",
+                "type": "query",
+                "description": "Kubernetes resource deletion propagation policy (foreground, background, orphan)."
+              }
+            ]
+          },
+          "docs": "Deletes the named Argo CD application. Optionally cascades deletion to all managed Kubernetes resources in the destination cluster."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Sync an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/applications/:name/sync",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Argo CD application."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a synchronization of the named Argo CD application, reconciling the live Kubernetes state with the desired state from the Git source. Supports selective resource sync, dry-run mode, force sync, and prune of removed resources."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Rollback an Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/applications/:name/rollback",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Argo CD application."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rolls back the named application to a previous deployed revision. Requires the ID of a history entry from the application's deployment history."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo List Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/projects"
+          },
+          "docs": "Returns all Argo CD projects. Projects provide logical grouping, access control, and policy enforcement for applications."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Create a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Argo CD project with the specified source repositories, destination clusters/namespaces, and resource allow/deny policies."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Get a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/projects/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Argo CD project."
+              }
+            ]
+          },
+          "docs": "Returns the specification and detailed information for a named project."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Delete a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://localhost/api/v1/projects/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Argo CD project."
+              }
+            ]
+          },
+          "docs": "Deletes the named Argo CD project. The project must have no associated applications before it can be deleted."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Repositories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo List Repositories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/repositories"
+          },
+          "docs": "Returns all registered Git and Helm chart repositories, including their connection status and type."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Register a Repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/repositories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new Git or Helm chart repository with Argo CD. Supports HTTPS, SSH, and GitHub App authentication methods."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Delete a Repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://localhost/api/v1/repositories/:repo",
+            "params": [
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "Repository URL (URL-encoded)."
+              }
+            ]
+          },
+          "docs": "Removes the named repository registration from Argo CD."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo List Clusters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/clusters"
+          },
+          "docs": "Returns all registered Kubernetes clusters available as deployment targets for Argo CD applications."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Register a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/clusters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new Kubernetes cluster as a deployment target. The cluster must be reachable from the Argo CD server and the provided credentials must have sufficient permissions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Session",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo Create a Session (login)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/session",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates with username and password or SSO token and returns a bearer token for use in subsequent API requests."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Delete a Session (logout)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://localhost/api/v1/session"
+          },
+          "docs": "Invalidates the current bearer token, logging out the authenticated user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Version",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo Get Server Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/version"
+          },
+          "docs": "Returns the Argo CD server version, build date, Git commit SHA, Go version, and Kubernetes server version."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo Get Server Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/settings"
+          },
+          "docs": "Returns the Argo CD server configuration including OIDC settings, Helm settings, resource tracking method, and UI customization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
