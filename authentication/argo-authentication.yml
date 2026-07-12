@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/argo-cd-openapi.yml, openapi/argo-workflows-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token obtained from the POST /session endpoint using username/password
+    or from an external OIDC provider configured in Argo CD.
+  sources:
+  - openapi/argo-cd-openapi.yml
+  - openapi/argo-workflows-openapi.yml
