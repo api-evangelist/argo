@@ -1,80 +1,140 @@
-# Argo Project Spectral Ruleset
-
+# argo — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - path-params-casing: snake @ 100% (n=50)
+#   - operationid-casing: camel @ 100% (n=48)
+#   - schema-names-casing: pascal @ 100% (n=49)
+#   - schema-properties-casing: snake @ 65% (n=233)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - merge: kept 9 existing, added 7 measured, upgraded 0
+#   - added: servers-https-only, path-params-casing, operationid-casing, schema-names-casing, schema-properties-casing, security-schemes-defined, no-empty-descriptions
+extends:
+  - spectral:oas
 rules:
-
   info-title-required:
     description: API title must be present
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: title
       function: truthy
-
   info-description-required:
     description: API must have a description
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: description
       function: truthy
-
   operation-summary-required:
     description: Every operation must have a summary
     severity: error
-    given: "$.paths[*][get,post,put,delete,patch]"
+    given: $.paths[*][get,post,put,delete,patch]
     then:
       field: summary
       function: truthy
-
   operation-operationid-required:
     description: Every operation must have an operationId
     severity: error
-    given: "$.paths[*][get,post,put,delete,patch]"
+    given: $.paths[*][get,post,put,delete,patch]
     then:
       field: operationId
       function: truthy
-
   operation-tags-required:
     description: Operations should be tagged
     severity: warn
-    given: "$.paths[*][get,post,put,delete,patch]"
+    given: $.paths[*][get,post,put,delete,patch]
     then:
       field: tags
       function: truthy
-
   paths-versioned:
     description: All paths should be versioned
     severity: info
-    given: "$.paths[*]~"
+    given: $.paths[*]~
     then:
       function: pattern
       functionOptions:
-        match: "^/api/v"
-
+        match: ^/api/v
   response-success-required:
     description: Every operation must define at least one response
     severity: error
-    given: "$.paths[*][get,post,put,delete,patch].responses"
+    given: $.paths[*][get,post,put,delete,patch].responses
     then:
       function: schema
       functionOptions:
         schema:
           type: object
           minProperties: 1
-
   response-description-required:
     description: All responses must have a description
     severity: warn
-    given: "$.paths[*][get,post,put,delete,patch].responses[*]"
+    given: $.paths[*][get,post,put,delete,patch].responses[*]
     then:
       field: description
       function: truthy
-
   no-empty-summaries:
     description: Summaries must not be empty
     severity: error
-    given: "$.paths[*][get,post,put,delete,patch].summary"
+    given: $.paths[*][get,post,put,delete,patch].summary
     then:
       function: pattern
       functionOptions:
-        match: ".+"
+        match: .+
+  servers-https-only:
+    description: Server URLs must use HTTPS.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: ^https://
+  path-params-casing:
+    description: Path parameters should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*].parameters[?(@.in=='path')].name
+    then:
+      function: casing
+      functionOptions:
+        type: snake
+  operationid-casing:
+    description: Operation IDs should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: pattern
+      functionOptions:
+        match: ^[A-Z][A-Za-z0-9]*$
+  schema-properties-casing:
+    description: Schema properties should be snake_case (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: snake
+  security-schemes-defined:
+    description: Security schemes should be defined in components.
+    severity: warn
+    given: $.components
+    then:
+      field: securitySchemes
+      function: truthy
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings.
+    severity: warn
+    given: $..description
+    then:
+      function: truthy
