@@ -100,6 +100,8 @@ apis:
       - type: APIReference
         url: https://argo-rollouts.readthedocs.io/en/stable/features/kubectl-plugin/
 common:
+  - type: AgenticAccess
+    url: agentic-access/argo-agentic-access.yml
   - type: DomainSecurity
     url: security/argo-domain-security.yml
   - type: Authentication
