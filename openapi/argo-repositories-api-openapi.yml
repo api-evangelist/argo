@@ -1,0 +1,134 @@
+openapi: 3.1.0
+info:
+  title: Argo CD Applications Repositories API
+  description: The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.
+  version: v2.x
+  contact:
+    name: Argo CD Community
+    url: https://argo-cd.readthedocs.io/en/stable/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://localhost/api/v1
+  description: Argo CD Server (default in-cluster address)
+security:
+- bearerAuth: []
+tags:
+- name: Repositories
+  description: Operations for registering and managing Git and Helm chart repositories used as application sources.
+paths:
+  /repositories:
+    get:
+      operationId: listRepositories
+      summary: Argo CD Argo List Repositories
+      description: Returns all registered Git and Helm chart repositories, including their connection status and type.
+      tags:
+      - Repositories
+      responses:
+        '200':
+          description: List of repositories.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepositoryList'
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createRepository
+      summary: Argo CD Argo Register a Repository
+      description: Registers a new Git or Helm chart repository with Argo CD. Supports HTTPS, SSH, and GitHub App authentication methods.
+      tags:
+      - Repositories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Repository'
+      responses:
+        '200':
+          description: Repository registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Repository'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /repositories/{repo}:
+    delete:
+      operationId: deleteRepository
+      summary: Argo CD Argo Delete a Repository
+      description: Removes the named repository registration from Argo CD.
+      tags:
+      - Repositories
+      parameters:
+      - name: repo
+        in: path
+        required: true
+        description: Repository URL (URL-encoded).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Repository deleted.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Repository not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Repository:
+      type: object
+      description: A registered Git or Helm chart repository.
+      properties:
+        repo:
+          type: string
+          description: Repository URL.
+          format: uri
+        type:
+          type: string
+          description: Repository type.
+          enum:
+          - git
+          - helm
+        name:
+          type: string
+          description: Human-readable repository name.
+        connectionState:
+          type: object
+          description: Current connection status.
+          properties:
+            status:
+              type: string
+              description: Connection status (Successful, Failed, Unknown).
+            message:
+              type: string
+              description: Status message.
+    RepositoryList:
+      type: object
+      description: A list of registered repositories.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Repository'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from the POST /session endpoint using username/password or from an external OIDC provider configured in Argo CD.
+externalDocs:
+  description: Argo CD API Documentation
+  url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/

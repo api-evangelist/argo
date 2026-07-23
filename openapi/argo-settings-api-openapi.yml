@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: Argo CD Applications Settings API
+  description: The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.
+  version: v2.x
+  contact:
+    name: Argo CD Community
+    url: https://argo-cd.readthedocs.io/en/stable/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://localhost/api/v1
+  description: Argo CD Server (default in-cluster address)
+security:
+- bearerAuth: []
+tags:
+- name: Settings
+  description: Operations for reading Argo CD server configuration and settings.
+paths:
+  /settings:
+    get:
+      operationId: getSettings
+      summary: Argo CD Argo Get Server Settings
+      description: Returns the Argo CD server configuration including OIDC settings, Helm settings, resource tracking method, and UI customization.
+      tags:
+      - Settings
+      responses:
+        '200':
+          description: Server settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Settings:
+      type: object
+      description: Argo CD server configuration settings.
+      properties:
+        url:
+          type: string
+          description: External URL of the Argo CD server.
+          format: uri
+        dexConfig:
+          type: string
+          description: Dex OAuth provider configuration YAML.
+        oidcConfig:
+          type: string
+          description: OIDC provider configuration YAML.
+        statusBadgeEnabled:
+          type: boolean
+          description: Whether application status badges are enabled.
+        googleAnalytics:
+          type: object
+          description: Google Analytics tracking configuration.
+          properties:
+            trackingID:
+              type: string
+              description: Google Analytics tracking ID.
+            anonymizeUsers:
+              type: boolean
+              description: Anonymize user tracking data.
+        help:
+          type: object
+          description: Help link configuration.
+          properties:
+            chatUrl:
+              type: string
+              description: URL for community chat (e.g., Slack).
+            chatText:
+              type: string
+              description: Display text for the chat link.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from the POST /session endpoint using username/password or from an external OIDC provider configured in Argo CD.
+externalDocs:
+  description: Argo CD API Documentation
+  url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/

@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  title: Argo CD Applications Projects API
+  description: The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.
+  version: v2.x
+  contact:
+    name: Argo CD Community
+    url: https://argo-cd.readthedocs.io/en/stable/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://localhost/api/v1
+  description: Argo CD Server (default in-cluster address)
+security:
+- bearerAuth: []
+tags:
+- name: Projects
+  description: Operations for managing Argo CD projects that provide governance and access control for applications.
+paths:
+  /projects:
+    get:
+      operationId: listProjects
+      summary: Argo CD Argo List Projects
+      description: Returns all Argo CD projects. Projects provide logical grouping, access control, and policy enforcement for applications.
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: List of projects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectList'
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createProject
+      summary: Argo CD Argo Create a Project
+      description: Creates a new Argo CD project with the specified source repositories, destination clusters/namespaces, and resource allow/deny policies.
+      tags:
+      - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppProject'
+      responses:
+        '200':
+          description: Project created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppProject'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /projects/{name}:
+    get:
+      operationId: getProject
+      summary: Argo CD Argo Get a Project
+      description: Returns the specification and detailed information for a named project.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/projectNameParam'
+      responses:
+        '200':
+          description: Project details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppProject'
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Project not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteProject
+      summary: Argo CD Argo Delete a Project
+      description: Deletes the named Argo CD project. The project must have no associated applications before it can be deleted.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/projectNameParam'
+      responses:
+        '200':
+          description: Project deleted.
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Project not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    AppProject:
+      type: object
+      description: An Argo CD project providing logical grouping and RBAC for applications.
+      properties:
+        metadata:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Project name.
+        spec:
+          type: object
+          description: Project specification.
+          properties:
+            description:
+              type: string
+              description: Human-readable project description.
+            sourceRepos:
+              type: array
+              description: Allowed source repositories. Use '*' for any.
+              items:
+                type: string
+            destinations:
+              type: array
+              description: Allowed destination clusters and namespaces.
+              items:
+                type: object
+                properties:
+                  server:
+                    type: string
+                    description: Cluster server URL.
+                  namespace:
+                    type: string
+                    description: Allowed namespace pattern.
+            clusterResourceWhitelist:
+              type: array
+              description: Allowed cluster-scoped resource types.
+              items:
+                type: object
+                properties:
+                  group:
+                    type: string
+                  kind:
+                    type: string
+    ProjectList:
+      type: object
+      description: A list of Argo CD projects.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppProject'
+  parameters:
+    projectNameParam:
+      name: name
+      in: path
+      required: true
+      description: The name of the Argo CD project.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from the POST /session endpoint using username/password or from an external OIDC provider configured in Argo CD.
+externalDocs:
+  description: Argo CD API Documentation
+  url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/

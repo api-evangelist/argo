@@ -1,0 +1,994 @@
+openapi: 3.1.0
+info:
+  title: Argo CD Applications Workflows API
+  description: The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.
+  version: v2.x
+  contact:
+    name: Argo CD Community
+    url: https://argo-cd.readthedocs.io/en/stable/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://localhost/api/v1
+  description: Argo CD Server (default in-cluster address)
+security:
+- bearerAuth: []
+tags:
+- name: Workflows
+  description: Operations for managing workflow executions
+paths:
+  /workflows/{namespace}:
+    get:
+      operationId: listWorkflows
+      summary: Argo Workflows Argo List Workflows
+      description: Returns a list of workflows in the specified namespace.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - name: listOptions.labelSelector
+        in: query
+        description: Label selector to filter workflows
+        schema:
+          type: string
+      - name: listOptions.fieldSelector
+        in: query
+        description: Field selector to filter workflows
+        schema:
+          type: string
+      - name: listOptions.limit
+        in: query
+        description: Maximum number of workflows to return
+        schema:
+          type: integer
+          format: int64
+      - name: listOptions.continue
+        in: query
+        description: Continue token for pagination
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Fields to include in the response
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of workflows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowList'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createWorkflow
+      summary: Argo Workflows Argo Create a Workflow
+      description: Creates a new workflow in the specified namespace.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowCreateRequest'
+      responses:
+        '200':
+          description: Workflow created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /workflows/{namespace}/{name}:
+    get:
+      operationId: getWorkflow
+      summary: Argo Workflows Argo Get a Workflow
+      description: Returns a specific workflow by name in the specified namespace.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      - name: getOptions.resourceVersion
+        in: query
+        description: Resource version for optimistic concurrency
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Fields to include in the response
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteWorkflow
+      summary: Argo Workflows Argo Delete a Workflow
+      description: Deletes a specific workflow by name in the specified namespace.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      - name: deleteOptions.gracePeriodSeconds
+        in: query
+        description: Grace period for deletion in seconds
+        schema:
+          type: integer
+          format: int64
+      - name: force
+        in: query
+        description: Force deletion of the workflow
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Workflow deleted
+          content:
+            application/json:
+              schema:
+                type: object
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /workflows/{namespace}/{name}/retry:
+    put:
+      operationId: retryWorkflow
+      summary: Argo Workflows Argo Retry a Workflow
+      description: Retries a failed or errored workflow.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowRetryRequest'
+      responses:
+        '200':
+          description: Workflow retried
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /workflows/{namespace}/{name}/resubmit:
+    put:
+      operationId: resubmitWorkflow
+      summary: Argo Workflows Argo Resubmit a Workflow
+      description: Resubmits a completed workflow as a new workflow.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowResubmitRequest'
+      responses:
+        '200':
+          description: Workflow resubmitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /workflows/{namespace}/{name}/resume:
+    put:
+      operationId: resumeWorkflow
+      summary: Argo Workflows Argo Resume a Workflow
+      description: Resumes a suspended workflow.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowResumeRequest'
+      responses:
+        '200':
+          description: Workflow resumed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /workflows/{namespace}/{name}/suspend:
+    put:
+      operationId: suspendWorkflow
+      summary: Argo Workflows Argo Suspend a Workflow
+      description: Suspends a running workflow.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  type: string
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Workflow suspended
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /workflows/{namespace}/{name}/stop:
+    put:
+      operationId: stopWorkflow
+      summary: Argo Workflows Argo Stop a Workflow
+      description: Stops a running workflow.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowStopRequest'
+      responses:
+        '200':
+          description: Workflow stopped
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /workflows/{namespace}/{name}/terminate:
+    put:
+      operationId: terminateWorkflow
+      summary: Argo Workflows Argo Terminate a Workflow
+      description: Terminates a running workflow immediately.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                namespace:
+                  type: string
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Workflow terminated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /workflows/{namespace}/{name}/log:
+    get:
+      operationId: getWorkflowLog
+      summary: Argo Workflows Argo Get Workflow Logs
+      description: Returns logs for a specific workflow.
+      tags:
+      - Workflows
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/WorkflowName'
+      - name: podName
+        in: query
+        description: Name of the pod to get logs from
+        schema:
+          type: string
+      - name: logOptions.container
+        in: query
+        description: Container name to get logs from
+        schema:
+          type: string
+      - name: logOptions.follow
+        in: query
+        description: Follow the log stream
+        schema:
+          type: boolean
+      - name: logOptions.sinceSeconds
+        in: query
+        description: Relative time in seconds to start streaming logs
+        schema:
+          type: integer
+          format: int64
+      - name: logOptions.tailLines
+        in: query
+        description: Number of lines from the end of the logs to show
+        schema:
+          type: integer
+          format: int64
+      - name: grep
+        in: query
+        description: Grep pattern to filter log lines
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogEntry'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Arguments:
+      type: object
+      description: Arguments to pass to a template
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
+    Workflow:
+      type: object
+      description: An Argo Workflow resource
+      properties:
+        apiVersion:
+          type: string
+          default: argoproj.io/v1alpha1
+        kind:
+          type: string
+          default: Workflow
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/WorkflowSpec'
+        status:
+          $ref: '#/components/schemas/WorkflowStatus'
+    WorkflowRetryRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        name:
+          type: string
+        restartSuccessful:
+          type: boolean
+        nodeFieldSelector:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: string
+    DAGTask:
+      type: object
+      description: A task in a DAG template
+      properties:
+        name:
+          type: string
+        template:
+          type: string
+        arguments:
+          $ref: '#/components/schemas/Arguments'
+        dependencies:
+          type: array
+          items:
+            type: string
+        when:
+          type: string
+          description: Conditional expression for task execution
+        withItems:
+          type: array
+          items: {}
+        withParam:
+          type: string
+        continueOn:
+          type: object
+          properties:
+            error:
+              type: boolean
+            failed:
+              type: boolean
+    Artifact:
+      type: object
+      description: A workflow artifact
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+          description: Path in the container where artifact is placed
+        from:
+          type: string
+          description: Source artifact reference
+        s3:
+          type: object
+          properties:
+            bucket:
+              type: string
+            key:
+              type: string
+            endpoint:
+              type: string
+        git:
+          type: object
+          properties:
+            repo:
+              type: string
+            revision:
+              type: string
+            depth:
+              type: integer
+        http:
+          type: object
+          properties:
+            url:
+              type: string
+            headers:
+              type: array
+              items:
+                type: object
+        archive:
+          type: object
+          properties:
+            none:
+              type: object
+            tar:
+              type: object
+              properties:
+                compressionLevel:
+                  type: integer
+            zip:
+              type: object
+    RetryStrategy:
+      type: object
+      description: Strategy for retrying failed steps
+      properties:
+        limit:
+          type: integer
+          description: Maximum number of retries
+        retryPolicy:
+          type: string
+          enum:
+          - Always
+          - OnFailure
+          - OnError
+          - OnTransientError
+        backoff:
+          type: object
+          properties:
+            duration:
+              type: string
+            factor:
+              type: integer
+            maxDuration:
+              type: string
+    WorkflowResumeRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        name:
+          type: string
+        nodeFieldSelector:
+          type: string
+    Outputs:
+      type: object
+      description: Outputs from a template
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
+        result:
+          type: string
+          description: Result output from a script template
+        exitCode:
+          type: string
+          description: Exit code of the container
+    WorkflowSpec:
+      type: object
+      description: Specification of a workflow
+      properties:
+        entrypoint:
+          type: string
+          description: The name of the entrypoint template
+        arguments:
+          $ref: '#/components/schemas/Arguments'
+        templates:
+          type: array
+          description: List of workflow templates
+          items:
+            $ref: '#/components/schemas/Template'
+        serviceAccountName:
+          type: string
+          description: Service account to run workflow pods
+        volumes:
+          type: array
+          description: Volumes available to workflow steps
+          items:
+            type: object
+        activeDeadlineSeconds:
+          type: integer
+          format: int64
+          description: Duration in seconds before workflow times out
+        nodeSelector:
+          type: object
+          additionalProperties:
+            type: string
+        tolerations:
+          type: array
+          items:
+            type: object
+        parallelism:
+          type: integer
+          description: Maximum number of parallel running pods
+        ttlStrategy:
+          type: object
+          description: Strategy for cleaning up completed workflows
+          properties:
+            secondsAfterCompletion:
+              type: integer
+            secondsAfterSuccess:
+              type: integer
+            secondsAfterFailure:
+              type: integer
+        podGC:
+          type: object
+          description: Strategy for garbage collecting completed pods
+          properties:
+            strategy:
+              type: string
+              enum:
+              - OnPodCompletion
+              - OnPodSuccess
+              - OnWorkflowCompletion
+              - OnWorkflowSuccess
+        workflowTemplateRef:
+          type: object
+          description: Reference to a WorkflowTemplate
+          properties:
+            name:
+              type: string
+            clusterScope:
+              type: boolean
+        archiveLogs:
+          type: boolean
+          description: Whether to archive workflow logs
+        hooks:
+          type: object
+          description: Lifecycle hooks for the workflow
+          additionalProperties:
+            type: object
+        onExit:
+          type: string
+          description: Template to execute on workflow exit
+        retryStrategy:
+          $ref: '#/components/schemas/RetryStrategy'
+    Template:
+      type: object
+      description: A workflow template definition
+      properties:
+        name:
+          type: string
+          description: Name of the template
+        inputs:
+          $ref: '#/components/schemas/Inputs'
+        outputs:
+          $ref: '#/components/schemas/Outputs'
+        container:
+          type: object
+          description: Container to run
+          properties:
+            image:
+              type: string
+            command:
+              type: array
+              items:
+                type: string
+            args:
+              type: array
+              items:
+                type: string
+            env:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+            resources:
+              type: object
+              properties:
+                limits:
+                  type: object
+                  additionalProperties:
+                    type: string
+                requests:
+                  type: object
+                  additionalProperties:
+                    type: string
+            volumeMounts:
+              type: array
+              items:
+                type: object
+        script:
+          type: object
+          description: Script to run in a container
+          properties:
+            image:
+              type: string
+            command:
+              type: array
+              items:
+                type: string
+            source:
+              type: string
+        resource:
+          type: object
+          description: Kubernetes resource to create/patch/delete
+          properties:
+            action:
+              type: string
+              enum:
+              - get
+              - create
+              - apply
+              - delete
+              - replace
+              - patch
+            manifest:
+              type: string
+            successCondition:
+              type: string
+            failureCondition:
+              type: string
+        dag:
+          type: object
+          description: DAG template definition
+          properties:
+            tasks:
+              type: array
+              items:
+                $ref: '#/components/schemas/DAGTask'
+        steps:
+          type: array
+          description: Steps template definition (list of parallel step groups)
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/WorkflowStep'
+        suspend:
+          type: object
+          description: Suspend template for manual approval
+          properties:
+            duration:
+              type: string
+        activeDeadlineSeconds:
+          type: integer
+          format: int64
+        retryStrategy:
+          $ref: '#/components/schemas/RetryStrategy'
+        nodeSelector:
+          type: object
+          additionalProperties:
+            type: string
+        metadata:
+          type: object
+          description: Metadata to set on step pods
+          properties:
+            labels:
+              type: object
+              additionalProperties:
+                type: string
+            annotations:
+              type: object
+              additionalProperties:
+                type: string
+    WorkflowStopRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        name:
+          type: string
+        nodeFieldSelector:
+          type: string
+        message:
+          type: string
+    NodeStatus:
+      type: object
+      description: Status of a workflow node
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+          enum:
+          - Pod
+          - Steps
+          - StepGroup
+          - DAG
+          - TaskGroup
+          - Retry
+          - Skipped
+          - Suspend
+        templateName:
+          type: string
+        phase:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        message:
+          type: string
+        children:
+          type: array
+          items:
+            type: string
+        inputs:
+          $ref: '#/components/schemas/Inputs'
+        outputs:
+          $ref: '#/components/schemas/Outputs'
+    Parameter:
+      type: object
+      description: A workflow parameter
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        default:
+          type: string
+        enum:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        globalName:
+          type: string
+    WorkflowResubmitRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        name:
+          type: string
+        memoized:
+          type: boolean
+    LogEntry:
+      type: object
+      properties:
+        content:
+          type: string
+        podName:
+          type: string
+    WorkflowStatus:
+      type: object
+      description: Status of a workflow execution
+      properties:
+        phase:
+          type: string
+          enum:
+          - Pending
+          - Running
+          - Succeeded
+          - Failed
+          - Error
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        progress:
+          type: string
+          description: Progress of the workflow (e.g. 2/4)
+        message:
+          type: string
+        estimatedDuration:
+          type: integer
+        nodes:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/NodeStatus'
+        conditions:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+        outputs:
+          $ref: '#/components/schemas/Outputs'
+        storedTemplates:
+          type: object
+        artifactRepositoryRef:
+          type: object
+          properties:
+            configMap:
+              type: string
+            key:
+              type: string
+    ObjectMeta:
+      type: object
+      description: Kubernetes object metadata
+      properties:
+        name:
+          type: string
+        generateName:
+          type: string
+        namespace:
+          type: string
+        uid:
+          type: string
+        resourceVersion:
+          type: string
+        generation:
+          type: integer
+          format: int64
+        creationTimestamp:
+          type: string
+          format: date-time
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+    Inputs:
+      type: object
+      description: Inputs for a template
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
+    WorkflowList:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        metadata:
+          type: object
+          properties:
+            resourceVersion:
+              type: string
+            continue:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+    WorkflowStep:
+      type: object
+      description: A step in a steps template
+      properties:
+        name:
+          type: string
+        template:
+          type: string
+        arguments:
+          $ref: '#/components/schemas/Arguments'
+        when:
+          type: string
+        withItems:
+          type: array
+          items: {}
+        withParam:
+          type: string
+        continueOn:
+          type: object
+          properties:
+            error:
+              type: boolean
+            failed:
+              type: boolean
+    WorkflowCreateRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        workflow:
+          $ref: '#/components/schemas/Workflow'
+        serverDryRun:
+          type: boolean
+        createOptions:
+          type: object
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+    WorkflowName:
+      name: name
+      in: path
+      required: true
+      description: Name of the workflow
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from the POST /session endpoint using username/password or from an external OIDC provider configured in Argo CD.
+externalDocs:
+  description: Argo CD API Documentation
+  url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/

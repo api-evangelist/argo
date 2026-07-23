@@ -1,0 +1,83 @@
+openapi: 3.1.0
+info:
+  title: Argo CD Applications Session API
+  description: The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.
+  version: v2.x
+  contact:
+    name: Argo CD Community
+    url: https://argo-cd.readthedocs.io/en/stable/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://localhost/api/v1
+  description: Argo CD Server (default in-cluster address)
+security:
+- bearerAuth: []
+tags:
+- name: Session
+  description: Authentication operations for obtaining and invalidating bearer tokens.
+paths:
+  /session:
+    post:
+      operationId: createSession
+      summary: Argo CD Argo Create a Session (login)
+      description: Authenticates with username and password or SSO token and returns a bearer token for use in subsequent API requests.
+      tags:
+      - Session
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - username
+              - password
+              properties:
+                username:
+                  type: string
+                  description: Argo CD local user username.
+                password:
+                  type: string
+                  description: Argo CD local user password.
+      responses:
+        '200':
+          description: Session created. Token returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Bearer token for subsequent API calls.
+        '401':
+          description: Invalid credentials.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteSession
+      summary: Argo CD Argo Delete a Session (logout)
+      description: Invalidates the current bearer token, logging out the authenticated user.
+      tags:
+      - Session
+      responses:
+        '200':
+          description: Session deleted.
+        '401':
+          description: Unauthorized.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from the POST /session endpoint using username/password or from an external OIDC provider configured in Argo CD.
+externalDocs:
+  description: Argo CD API Documentation
+  url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/

@@ -1,0 +1,100 @@
+openapi: 3.1.0
+info:
+  title: Argo CD Applications Info API
+  description: The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.
+  version: v2.x
+  contact:
+    name: Argo CD Community
+    url: https://argo-cd.readthedocs.io/en/stable/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://localhost/api/v1
+  description: Argo CD Server (default in-cluster address)
+security:
+- bearerAuth: []
+tags:
+- name: Info
+  description: Server information and version endpoints
+paths:
+  /info:
+    get:
+      operationId: getInfo
+      summary: Argo Workflows Argo Get Server Info
+      description: Returns information about the Argo Workflows server including version and managed namespace.
+      tags:
+      - Info
+      responses:
+        '200':
+          description: Server information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /version:
+    get:
+      operationId: getVersion
+      summary: Argo Workflows Argo Get Server Version
+      description: Returns the version of the Argo Workflows server.
+      tags:
+      - Info
+      responses:
+        '200':
+          description: Version information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Version'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Version:
+      type: object
+      properties:
+        version:
+          type: string
+        buildDate:
+          type: string
+        gitCommit:
+          type: string
+        gitTag:
+          type: string
+        gitTreeState:
+          type: string
+        goVersion:
+          type: string
+        compiler:
+          type: string
+        platform:
+          type: string
+    InfoResponse:
+      type: object
+      properties:
+        managedNamespace:
+          type: string
+          description: The namespace managed by this Argo server
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              scope:
+                type: string
+              url:
+                type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from the POST /session endpoint using username/password or from an external OIDC provider configured in Argo CD.
+externalDocs:
+  description: Argo CD API Documentation
+  url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
