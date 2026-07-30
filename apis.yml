@@ -6,7 +6,20 @@ description: >-
   delivery), Argo Events (event-driven automation framework), and Argo Rollouts (progressive delivery with canary and
   blue-green strategies). Argo is a CNCF graduated project governed by the Linux Foundation.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/argo.png
 tags:
   - CNCF
   - CI/CD
@@ -20,85 +33,290 @@ created: '2025-01-01'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: argo:argo-workflows-api
-    name: Argo Workflows API
-    description: >-
-      REST API for managing Argo Workflows, workflow templates, cron workflows, archived workflow records, events, and
-      sensors on Kubernetes clusters. Authentication uses JWT bearer tokens from Kubernetes service accounts.
-    humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
-    baseURL: https://localhost:2746/api/v1
-    tags:
-      - Automation
-      - Kubernetes
-      - Workflow Engine
-    properties:
-      - type: Documentation
-        url: https://argo-workflows.readthedocs.io/en/latest/
-      - type: APIReference
-        url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
-      - type: OpenAPI
-        url: openapi/argo-workflows-openapi.yml
-      - type: GettingStarted
-        url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
-  - aid: argo:argo-cd-api
-    name: Argo CD API
-    description: >-
-      REST API for managing Argo CD GitOps applications, projects, repositories, clusters, and sync operations for
-      Kubernetes declarative continuous delivery. Authentication uses JWT bearer tokens.
-    humanURL: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
-    baseURL: https://localhost/api/v1
-    tags:
-      - Continuous Delivery
-      - GitOps
-      - Kubernetes
-    properties:
-      - type: Documentation
-        url: https://argo-cd.readthedocs.io/en/stable/
-      - type: APIReference
-        url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
-      - type: OpenAPI
-        url: openapi/argo-cd-openapi.yml
-  - aid: argo:argo-events-api
-    name: Argo Events API
-    description: >-
-      Kubernetes-native API for the Argo Events event-driven automation framework. Exposes CRD-based resources including
-      EventSource, EventBus, and Sensor for triggering Argo Workflows and Kubernetes actions in response to over 20
-      event types including webhooks, S3, cron, and messaging queues.
-    humanURL: https://argoproj.github.io/argo-events/APIs/
-    tags:
-      - Automation
-      - Event-Driven
-      - Events
-      - Kubernetes
-    properties:
-      - type: Documentation
-        url: https://argoproj.github.io/argo-events/
-      - type: APIReference
-        url: https://argoproj.github.io/argo-events/APIs/
-      - type: GitHubRepository
-        url: https://github.com/argoproj/argo-events
-      - type: AsyncAPI
-        url: asyncapi/argo-events-asyncapi.yml
-  - aid: argo:argo-rollouts-api
-    name: Argo Rollouts API
-    description: >-
-      Kubernetes CRD-based API for Argo Rollouts progressive delivery controller. Provides Rollout and AnalysisTemplate
-      resources for managing canary and blue-green deployment strategies with automated analysis, traffic splitting, and
-      rollback capabilities.
-    humanURL: https://argo-rollouts.readthedocs.io/en/stable/
-    tags:
-      - Blue-Green
-      - Canary
-      - Deployments
-      - Kubernetes
-      - Progressive Delivery
-    properties:
-      - type: Documentation
-        url: https://argo-rollouts.readthedocs.io/en/stable/
-      - type: GitHubRepository
-        url: https://github.com/argoproj/argo-rollouts
-      - type: APIReference
-        url: https://argo-rollouts.readthedocs.io/en/stable/features/kubectl-plugin/
+- aid: argo:argo-events-api
+  name: Argo Events API
+  description: >-
+    Kubernetes-native API for the Argo Events event-driven automation framework. Exposes CRD-based resources
+    including EventSource, EventBus, and Sensor for triggering Argo Workflows and Kubernetes actions in
+    response to over 20 event types including webhooks, S3, cron, and messaging queues.
+  humanURL: https://argoproj.github.io/argo-events/APIs/
+  tags:
+  - Automation
+  - Event-Driven
+  - Events
+  - Kubernetes
+  properties:
+  - type: Documentation
+    url: https://argoproj.github.io/argo-events/
+  - type: APIReference
+    url: https://argoproj.github.io/argo-events/APIs/
+  - type: GitHubRepository
+    url: https://github.com/argoproj/argo-events
+  - type: AsyncAPI
+    url: asyncapi/argo-events-asyncapi.yml
+- aid: argo:argo-rollouts-api
+  name: Argo Rollouts API
+  description: >-
+    Kubernetes CRD-based API for Argo Rollouts progressive delivery controller. Provides Rollout and AnalysisTemplate
+    resources for managing canary and blue-green deployment strategies with automated analysis, traffic
+    splitting, and rollback capabilities.
+  humanURL: https://argo-rollouts.readthedocs.io/en/stable/
+  tags:
+  - Blue-Green
+  - Canary
+  - Deployments
+  - Kubernetes
+  - Progressive Delivery
+  properties:
+  - type: Documentation
+    url: https://argo-rollouts.readthedocs.io/en/stable/
+  - type: GitHubRepository
+    url: https://github.com/argoproj/argo-rollouts
+  - type: APIReference
+    url: https://argo-rollouts.readthedocs.io/en/stable/features/kubectl-plugin/
+- aid: argo:argo-applications-api
+  name: Argo Applications API
+  description: Operations for creating, querying, syncing, and deleting Argo CD GitOps applications.
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-applications-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-clusters-api
+  name: Argo Clusters API
+  description: >-
+    Operations for registering and managing target Kubernetes clusters for application deployment.
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Clusters
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-clusters-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-cron-workflows-api
+  name: Argo Cron Workflows API
+  description: Operations for managing scheduled cron workflows
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Cron Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-cron-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-info-api
+  name: Argo Info API
+  description: Server information and version endpoints
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Info
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-info-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-projects-api
+  name: Argo Projects API
+  description: >-
+    Operations for managing Argo CD projects that provide governance and access control for applications.
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-projects-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-repositories-api
+  name: Argo Repositories API
+  description: >-
+    Operations for registering and managing Git and Helm chart repositories used as application sources.
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Repositories
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-repositories-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-session-api
+  name: Argo Session API
+  description: Authentication operations for obtaining and invalidating bearer tokens.
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Session
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-session-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-settings-api
+  name: Argo Settings API
+  description: Operations for reading Argo CD server configuration and settings.
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-settings-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-version-api
+  name: Argo Version API
+  description: Server version information endpoint.
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-version-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-workflow-archives-api
+  name: Argo Workflow Archives API
+  description: Operations for accessing archived workflow records
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Workflow Archives
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-workflow-archives-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-workflow-templates-api
+  name: Argo Workflow Templates API
+  description: Operations for managing reusable workflow templates
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Workflow Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-workflow-templates-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+- aid: argo:argo-workflows-api
+  name: Argo Workflows API
+  description: Operations for managing workflow executions
+  humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  baseURL: https://localhost:2746/api/v1
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/argo-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://argo-workflows.readthedocs.io/en/latest/
+  - type: APIReference
+    url: https://argo-workflows.readthedocs.io/en/latest/rest-api/
+  - type: GettingStarted
+    url: https://argo-workflows.readthedocs.io/en/latest/quick-start/
+  - type: Documentation
+    url: https://argo-cd.readthedocs.io/en/stable/
+  - type: APIReference
+    url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
 common:
   - type: AgenticAccess
     url: agentic-access/argo-agentic-access.yml
