@@ -1,0 +1,533 @@
+{
+  "item": [
+    {
+      "id": "e85dcc7a-2172-41ce-bbb1-572750547313",
+      "name": "Repositories",
+      "description": {
+        "content": "Operations for registering and managing Git and Helm chart repositories used as application sources.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "76d62ee5-acca-4bbe-aa80-178b2e47d248",
+          "name": "Argo CD Argo List Repositories",
+          "request": {
+            "name": "Argo CD Argo List Repositories",
+            "description": {
+              "content": "Returns all registered Git and Helm chart repositories, including their connection status and type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "repositories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c56b0c5b-7f81-4890-aa33-729c56c0f208",
+              "name": "List of repositories.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"repo\": \"https://VAApMenkkTA.apcD27O4J1BT-t4UXs,GdINxw1CRcGHYrpFZBCPf4cdjdubpzSMDL.QrgFjKu\",\n      \"type\": \"helm\",\n      \"name\": \"string\",\n      \"connectionState\": {\n        \"status\": \"string\",\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"repo\": \"https://HkqRWYwkoYkBxIINRm.ivDyVLsRAzDLaGk\",\n      \"type\": \"helm\",\n      \"name\": \"string\",\n      \"connectionState\": {\n        \"status\": \"string\",\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "435f2f4a-5056-4315-8e8b-580226a7e03c",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a9dd7df-c49e-4141-b207-d8446a67522b",
+          "name": "Argo CD Argo Register a Repository",
+          "request": {
+            "name": "Argo CD Argo Register a Repository",
+            "description": {
+              "content": "Registers a new Git or Helm chart repository with Argo CD. Supports HTTPS, SSH, and GitHub App authentication methods.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "repositories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"repo\": \"<uri>\",\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"connectionState\": {\n    \"status\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "74d04b1d-550a-43e4-ab94-417438c6f50a",
+              "name": "Repository registered.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repo\": \"<uri>\",\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"connectionState\": {\n    \"status\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"repo\": \"https://BRJtpqyLynzGcXvp.mifuJgeCjkZVdNAND8o\",\n  \"type\": \"git\",\n  \"name\": \"string\",\n  \"connectionState\": {\n    \"status\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "addd0c98-0b35-4c43-9047-12a9534aaca4",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repo\": \"<uri>\",\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"connectionState\": {\n    \"status\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b4471ca-f201-4585-b58d-257bfefe65df",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repo\": \"<uri>\",\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"connectionState\": {\n    \"status\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1eb4344e-e72d-4e95-b069-a15c590be2de",
+          "name": "Argo CD Argo Delete a Repository",
+          "request": {
+            "name": "Argo CD Argo Delete a Repository",
+            "description": {
+              "content": "Removes the named repository registration from Argo CD.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "repositories",
+                ":repo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo",
+                  "description": "(Required) Repository URL (URL-encoded)."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dda78490-ec2f-4c6a-ace0-e6e6a8fb2e31",
+              "name": "Repository deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositories",
+                    ":repo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo",
+                      "description": "(Required) Repository URL (URL-encoded)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4f2babc5-0efa-4ece-b830-7707470e101a",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositories",
+                    ":repo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo",
+                      "description": "(Required) Repository URL (URL-encoded)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1789f5fd-225c-4f3e-8058-f464bf8664d0",
+              "name": "Repository not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repositories",
+                    ":repo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo",
+                      "description": "(Required) Repository URL (URL-encoded)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://localhost/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3bd8edcd-f7fa-4879-a7f8-763e4179f386",
+    "name": "Argo CD Applications Repositories API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.\n\nContact Support:\n Name: Argo CD Community",
+      "type": "text/plain"
+    }
+  }
+}

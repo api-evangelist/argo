@@ -1,0 +1,351 @@
+{
+  "item": [
+    {
+      "id": "f65c6d3d-da21-4fd9-b283-ca8d7acac6c9",
+      "name": "Clusters",
+      "description": {
+        "content": "Operations for registering and managing target Kubernetes clusters for application deployment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bb134887-b4e5-44fa-8b3d-10e68db504f8",
+          "name": "Argo CD Argo List Clusters",
+          "request": {
+            "name": "Argo CD Argo List Clusters",
+            "description": {
+              "content": "Returns all registered Kubernetes clusters available as deployment targets for Argo CD applications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2edc5be6-a9d3-4614-954b-ddd6508c92d7",
+              "name": "List of clusters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"server\": \"http://foeAUeMErOJpmpGwMgoqOZWYy.nhbijdugbgwnzJ7jjKlqME3m0VTzOgdoAO6uFPmKLd1vXlmPlajZ7Pf.n3n7kZdHY\",\n      \"name\": \"string\",\n      \"config\": {\n        \"bearerToken\": \"string\",\n        \"tlsClientConfig\": {\n          \"insecure\": true\n        }\n      },\n      \"info\": {\n        \"serverVersion\": \"string\",\n        \"applicationsCount\": 1672\n      }\n    },\n    {\n      \"server\": \"https://mDjpKNZGylsEKyazl.vyvpWAUxTlvYGpwIpJj2fl0syPn,YV0GL1BlAwCRbpvPQSxG4bcdf4d-os\",\n      \"name\": \"string\",\n      \"config\": {\n        \"bearerToken\": \"string\",\n        \"tlsClientConfig\": {\n          \"insecure\": true\n        }\n      },\n      \"info\": {\n        \"serverVersion\": \"string\",\n        \"applicationsCount\": 8359\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48c1deda-9610-4532-8c7e-7e08fdbe58cd",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38e0df54-0ef5-4fc2-a9b5-7bbdb5116dae",
+          "name": "Argo CD Argo Register a Cluster",
+          "request": {
+            "name": "Argo CD Argo Register a Cluster",
+            "description": {
+              "content": "Registers a new Kubernetes cluster as a deployment target. The cluster must be reachable from the Argo CD server and the provided credentials must have sufficient permissions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"server\": \"<uri>\",\n  \"name\": \"<string>\",\n  \"config\": {\n    \"bearerToken\": \"<string>\",\n    \"tlsClientConfig\": {\n      \"insecure\": \"<boolean>\"\n    }\n  },\n  \"info\": {\n    \"serverVersion\": \"<string>\",\n    \"applicationsCount\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0b293880-c1f4-445e-a41b-885e0ec165f2",
+              "name": "Cluster registered.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"server\": \"<uri>\",\n  \"name\": \"<string>\",\n  \"config\": {\n    \"bearerToken\": \"<string>\",\n    \"tlsClientConfig\": {\n      \"insecure\": \"<boolean>\"\n    }\n  },\n  \"info\": {\n    \"serverVersion\": \"<string>\",\n    \"applicationsCount\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"server\": \"http://XpwytixC.keq8bhWqvG9-PJQJuU5yMPrhwr.lxg+uk8zNHwbm8p\",\n  \"name\": \"string\",\n  \"config\": {\n    \"bearerToken\": \"string\",\n    \"tlsClientConfig\": {\n      \"insecure\": false\n    }\n  },\n  \"info\": {\n    \"serverVersion\": \"string\",\n    \"applicationsCount\": 2825\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9730421-1232-4ad2-b5f3-17f1faedaf59",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"server\": \"<uri>\",\n  \"name\": \"<string>\",\n  \"config\": {\n    \"bearerToken\": \"<string>\",\n    \"tlsClientConfig\": {\n      \"insecure\": \"<boolean>\"\n    }\n  },\n  \"info\": {\n    \"serverVersion\": \"<string>\",\n    \"applicationsCount\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b23b5c1-3867-49f2-b034-d2bda26fba11",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"server\": \"<uri>\",\n  \"name\": \"<string>\",\n  \"config\": {\n    \"bearerToken\": \"<string>\",\n    \"tlsClientConfig\": {\n      \"insecure\": \"<boolean>\"\n    }\n  },\n  \"info\": {\n    \"serverVersion\": \"<string>\",\n    \"applicationsCount\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://localhost/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b8dc7fce-1d3d-45d1-9a30-2c6a0d506f37",
+    "name": "Argo CD Applications Clusters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.\n\nContact Support:\n Name: Argo CD Community",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Argo CD Applications Clusters API",
+    "version": "v2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo List Clusters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/clusters"
+          },
+          "docs": "Returns all registered Kubernetes clusters available as deployment targets for Argo CD applications."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Register a Cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/clusters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new Kubernetes cluster as a deployment target. The cluster must be reachable from the Argo CD server and the provided credentials must have sufficient permissions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

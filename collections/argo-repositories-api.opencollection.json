@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Argo CD Applications Repositories API",
+    "version": "v2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Repositories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo List Repositories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/repositories"
+          },
+          "docs": "Returns all registered Git and Helm chart repositories, including their connection status and type."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Register a Repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/repositories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new Git or Helm chart repository with Argo CD. Supports HTTPS, SSH, and GitHub App authentication methods."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Delete a Repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://localhost/api/v1/repositories/:repo",
+            "params": [
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "Repository URL (URL-encoded)."
+              }
+            ]
+          },
+          "docs": "Removes the named repository registration from Argo CD."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,851 @@
+{
+  "item": [
+    {
+      "id": "d912d6ed-09d6-4f18-8e22-14eb6625ef85",
+      "name": "Cron Workflows",
+      "description": {
+        "content": "Operations for managing scheduled cron workflows",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95068ab5-c8a5-4308-ab55-24c4c3e2d334",
+          "name": "Argo Workflows Argo List Cron Workflows",
+          "request": {
+            "name": "Argo Workflows Argo List Cron Workflows",
+            "description": {
+              "content": "Returns a list of cron workflows in the specified namespace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cron-workflows",
+                ":namespace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "listOptions.labelSelector",
+                  "value": "<string>",
+                  "description": "Label selector to filter cron workflows"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Kubernetes namespace"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "458787ac-d6db-4d9b-a4df-66828422ab37",
+              "name": "List of cron workflows",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cron-workflows",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "listOptions.labelSelector",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Kubernetes namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"metadata\": {},\n  \"items\": [\n    {\n      \"apiVersion\": \"argoproj.io/v1alpha1\",\n      \"kind\": \"CronWorkflow\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"generateName\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"generation\": 9880,\n        \"creationTimestamp\": \"1956-09-18T22:44:49.230Z\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"spec\": {\n        \"schedule\": \"string\",\n        \"timezone\": \"string\",\n        \"startingDeadlineSeconds\": 3867,\n        \"concurrencyPolicy\": \"Forbid\",\n        \"suspend\": true,\n        \"successfulJobsHistoryLimit\": 1194,\n        \"failedJobsHistoryLimit\": 4248,\n        \"workflowSpec\": {\n          \"entrypoint\": \"string\",\n          \"arguments\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"templates\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"serviceAccountName\": \"string\",\n          \"activeDeadlineSeconds\": 34,\n          \"nodeSelector\": {\n            \"key_0\": \"string\"\n          },\n          \"parallelism\": 8131,\n          \"ttlStrategy\": {\n            \"secondsAfterCompletion\": 2835,\n            \"secondsAfterSuccess\": 3879,\n            \"secondsAfterFailure\": 1004\n          },\n          \"podGC\": {\n            \"strategy\": \"OnWorkflowSuccess\"\n          },\n          \"workflowTemplateRef\": {\n            \"name\": \"string\",\n            \"clusterScope\": false\n          },\n          \"archiveLogs\": true,\n          \"hooks\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"onExit\": \"string\",\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"workflowMetadata\": {}\n      },\n      \"status\": {\n        \"lastScheduledTime\": \"1959-08-20T12:08:34.721Z\"\n      }\n    },\n    {\n      \"apiVersion\": \"argoproj.io/v1alpha1\",\n      \"kind\": \"CronWorkflow\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"generateName\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"generation\": 6945,\n        \"creationTimestamp\": \"1980-05-16T12:08:07.986Z\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"spec\": {\n        \"schedule\": \"string\",\n        \"timezone\": \"string\",\n        \"startingDeadlineSeconds\": 7817,\n        \"concurrencyPolicy\": \"Replace\",\n        \"suspend\": false,\n        \"successfulJobsHistoryLimit\": 512,\n        \"failedJobsHistoryLimit\": 9065,\n        \"workflowSpec\": {\n          \"entrypoint\": \"string\",\n          \"arguments\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"templates\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"serviceAccountName\": \"string\",\n          \"activeDeadlineSeconds\": 996,\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"parallelism\": 8278,\n          \"ttlStrategy\": {\n            \"secondsAfterCompletion\": 4987,\n            \"secondsAfterSuccess\": 3203,\n            \"secondsAfterFailure\": 5863\n          },\n          \"podGC\": {\n            \"strategy\": \"OnPodCompletion\"\n          },\n          \"workflowTemplateRef\": {\n            \"name\": \"string\",\n            \"clusterScope\": false\n          },\n          \"archiveLogs\": true,\n          \"hooks\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {},\n            \"key_3\": {}\n          },\n          \"onExit\": \"string\",\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"workflowMetadata\": {}\n      },\n      \"status\": {\n        \"lastScheduledTime\": \"1988-02-11T21:01:15.496Z\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48e4b0c0-2a4f-459c-a834-9a26733cbf81",
+          "name": "Argo Workflows Argo Create a Cron Workflow",
+          "request": {
+            "name": "Argo Workflows Argo Create a Cron Workflow",
+            "description": {
+              "content": "Creates a new cron workflow in the specified namespace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cron-workflows",
+                ":namespace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Kubernetes namespace"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"namespace\": \"<string>\",\n  \"cronWorkflow\": {\n    \"apiVersion\": \"argoproj.io/v1alpha1\",\n    \"kind\": \"CronWorkflow\",\n    \"metadata\": {\n      \"name\": \"<string>\",\n      \"generateName\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"uid\": \"<string>\",\n      \"resourceVersion\": \"<string>\",\n      \"generation\": \"<long>\",\n      \"creationTimestamp\": \"<dateTime>\",\n      \"labels\": {\n        \"key_0\": \"<string>\"\n      },\n      \"annotations\": {\n        \"key_0\": \"<string>\"\n      }\n    },\n    \"spec\": {\n      \"schedule\": \"<string>\",\n      \"timezone\": \"<string>\",\n      \"startingDeadlineSeconds\": \"<long>\",\n      \"concurrencyPolicy\": \"<string>\",\n      \"suspend\": \"<boolean>\",\n      \"successfulJobsHistoryLimit\": \"<integer>\",\n      \"failedJobsHistoryLimit\": \"<integer>\",\n      \"workflowSpec\": {\n        \"entrypoint\": \"<string>\",\n        \"arguments\": {\n          \"parameters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"artifacts\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"templates\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"container\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"script\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"steps\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suspend\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"activeDeadlineSeconds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryStrategy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"nodeSelector\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"container\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"script\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"steps\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suspend\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"activeDeadlineSeconds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryStrategy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"nodeSelector\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"serviceAccountName\": \"<string>\",\n        \"volumes\": [\n          \"<object>\",\n          \"<object>\"\n        ],\n        \"activeDeadlineSeconds\": \"<long>\",\n        \"nodeSelector\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        },\n        \"tolerations\": [\n          \"<object>\",\n          \"<object>\"\n        ],\n        \"parallelism\": \"<integer>\",\n        \"ttlStrategy\": {\n          \"secondsAfterCompletion\": \"<integer>\",\n          \"secondsAfterSuccess\": \"<integer>\",\n          \"secondsAfterFailure\": \"<integer>\"\n        },\n        \"podGC\": {\n          \"strategy\": \"<string>\"\n        },\n        \"workflowTemplateRef\": {\n          \"name\": \"<string>\",\n          \"clusterScope\": \"<boolean>\"\n        },\n        \"archiveLogs\": \"<boolean>\",\n        \"hooks\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\",\n          \"key_2\": \"<object>\"\n        },\n        \"onExit\": \"<string>\",\n        \"retryStrategy\": {\n          \"limit\": \"<integer>\",\n          \"retryPolicy\": \"<string>\",\n          \"backoff\": {\n            \"duration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"factor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"maxDuration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"workflowMetadata\": \"<object>\"\n    },\n    \"status\": {\n      \"active\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"lastScheduledTime\": \"<dateTime>\",\n      \"conditions\": [\n        \"<object>\",\n        \"<object>\"\n      ]\n    }\n  },\n  \"createOptions\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3bfa506f-79e2-4d0f-826b-f7eb31aec3ee",
+              "name": "Cron workflow created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cron-workflows",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Kubernetes namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"namespace\": \"<string>\",\n  \"cronWorkflow\": {\n    \"apiVersion\": \"argoproj.io/v1alpha1\",\n    \"kind\": \"CronWorkflow\",\n    \"metadata\": {\n      \"name\": \"string\",\n      \"generateName\": \"string\",\n      \"namespace\": \"string\",\n      \"uid\": \"string\",\n      \"resourceVersion\": \"string\",\n      \"generation\": 5107,\n      \"creationTimestamp\": \"1993-05-30T08:39:44.633Z\",\n      \"labels\": {\n        \"key_0\": \"string\"\n      },\n      \"annotations\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    \"spec\": {\n      \"schedule\": \"string\",\n      \"timezone\": \"string\",\n      \"startingDeadlineSeconds\": 8116,\n      \"concurrencyPolicy\": \"Forbid\",\n      \"suspend\": true,\n      \"successfulJobsHistoryLimit\": 2939,\n      \"failedJobsHistoryLimit\": 5695,\n      \"workflowSpec\": {\n        \"entrypoint\": \"string\",\n        \"arguments\": {\n          \"parameters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"artifacts\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"templates\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"container\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"script\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"steps\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suspend\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"activeDeadlineSeconds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryStrategy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"nodeSelector\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"container\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"script\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"steps\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suspend\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"activeDeadlineSeconds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryStrategy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"nodeSelector\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"serviceAccountName\": \"string\",\n        \"activeDeadlineSeconds\": 5054,\n        \"nodeSelector\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"parallelism\": 6096,\n        \"ttlStrategy\": {\n          \"secondsAfterCompletion\": 7198,\n          \"secondsAfterSuccess\": 3678,\n          \"secondsAfterFailure\": 1701\n        },\n        \"podGC\": {\n          \"strategy\": \"OnWorkflowCompletion\"\n        },\n        \"workflowTemplateRef\": {\n          \"name\": \"string\",\n          \"clusterScope\": true\n        },\n        \"archiveLogs\": false,\n        \"hooks\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        },\n        \"onExit\": \"string\",\n        \"retryStrategy\": {\n          \"limit\": 1184,\n          \"retryPolicy\": \"OnFailure\",\n          \"backoff\": {\n            \"duration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"factor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"maxDuration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"workflowMetadata\": {}\n    },\n    \"status\": {\n      \"lastScheduledTime\": \"1988-04-18T02:02:13.698Z\"\n    }\n  },\n  \"createOptions\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"argoproj.io/v1alpha1\",\n  \"kind\": \"CronWorkflow\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"generateName\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 6598,\n    \"creationTimestamp\": \"1983-09-26T19:47:50.942Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"schedule\": \"string\",\n    \"timezone\": \"string\",\n    \"startingDeadlineSeconds\": 8818,\n    \"concurrencyPolicy\": \"Replace\",\n    \"suspend\": true,\n    \"successfulJobsHistoryLimit\": 1735,\n    \"failedJobsHistoryLimit\": 5408,\n    \"workflowSpec\": {\n      \"entrypoint\": \"string\",\n      \"arguments\": {\n        \"parameters\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"artifacts\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"templates\": [\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"replace\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 5357,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_3\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"delete\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 3843,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      ],\n      \"serviceAccountName\": \"string\",\n      \"activeDeadlineSeconds\": 7988,\n      \"nodeSelector\": {\n        \"key_0\": \"string\"\n      },\n      \"parallelism\": 5457,\n      \"ttlStrategy\": {\n        \"secondsAfterCompletion\": 541,\n        \"secondsAfterSuccess\": 9003,\n        \"secondsAfterFailure\": 7186\n      },\n      \"podGC\": {\n        \"strategy\": \"OnWorkflowCompletion\"\n      },\n      \"workflowTemplateRef\": {\n        \"name\": \"string\",\n        \"clusterScope\": true\n      },\n      \"archiveLogs\": true,\n      \"hooks\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {},\n        \"key_3\": {}\n      },\n      \"onExit\": \"string\",\n      \"retryStrategy\": {\n        \"limit\": 7012,\n        \"retryPolicy\": \"OnTransientError\",\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 9046,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"workflowMetadata\": {}\n  },\n  \"status\": {\n    \"lastScheduledTime\": \"2003-02-28T16:05:14.106Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26453ebf-b763-4060-8962-31fe1e027147",
+          "name": "Argo Workflows Argo Get a Cron Workflow",
+          "request": {
+            "name": "Argo Workflows Argo Get a Cron Workflow",
+            "description": {
+              "content": "Returns a specific cron workflow by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cron-workflows",
+                ":namespace",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Kubernetes namespace"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the cron workflow"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75cb5bf7-d1b4-42b2-b4d3-732fb8dc057f",
+              "name": "Cron workflow details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cron-workflows",
+                    ":namespace",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Kubernetes namespace"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the cron workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"argoproj.io/v1alpha1\",\n  \"kind\": \"CronWorkflow\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"generateName\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 6598,\n    \"creationTimestamp\": \"1983-09-26T19:47:50.942Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"schedule\": \"string\",\n    \"timezone\": \"string\",\n    \"startingDeadlineSeconds\": 8818,\n    \"concurrencyPolicy\": \"Replace\",\n    \"suspend\": true,\n    \"successfulJobsHistoryLimit\": 1735,\n    \"failedJobsHistoryLimit\": 5408,\n    \"workflowSpec\": {\n      \"entrypoint\": \"string\",\n      \"arguments\": {\n        \"parameters\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"artifacts\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"templates\": [\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"replace\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 5357,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_3\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"delete\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 3843,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      ],\n      \"serviceAccountName\": \"string\",\n      \"activeDeadlineSeconds\": 7988,\n      \"nodeSelector\": {\n        \"key_0\": \"string\"\n      },\n      \"parallelism\": 5457,\n      \"ttlStrategy\": {\n        \"secondsAfterCompletion\": 541,\n        \"secondsAfterSuccess\": 9003,\n        \"secondsAfterFailure\": 7186\n      },\n      \"podGC\": {\n        \"strategy\": \"OnWorkflowCompletion\"\n      },\n      \"workflowTemplateRef\": {\n        \"name\": \"string\",\n        \"clusterScope\": true\n      },\n      \"archiveLogs\": true,\n      \"hooks\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {},\n        \"key_3\": {}\n      },\n      \"onExit\": \"string\",\n      \"retryStrategy\": {\n        \"limit\": 7012,\n        \"retryPolicy\": \"OnTransientError\",\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 9046,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"workflowMetadata\": {}\n  },\n  \"status\": {\n    \"lastScheduledTime\": \"2003-02-28T16:05:14.106Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f99cc9e3-07a5-4bf8-b1c5-a2e558fdb39a",
+          "name": "Argo Workflows Argo Update a Cron Workflow",
+          "request": {
+            "name": "Argo Workflows Argo Update a Cron Workflow",
+            "description": {
+              "content": "Updates an existing cron workflow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cron-workflows",
+                ":namespace",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Kubernetes namespace"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the cron workflow"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"namespace\": \"<string>\",\n  \"name\": \"<string>\",\n  \"cronWorkflow\": {\n    \"apiVersion\": \"argoproj.io/v1alpha1\",\n    \"kind\": \"CronWorkflow\",\n    \"metadata\": {\n      \"name\": \"<string>\",\n      \"generateName\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"uid\": \"<string>\",\n      \"resourceVersion\": \"<string>\",\n      \"generation\": \"<long>\",\n      \"creationTimestamp\": \"<dateTime>\",\n      \"labels\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"annotations\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\",\n        \"key_3\": \"<string>\"\n      }\n    },\n    \"spec\": {\n      \"schedule\": \"<string>\",\n      \"timezone\": \"<string>\",\n      \"startingDeadlineSeconds\": \"<long>\",\n      \"concurrencyPolicy\": \"<string>\",\n      \"suspend\": \"<boolean>\",\n      \"successfulJobsHistoryLimit\": \"<integer>\",\n      \"failedJobsHistoryLimit\": \"<integer>\",\n      \"workflowSpec\": {\n        \"entrypoint\": \"<string>\",\n        \"arguments\": {\n          \"parameters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"artifacts\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"templates\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"container\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"script\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"steps\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suspend\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"activeDeadlineSeconds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryStrategy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"nodeSelector\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"container\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"script\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"steps\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suspend\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"activeDeadlineSeconds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryStrategy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"nodeSelector\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"serviceAccountName\": \"<string>\",\n        \"volumes\": [\n          \"<object>\",\n          \"<object>\"\n        ],\n        \"activeDeadlineSeconds\": \"<long>\",\n        \"nodeSelector\": {\n          \"key_0\": \"<string>\"\n        },\n        \"tolerations\": [\n          \"<object>\",\n          \"<object>\"\n        ],\n        \"parallelism\": \"<integer>\",\n        \"ttlStrategy\": {\n          \"secondsAfterCompletion\": \"<integer>\",\n          \"secondsAfterSuccess\": \"<integer>\",\n          \"secondsAfterFailure\": \"<integer>\"\n        },\n        \"podGC\": {\n          \"strategy\": \"<string>\"\n        },\n        \"workflowTemplateRef\": {\n          \"name\": \"<string>\",\n          \"clusterScope\": \"<boolean>\"\n        },\n        \"archiveLogs\": \"<boolean>\",\n        \"hooks\": {\n          \"key_0\": \"<object>\",\n          \"key_1\": \"<object>\"\n        },\n        \"onExit\": \"<string>\",\n        \"retryStrategy\": {\n          \"limit\": \"<integer>\",\n          \"retryPolicy\": \"<string>\",\n          \"backoff\": {\n            \"duration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"factor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"maxDuration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"workflowMetadata\": \"<object>\"\n    },\n    \"status\": {\n      \"active\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"lastScheduledTime\": \"<dateTime>\",\n      \"conditions\": [\n        \"<object>\",\n        \"<object>\"\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c12d13d6-8504-402e-b4f0-942d305ad625",
+              "name": "Cron workflow updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cron-workflows",
+                    ":namespace",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Kubernetes namespace"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the cron workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"namespace\": \"<string>\",\n  \"name\": \"<string>\",\n  \"cronWorkflow\": {\n    \"apiVersion\": \"argoproj.io/v1alpha1\",\n    \"kind\": \"CronWorkflow\",\n    \"metadata\": {\n      \"name\": \"string\",\n      \"generateName\": \"string\",\n      \"namespace\": \"string\",\n      \"uid\": \"string\",\n      \"resourceVersion\": \"string\",\n      \"generation\": 1639,\n      \"creationTimestamp\": \"2022-12-24T02:58:49.936Z\",\n      \"labels\": {\n        \"key_0\": \"string\"\n      },\n      \"annotations\": {\n        \"key_0\": \"string\"\n      }\n    },\n    \"spec\": {\n      \"schedule\": \"string\",\n      \"timezone\": \"string\",\n      \"startingDeadlineSeconds\": 5201,\n      \"concurrencyPolicy\": \"Replace\",\n      \"suspend\": true,\n      \"successfulJobsHistoryLimit\": 3197,\n      \"failedJobsHistoryLimit\": 719,\n      \"workflowSpec\": {\n        \"entrypoint\": \"string\",\n        \"arguments\": {\n          \"parameters\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"artifacts\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"templates\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"container\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"script\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"steps\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suspend\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"activeDeadlineSeconds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryStrategy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"nodeSelector\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"outputs\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"container\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"script\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"resource\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"steps\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suspend\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"activeDeadlineSeconds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryStrategy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"nodeSelector\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"serviceAccountName\": \"string\",\n        \"activeDeadlineSeconds\": 5417,\n        \"nodeSelector\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"parallelism\": 2907,\n        \"ttlStrategy\": {\n          \"secondsAfterCompletion\": 470,\n          \"secondsAfterSuccess\": 1094,\n          \"secondsAfterFailure\": 5423\n        },\n        \"podGC\": {\n          \"strategy\": \"OnWorkflowSuccess\"\n        },\n        \"workflowTemplateRef\": {\n          \"name\": \"string\",\n          \"clusterScope\": true\n        },\n        \"archiveLogs\": false,\n        \"hooks\": {\n          \"key_0\": {}\n        },\n        \"onExit\": \"string\",\n        \"retryStrategy\": {\n          \"limit\": 3356,\n          \"retryPolicy\": \"Always\",\n          \"backoff\": {\n            \"duration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"factor\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"maxDuration\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"workflowMetadata\": {}\n    },\n    \"status\": {\n      \"lastScheduledTime\": \"2000-10-13T22:59:17.134Z\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"argoproj.io/v1alpha1\",\n  \"kind\": \"CronWorkflow\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"generateName\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 6598,\n    \"creationTimestamp\": \"1983-09-26T19:47:50.942Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"schedule\": \"string\",\n    \"timezone\": \"string\",\n    \"startingDeadlineSeconds\": 8818,\n    \"concurrencyPolicy\": \"Replace\",\n    \"suspend\": true,\n    \"successfulJobsHistoryLimit\": 1735,\n    \"failedJobsHistoryLimit\": 5408,\n    \"workflowSpec\": {\n      \"entrypoint\": \"string\",\n      \"arguments\": {\n        \"parameters\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"artifacts\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"templates\": [\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"replace\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 5357,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_3\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"delete\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 3843,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      ],\n      \"serviceAccountName\": \"string\",\n      \"activeDeadlineSeconds\": 7988,\n      \"nodeSelector\": {\n        \"key_0\": \"string\"\n      },\n      \"parallelism\": 5457,\n      \"ttlStrategy\": {\n        \"secondsAfterCompletion\": 541,\n        \"secondsAfterSuccess\": 9003,\n        \"secondsAfterFailure\": 7186\n      },\n      \"podGC\": {\n        \"strategy\": \"OnWorkflowCompletion\"\n      },\n      \"workflowTemplateRef\": {\n        \"name\": \"string\",\n        \"clusterScope\": true\n      },\n      \"archiveLogs\": true,\n      \"hooks\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {},\n        \"key_3\": {}\n      },\n      \"onExit\": \"string\",\n      \"retryStrategy\": {\n        \"limit\": 7012,\n        \"retryPolicy\": \"OnTransientError\",\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 9046,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"workflowMetadata\": {}\n  },\n  \"status\": {\n    \"lastScheduledTime\": \"2003-02-28T16:05:14.106Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31cad362-71ea-42eb-94a1-e5c921d6278f",
+          "name": "Argo Workflows Argo Delete a Cron Workflow",
+          "request": {
+            "name": "Argo Workflows Argo Delete a Cron Workflow",
+            "description": {
+              "content": "Deletes a specific cron workflow by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cron-workflows",
+                ":namespace",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Kubernetes namespace"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the cron workflow"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4d46240-eada-4eff-889a-40a53b74a096",
+              "name": "Cron workflow deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cron-workflows",
+                    ":namespace",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Kubernetes namespace"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the cron workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf9e04f0-1085-4394-9ae1-aba656c96252",
+          "name": "Argo Workflows Argo Resume a Cron Workflow",
+          "request": {
+            "name": "Argo Workflows Argo Resume a Cron Workflow",
+            "description": {
+              "content": "Resumes a previously suspended cron workflow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cron-workflows",
+                ":namespace",
+                ":name",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Kubernetes namespace"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the cron workflow"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d5fb42e7-f0d8-48b2-9ac1-e2d529cde4e1",
+              "name": "Cron workflow resumed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cron-workflows",
+                    ":namespace",
+                    ":name",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Kubernetes namespace"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the cron workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"argoproj.io/v1alpha1\",\n  \"kind\": \"CronWorkflow\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"generateName\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 6598,\n    \"creationTimestamp\": \"1983-09-26T19:47:50.942Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"schedule\": \"string\",\n    \"timezone\": \"string\",\n    \"startingDeadlineSeconds\": 8818,\n    \"concurrencyPolicy\": \"Replace\",\n    \"suspend\": true,\n    \"successfulJobsHistoryLimit\": 1735,\n    \"failedJobsHistoryLimit\": 5408,\n    \"workflowSpec\": {\n      \"entrypoint\": \"string\",\n      \"arguments\": {\n        \"parameters\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"artifacts\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"templates\": [\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"replace\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 5357,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_3\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"delete\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 3843,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      ],\n      \"serviceAccountName\": \"string\",\n      \"activeDeadlineSeconds\": 7988,\n      \"nodeSelector\": {\n        \"key_0\": \"string\"\n      },\n      \"parallelism\": 5457,\n      \"ttlStrategy\": {\n        \"secondsAfterCompletion\": 541,\n        \"secondsAfterSuccess\": 9003,\n        \"secondsAfterFailure\": 7186\n      },\n      \"podGC\": {\n        \"strategy\": \"OnWorkflowCompletion\"\n      },\n      \"workflowTemplateRef\": {\n        \"name\": \"string\",\n        \"clusterScope\": true\n      },\n      \"archiveLogs\": true,\n      \"hooks\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {},\n        \"key_3\": {}\n      },\n      \"onExit\": \"string\",\n      \"retryStrategy\": {\n        \"limit\": 7012,\n        \"retryPolicy\": \"OnTransientError\",\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 9046,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"workflowMetadata\": {}\n  },\n  \"status\": {\n    \"lastScheduledTime\": \"2003-02-28T16:05:14.106Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25aef86d-eced-42f5-ad88-2f5fffaee7a8",
+          "name": "Argo Workflows Argo Suspend a Cron Workflow",
+          "request": {
+            "name": "Argo Workflows Argo Suspend a Cron Workflow",
+            "description": {
+              "content": "Suspends an active cron workflow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cron-workflows",
+                ":namespace",
+                ":name",
+                "suspend"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Kubernetes namespace"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the cron workflow"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac5350ce-78ac-430c-8bef-f243ad563a9d",
+              "name": "Cron workflow suspended",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cron-workflows",
+                    ":namespace",
+                    ":name",
+                    "suspend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Kubernetes namespace"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the cron workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"argoproj.io/v1alpha1\",\n  \"kind\": \"CronWorkflow\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"generateName\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 6598,\n    \"creationTimestamp\": \"1983-09-26T19:47:50.942Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"schedule\": \"string\",\n    \"timezone\": \"string\",\n    \"startingDeadlineSeconds\": 8818,\n    \"concurrencyPolicy\": \"Replace\",\n    \"suspend\": true,\n    \"successfulJobsHistoryLimit\": 1735,\n    \"failedJobsHistoryLimit\": 5408,\n    \"workflowSpec\": {\n      \"entrypoint\": \"string\",\n      \"arguments\": {\n        \"parameters\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"artifacts\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"from\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"s3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"git\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"templates\": [\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"replace\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 5357,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_3\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        {\n          \"name\": \"string\",\n          \"inputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"outputs\": {\n            \"parameters\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"artifacts\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"result\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"exitCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"container\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"args\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"env\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"resources\": {\n              \"limits\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"requests\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"volumeMounts\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"script\": {\n            \"image\": \"string\",\n            \"command\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"source\": \"string\"\n          },\n          \"resource\": {\n            \"action\": \"delete\",\n            \"manifest\": \"string\",\n            \"successCondition\": \"string\",\n            \"failureCondition\": \"string\"\n          },\n          \"dag\": {\n            \"tasks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"steps\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          \"suspend\": {\n            \"duration\": \"string\"\n          },\n          \"activeDeadlineSeconds\": 3843,\n          \"retryStrategy\": {\n            \"limit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"retryPolicy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backoff\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"nodeSelector\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"metadata\": {\n            \"labels\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"annotations\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      ],\n      \"serviceAccountName\": \"string\",\n      \"activeDeadlineSeconds\": 7988,\n      \"nodeSelector\": {\n        \"key_0\": \"string\"\n      },\n      \"parallelism\": 5457,\n      \"ttlStrategy\": {\n        \"secondsAfterCompletion\": 541,\n        \"secondsAfterSuccess\": 9003,\n        \"secondsAfterFailure\": 7186\n      },\n      \"podGC\": {\n        \"strategy\": \"OnWorkflowCompletion\"\n      },\n      \"workflowTemplateRef\": {\n        \"name\": \"string\",\n        \"clusterScope\": true\n      },\n      \"archiveLogs\": true,\n      \"hooks\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {},\n        \"key_3\": {}\n      },\n      \"onExit\": \"string\",\n      \"retryStrategy\": {\n        \"limit\": 7012,\n        \"retryPolicy\": \"OnTransientError\",\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 9046,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"workflowMetadata\": {}\n  },\n  \"status\": {\n    \"lastScheduledTime\": \"2003-02-28T16:05:14.106Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://localhost/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "235240f6-e004-4179-93c4-b000e4ebe4d5",
+    "name": "Argo CD Applications Cron Workflows API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.\n\nContact Support:\n Name: Argo CD Community",
+      "type": "text/plain"
+    }
+  }
+}

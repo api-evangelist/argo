@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Argo CD Applications Projects API",
+    "version": "v2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo List Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/projects"
+          },
+          "docs": "Returns all Argo CD projects. Projects provide logical grouping, access control, and policy enforcement for applications."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Create a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Argo CD project with the specified source repositories, destination clusters/namespaces, and resource allow/deny policies."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Get a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/projects/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Argo CD project."
+              }
+            ]
+          },
+          "docs": "Returns the specification and detailed information for a named project."
+        },
+        {
+          "info": {
+            "name": "Argo CD Argo Delete a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://localhost/api/v1/projects/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Argo CD project."
+              }
+            ]
+          },
+          "docs": "Deletes the named Argo CD project. The project must have no associated applications before it can be deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,725 @@
+{
+  "item": [
+    {
+      "id": "86883fb5-682f-4f91-b70c-fc211d99e4e5",
+      "name": "Projects",
+      "description": {
+        "content": "Operations for managing Argo CD projects that provide governance and access control for applications.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef9816a8-c062-47a4-9bcc-0a6c87c3d392",
+          "name": "Argo CD Argo List Projects",
+          "request": {
+            "name": "Argo CD Argo List Projects",
+            "description": {
+              "content": "Returns all Argo CD projects. Projects provide logical grouping, access control, and policy enforcement for applications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2239061-ca90-4729-9e70-fca1ad9d2636",
+              "name": "List of projects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"metadata\": {\n        \"name\": \"string\"\n      },\n      \"spec\": {\n        \"description\": \"string\",\n        \"sourceRepos\": [\n          \"string\",\n          \"string\"\n        ],\n        \"destinations\": [\n          {\n            \"server\": \"string\",\n            \"namespace\": \"string\"\n          },\n          {\n            \"server\": \"string\",\n            \"namespace\": \"string\"\n          }\n        ],\n        \"clusterResourceWhitelist\": [\n          {\n            \"group\": \"string\",\n            \"kind\": \"string\"\n          },\n          {\n            \"group\": \"string\",\n            \"kind\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"metadata\": {\n        \"name\": \"string\"\n      },\n      \"spec\": {\n        \"description\": \"string\",\n        \"sourceRepos\": [\n          \"string\",\n          \"string\"\n        ],\n        \"destinations\": [\n          {\n            \"server\": \"string\",\n            \"namespace\": \"string\"\n          },\n          {\n            \"server\": \"string\",\n            \"namespace\": \"string\"\n          }\n        ],\n        \"clusterResourceWhitelist\": [\n          {\n            \"group\": \"string\",\n            \"kind\": \"string\"\n          },\n          {\n            \"group\": \"string\",\n            \"kind\": \"string\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddc5fff7-6345-4519-96b5-94a211b6e949",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9c746a6-6518-4fc4-a533-a0905d721c7b",
+          "name": "Argo CD Argo Create a Project",
+          "request": {
+            "name": "Argo CD Argo Create a Project",
+            "description": {
+              "content": "Creates a new Argo CD project with the specified source repositories, destination clusters/namespaces, and resource allow/deny policies.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": {\n    \"name\": \"<string>\"\n  },\n  \"spec\": {\n    \"description\": \"<string>\",\n    \"sourceRepos\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"destinations\": [\n      {\n        \"server\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      {\n        \"server\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    ],\n    \"clusterResourceWhitelist\": [\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\"\n      },\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b7b3ff96-74c0-4fd5-b0fe-6311a9cc421a",
+              "name": "Project created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"name\": \"<string>\"\n  },\n  \"spec\": {\n    \"description\": \"<string>\",\n    \"sourceRepos\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"destinations\": [\n      {\n        \"server\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      {\n        \"server\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    ],\n    \"clusterResourceWhitelist\": [\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\"\n      },\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": {\n    \"name\": \"string\"\n  },\n  \"spec\": {\n    \"description\": \"string\",\n    \"sourceRepos\": [\n      \"string\",\n      \"string\"\n    ],\n    \"destinations\": [\n      {\n        \"server\": \"string\",\n        \"namespace\": \"string\"\n      },\n      {\n        \"server\": \"string\",\n        \"namespace\": \"string\"\n      }\n    ],\n    \"clusterResourceWhitelist\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\"\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9ae23f3-1010-4ea2-89b6-3026c15fa659",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"name\": \"<string>\"\n  },\n  \"spec\": {\n    \"description\": \"<string>\",\n    \"sourceRepos\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"destinations\": [\n      {\n        \"server\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      {\n        \"server\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    ],\n    \"clusterResourceWhitelist\": [\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\"\n      },\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3ca621b0-d0ad-4924-a7c1-5a511d9adfbf",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"name\": \"<string>\"\n  },\n  \"spec\": {\n    \"description\": \"<string>\",\n    \"sourceRepos\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"destinations\": [\n      {\n        \"server\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      {\n        \"server\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    ],\n    \"clusterResourceWhitelist\": [\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\"\n      },\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3a7498d-9029-423b-8816-e87a37918e06",
+          "name": "Argo CD Argo Get a Project",
+          "request": {
+            "name": "Argo CD Argo Get a Project",
+            "description": {
+              "content": "Returns the specification and detailed information for a named project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the Argo CD project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d00dfcdc-ec51-4e1b-bdca-a19065db89f9",
+              "name": "Project details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": {\n    \"name\": \"string\"\n  },\n  \"spec\": {\n    \"description\": \"string\",\n    \"sourceRepos\": [\n      \"string\",\n      \"string\"\n    ],\n    \"destinations\": [\n      {\n        \"server\": \"string\",\n        \"namespace\": \"string\"\n      },\n      {\n        \"server\": \"string\",\n        \"namespace\": \"string\"\n      }\n    ],\n    \"clusterResourceWhitelist\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\"\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d500d478-2c9b-47bf-b77b-078076a5093e",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5e1b9f0-f2d8-4c99-88c5-0a950782744c",
+              "name": "Project not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a625f5a-1c22-4a91-8273-05e4ef189a9d",
+          "name": "Argo CD Argo Delete a Project",
+          "request": {
+            "name": "Argo CD Argo Delete a Project",
+            "description": {
+              "content": "Deletes the named Argo CD project. The project must have no associated applications before it can be deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the Argo CD project."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19212167-3201-4c99-8c49-776e4e524876",
+              "name": "Project deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd351653-4e39-4e3c-8780-7f4bb9257ef0",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "865bd565-35d5-4a1b-9619-5a1892a13ca9",
+              "name": "Project not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://localhost/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "880cb025-522e-49aa-8095-9cde91ccef23",
+    "name": "Argo CD Applications Projects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.\n\nContact Support:\n Name: Argo CD Community",
+      "type": "text/plain"
+    }
+  }
+}

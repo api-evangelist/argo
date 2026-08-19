@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Argo CD Applications Settings API",
+    "version": "v2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo CD Argo Get Server Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/settings"
+          },
+          "docs": "Returns the Argo CD server configuration including OIDC settings, Helm settings, resource tracking method, and UI customization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

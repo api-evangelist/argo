@@ -1,0 +1,1727 @@
+{
+  "item": [
+    {
+      "id": "84f39d1f-56af-4615-98f0-f995aa680493",
+      "name": "Applications",
+      "description": {
+        "content": "Operations for creating, querying, syncing, and deleting Argo CD GitOps applications.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7e33cc50-ab36-4f0e-b6bc-ce2df9a7f01b",
+          "name": "Argo CD Argo List Applications",
+          "request": {
+            "name": "Argo CD Argo List Applications",
+            "description": {
+              "content": "Returns a list of all Argo CD applications, optionally filtered by project, namespace, or name. Each application includes its current sync status, health status, source configuration, and destination cluster details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "project",
+                  "value": "<string>",
+                  "description": "Filter by project name."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter applications by name."
+                },
+                {
+                  "disabled": false,
+                  "key": "namespace",
+                  "value": "<string>",
+                  "description": "Filter applications by destination namespace."
+                },
+                {
+                  "disabled": false,
+                  "key": "appNamespace",
+                  "value": "<string>",
+                  "description": "The application namespace to filter by."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aa3b6db2-3061-491f-b3ea-36534ed7ed9a",
+              "name": "List of applications.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "namespace",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appNamespace",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"spec\": {\n        \"destination\": {\n          \"server\": \"http://prrzsuFGEDlEEquolpsKkynmtrjkoQX.ulsbU-P7d\",\n          \"name\": \"string\",\n          \"namespace\": \"string\"\n        },\n        \"project\": \"string\",\n        \"source\": {\n          \"repoURL\": \"https://yAhjBYtWNkbTKtJQyevebMXaajw.rdoVOvQqgyDu0Ox5nJeB7YnwSaWhPRW-w1jrb6yk-JlIOZOpmHDFeIHKpcdyG3sja\",\n          \"path\": \"string\",\n          \"targetRevision\": \"string\",\n          \"chart\": \"string\",\n          \"helm\": {\n            \"valueFiles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"values\": \"string\",\n            \"releaseName\": \"string\"\n          },\n          \"kustomize\": {\n            \"namePrefix\": \"string\",\n            \"nameSuffix\": \"string\",\n            \"images\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        \"syncPolicy\": {\n          \"automated\": {\n            \"prune\": false,\n            \"selfHeal\": false,\n            \"allowEmpty\": false\n          },\n          \"syncOptions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"retry\": {\n            \"limit\": 5515,\n            \"backoff\": {\n              \"duration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"factor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxDuration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"ignoreDifferences\": [\n          {\n            \"group\": \"string\",\n            \"kind\": \"string\",\n            \"jsonPointers\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"group\": \"string\",\n            \"kind\": \"string\",\n            \"jsonPointers\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      },\n      \"status\": {\n        \"sync\": {\n          \"status\": \"OutOfSync\",\n          \"revision\": \"string\"\n        },\n        \"health\": {\n          \"status\": \"Missing\",\n          \"message\": \"string\"\n        },\n        \"operationState\": {\n          \"phase\": \"string\",\n          \"message\": \"string\",\n          \"startedAt\": \"1969-10-27T03:43:43.841Z\",\n          \"finishedAt\": \"2018-09-23T17:24:30.094Z\"\n        }\n      }\n    },\n    {\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"spec\": {\n        \"destination\": {\n          \"server\": \"https://jVrvsGRTfWZFwinKHRiNGwnl.voayfst4wQHnMaqb0meOOBCb5K3\",\n          \"name\": \"string\",\n          \"namespace\": \"string\"\n        },\n        \"project\": \"string\",\n        \"source\": {\n          \"repoURL\": \"https://Phidiny.fqcrGacxRydnySuAhG5wTOsTldj0ptNB,NySaShLA9T..W\",\n          \"path\": \"string\",\n          \"targetRevision\": \"string\",\n          \"chart\": \"string\",\n          \"helm\": {\n            \"valueFiles\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"values\": \"string\",\n            \"releaseName\": \"string\"\n          },\n          \"kustomize\": {\n            \"namePrefix\": \"string\",\n            \"nameSuffix\": \"string\",\n            \"images\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        \"syncPolicy\": {\n          \"automated\": {\n            \"prune\": false,\n            \"selfHeal\": false,\n            \"allowEmpty\": false\n          },\n          \"syncOptions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"retry\": {\n            \"limit\": 4124,\n            \"backoff\": {\n              \"duration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"factor\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxDuration\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        },\n        \"ignoreDifferences\": [\n          {\n            \"group\": \"string\",\n            \"kind\": \"string\",\n            \"jsonPointers\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"group\": \"string\",\n            \"kind\": \"string\",\n            \"jsonPointers\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      },\n      \"status\": {\n        \"sync\": {\n          \"status\": \"Unknown\",\n          \"revision\": \"string\"\n        },\n        \"health\": {\n          \"status\": \"Healthy\",\n          \"message\": \"string\"\n        },\n        \"operationState\": {\n          \"phase\": \"string\",\n          \"message\": \"string\",\n          \"startedAt\": \"1954-05-22T14:38:24.379Z\",\n          \"finishedAt\": \"2020-11-17T06:29:12.117Z\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f17b3a1e-113d-44a8-a746-8a539823356a",
+              "name": "Unauthorized. Missing or invalid authentication token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "namespace",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appNamespace",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d058f5d3-a280-421c-b8cd-d4e4a4377828",
+              "name": "Forbidden. Insufficient permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "namespace",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appNamespace",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54b7db06-5e72-47bb-81b9-4a28084064c5",
+          "name": "Argo CD Argo Create an Application",
+          "request": {
+            "name": "Argo CD Argo Create an Application",
+            "description": {
+              "content": "Creates a new Argo CD application from the provided Application manifest. The application must reference a valid project, source repository, and destination cluster. Optionally upsert to update an existing application with the same name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "upsert",
+                  "value": "<boolean>",
+                  "description": "If true, perform an upsert rather than a create, updating the application if it already exists."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"<uri>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    },\n    \"project\": \"<string>\",\n    \"source\": {\n      \"repoURL\": \"<uri>\",\n      \"path\": \"<string>\",\n      \"targetRevision\": \"<string>\",\n      \"chart\": \"<string>\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"values\": \"<string>\",\n        \"releaseName\": \"<string>\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"<string>\",\n        \"nameSuffix\": \"<string>\",\n        \"images\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"retry\": {\n        \"limit\": \"<long>\",\n        \"backoff\": {\n          \"duration\": \"<string>\",\n          \"factor\": \"<long>\",\n          \"maxDuration\": \"<string>\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"jsonPointers\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"jsonPointers\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"<string>\",\n      \"revision\": \"<string>\"\n    },\n    \"health\": {\n      \"status\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    \"operationState\": {\n      \"phase\": \"<string>\",\n      \"message\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"finishedAt\": \"<dateTime>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a688662e-d455-44aa-b707-bb5d00078108",
+              "name": "Application created or updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "upsert",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"http://Q.nqcsHUE2kLfnND1c.eHTUkB-RlfPZyaRui3n0.bNFxAORzKuF,3\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://lmTnddwpKD.rdwHiKoF1,-j2Jl0VRmnKJFd99S\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 4679,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 6183,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Unknown\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Suspended\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"1985-04-25T21:53:40.210Z\",\n      \"finishedAt\": \"1983-08-22T22:56:38.728Z\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"https://uuJxmFrwTiJ.htraI,RNLqKZFc0EarZ0-KW1iEQz0OvL\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://bQSlSSEtABoBeP.fdLeEToTbC1Y1Eks\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 5774,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 1537,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Synced\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Progressing\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"2005-06-09T16:57:13.577Z\",\n      \"finishedAt\": \"2013-11-05T11:13:57.540Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "958d6f5e-3578-4685-9d89-ce92c6ec7916",
+              "name": "Bad request. Invalid application specification.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "upsert",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"http://Q.nqcsHUE2kLfnND1c.eHTUkB-RlfPZyaRui3n0.bNFxAORzKuF,3\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://lmTnddwpKD.rdwHiKoF1,-j2Jl0VRmnKJFd99S\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 4679,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 6183,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Unknown\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Suspended\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"1985-04-25T21:53:40.210Z\",\n      \"finishedAt\": \"1983-08-22T22:56:38.728Z\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c11ed564-45d5-431a-a64c-c0bf7731643a",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "upsert",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"http://Q.nqcsHUE2kLfnND1c.eHTUkB-RlfPZyaRui3n0.bNFxAORzKuF,3\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://lmTnddwpKD.rdwHiKoF1,-j2Jl0VRmnKJFd99S\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 4679,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 6183,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Unknown\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Suspended\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"1985-04-25T21:53:40.210Z\",\n      \"finishedAt\": \"1983-08-22T22:56:38.728Z\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "926cdbd4-89a7-435b-9531-55d2fda5b5aa",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "upsert",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"http://Q.nqcsHUE2kLfnND1c.eHTUkB-RlfPZyaRui3n0.bNFxAORzKuF,3\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://lmTnddwpKD.rdwHiKoF1,-j2Jl0VRmnKJFd99S\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 4679,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 6183,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Unknown\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Suspended\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"1985-04-25T21:53:40.210Z\",\n      \"finishedAt\": \"1983-08-22T22:56:38.728Z\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49d3f393-73bf-4264-845f-db70f8a69696",
+          "name": "Argo CD Argo Get an Application",
+          "request": {
+            "name": "Argo CD Argo Get an Application",
+            "description": {
+              "content": "Returns the full specification and current status of a named Argo CD application, including sync status, health status, resource tree, and operation state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "appNamespace",
+                  "value": "<string>",
+                  "description": "Application namespace."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the Argo CD application."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6970ed5a-5692-4364-a451-9e215121f4d7",
+              "name": "Application details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appNamespace",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"https://uuJxmFrwTiJ.htraI,RNLqKZFc0EarZ0-KW1iEQz0OvL\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://bQSlSSEtABoBeP.fdLeEToTbC1Y1Eks\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 5774,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 1537,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Synced\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Progressing\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"2005-06-09T16:57:13.577Z\",\n      \"finishedAt\": \"2013-11-05T11:13:57.540Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8fd5e34-2955-4fac-9fe7-8927389a2704",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appNamespace",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dd6cd76c-6f7f-4fb2-845b-3e97178c7d8e",
+              "name": "Application not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appNamespace",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4272711c-e331-480f-99de-2abdbb439cda",
+          "name": "Argo CD Argo Update an Application",
+          "request": {
+            "name": "Argo CD Argo Update an Application",
+            "description": {
+              "content": "Replaces the specification of an existing Argo CD application with the provided manifest. Used to update source, destination, sync policy, or other application configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the Argo CD application."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"<uri>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    },\n    \"project\": \"<string>\",\n    \"source\": {\n      \"repoURL\": \"<uri>\",\n      \"path\": \"<string>\",\n      \"targetRevision\": \"<string>\",\n      \"chart\": \"<string>\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"values\": \"<string>\",\n        \"releaseName\": \"<string>\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"<string>\",\n        \"nameSuffix\": \"<string>\",\n        \"images\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"retry\": {\n        \"limit\": \"<long>\",\n        \"backoff\": {\n          \"duration\": \"<string>\",\n          \"factor\": \"<long>\",\n          \"maxDuration\": \"<string>\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"jsonPointers\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"group\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"jsonPointers\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"<string>\",\n      \"revision\": \"<string>\"\n    },\n    \"health\": {\n      \"status\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    \"operationState\": {\n      \"phase\": \"<string>\",\n      \"message\": \"<string>\",\n      \"startedAt\": \"<dateTime>\",\n      \"finishedAt\": \"<dateTime>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f126dd87-1129-4b66-bf59-b989159e2a47",
+              "name": "Updated application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"http://Q.nqcsHUE2kLfnND1c.eHTUkB-RlfPZyaRui3n0.bNFxAORzKuF,3\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://lmTnddwpKD.rdwHiKoF1,-j2Jl0VRmnKJFd99S\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 4679,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 6183,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Unknown\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Suspended\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"1985-04-25T21:53:40.210Z\",\n      \"finishedAt\": \"1983-08-22T22:56:38.728Z\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"https://uuJxmFrwTiJ.htraI,RNLqKZFc0EarZ0-KW1iEQz0OvL\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://bQSlSSEtABoBeP.fdLeEToTbC1Y1Eks\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 5774,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 1537,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Synced\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Progressing\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"2005-06-09T16:57:13.577Z\",\n      \"finishedAt\": \"2013-11-05T11:13:57.540Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1ca1f57-5eec-4865-89cb-cc742e83933e",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"http://Q.nqcsHUE2kLfnND1c.eHTUkB-RlfPZyaRui3n0.bNFxAORzKuF,3\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://lmTnddwpKD.rdwHiKoF1,-j2Jl0VRmnKJFd99S\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 4679,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 6183,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Unknown\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Suspended\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"1985-04-25T21:53:40.210Z\",\n      \"finishedAt\": \"1983-08-22T22:56:38.728Z\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ca06144b-0c51-4a33-a118-20c9792073dc",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"http://Q.nqcsHUE2kLfnND1c.eHTUkB-RlfPZyaRui3n0.bNFxAORzKuF,3\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://lmTnddwpKD.rdwHiKoF1,-j2Jl0VRmnKJFd99S\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 4679,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 6183,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Unknown\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Suspended\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"1985-04-25T21:53:40.210Z\",\n      \"finishedAt\": \"1983-08-22T22:56:38.728Z\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c0c9527c-335a-49cd-9fe2-5e04bb9521ee",
+              "name": "Application not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"http://Q.nqcsHUE2kLfnND1c.eHTUkB-RlfPZyaRui3n0.bNFxAORzKuF,3\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://lmTnddwpKD.rdwHiKoF1,-j2Jl0VRmnKJFd99S\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 4679,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 6183,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Unknown\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Suspended\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"1985-04-25T21:53:40.210Z\",\n      \"finishedAt\": \"1983-08-22T22:56:38.728Z\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3ad20ca-562e-4905-a439-baed76b3ecd5",
+          "name": "Argo CD Argo Delete an Application",
+          "request": {
+            "name": "Argo CD Argo Delete an Application",
+            "description": {
+              "content": "Deletes the named Argo CD application. Optionally cascades deletion to all managed Kubernetes resources in the destination cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cascade",
+                  "value": "true",
+                  "description": "Cascade deletion to managed Kubernetes resources."
+                },
+                {
+                  "disabled": false,
+                  "key": "propagationPolicy",
+                  "value": "<string>",
+                  "description": "Kubernetes resource deletion propagation policy (foreground, background, orphan)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the Argo CD application."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f45c6e4c-6a6a-44fb-82a9-0533ce6bad92",
+              "name": "Application deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cascade",
+                      "value": "true"
+                    },
+                    {
+                      "key": "propagationPolicy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ea5da4aa-cc36-44a5-a5a0-69bc8215ad34",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cascade",
+                      "value": "true"
+                    },
+                    {
+                      "key": "propagationPolicy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5ef73a7b-c97b-4b09-b785-1e3231915767",
+              "name": "Application not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cascade",
+                      "value": "true"
+                    },
+                    {
+                      "key": "propagationPolicy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f079199d-c8ff-40aa-9172-dccc7eb750f1",
+          "name": "Argo CD Argo Sync an Application",
+          "request": {
+            "name": "Argo CD Argo Sync an Application",
+            "description": {
+              "content": "Triggers a synchronization of the named Argo CD application, reconciling the live Kubernetes state with the desired state from the Git source. Supports selective resource sync, dry-run mode, force sync, and prune of removed resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":name",
+                "sync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the Argo CD application."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"revision\": \"<string>\",\n  \"dryRun\": \"<boolean>\",\n  \"prune\": \"<boolean>\",\n  \"strategy\": {\n    \"apply\": {\n      \"force\": \"<boolean>\"\n    },\n    \"hook\": {\n      \"force\": \"<boolean>\"\n    }\n  },\n  \"resources\": [\n    {\n      \"group\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    },\n    {\n      \"group\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f8dc52f7-aad3-479c-9107-9b8f6869509a",
+              "name": "Sync operation initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"revision\": \"<string>\",\n  \"dryRun\": \"<boolean>\",\n  \"prune\": \"<boolean>\",\n  \"strategy\": {\n    \"apply\": {\n      \"force\": \"<boolean>\"\n    },\n    \"hook\": {\n      \"force\": \"<boolean>\"\n    }\n  },\n  \"resources\": [\n    {\n      \"group\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    },\n    {\n      \"group\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"https://uuJxmFrwTiJ.htraI,RNLqKZFc0EarZ0-KW1iEQz0OvL\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://bQSlSSEtABoBeP.fdLeEToTbC1Y1Eks\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 5774,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 1537,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Synced\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Progressing\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"2005-06-09T16:57:13.577Z\",\n      \"finishedAt\": \"2013-11-05T11:13:57.540Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64b553be-7f5f-42b8-9097-ece76dfe12a6",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"revision\": \"<string>\",\n  \"dryRun\": \"<boolean>\",\n  \"prune\": \"<boolean>\",\n  \"strategy\": {\n    \"apply\": {\n      \"force\": \"<boolean>\"\n    },\n    \"hook\": {\n      \"force\": \"<boolean>\"\n    }\n  },\n  \"resources\": [\n    {\n      \"group\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    },\n    {\n      \"group\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f66f45cb-450b-4cd5-be4e-a15f9bdadfe1",
+              "name": "Application not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"revision\": \"<string>\",\n  \"dryRun\": \"<boolean>\",\n  \"prune\": \"<boolean>\",\n  \"strategy\": {\n    \"apply\": {\n      \"force\": \"<boolean>\"\n    },\n    \"hook\": {\n      \"force\": \"<boolean>\"\n    }\n  },\n  \"resources\": [\n    {\n      \"group\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    },\n    {\n      \"group\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"name\": \"<string>\",\n      \"namespace\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13969234-ec11-4d12-b305-2c0a0927fa5e",
+          "name": "Argo CD Argo Rollback an Application",
+          "request": {
+            "name": "Argo CD Argo Rollback an Application",
+            "description": {
+              "content": "Rolls back the named application to a previous deployed revision. Requires the ID of a history entry from the application's deployment history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":name",
+                "rollback"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the Argo CD application."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<long>\",\n  \"prune\": \"<boolean>\",\n  \"dryRun\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7adbc2dd-1239-4efd-9dfc-0e77f0cba051",
+              "name": "Rollback initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name",
+                    "rollback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<long>\",\n  \"prune\": \"<boolean>\",\n  \"dryRun\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\"\n  },\n  \"spec\": {\n    \"destination\": {\n      \"server\": \"https://uuJxmFrwTiJ.htraI,RNLqKZFc0EarZ0-KW1iEQz0OvL\",\n      \"name\": \"string\",\n      \"namespace\": \"string\"\n    },\n    \"project\": \"string\",\n    \"source\": {\n      \"repoURL\": \"http://bQSlSSEtABoBeP.fdLeEToTbC1Y1Eks\",\n      \"path\": \"string\",\n      \"targetRevision\": \"string\",\n      \"chart\": \"string\",\n      \"helm\": {\n        \"valueFiles\": [\n          \"string\",\n          \"string\"\n        ],\n        \"values\": \"string\",\n        \"releaseName\": \"string\"\n      },\n      \"kustomize\": {\n        \"namePrefix\": \"string\",\n        \"nameSuffix\": \"string\",\n        \"images\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\": false,\n        \"selfHeal\": false,\n        \"allowEmpty\": false\n      },\n      \"syncOptions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"retry\": {\n        \"limit\": 5774,\n        \"backoff\": {\n          \"duration\": \"string\",\n          \"factor\": 1537,\n          \"maxDuration\": \"string\"\n        }\n      }\n    },\n    \"ignoreDifferences\": [\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"group\": \"string\",\n        \"kind\": \"string\",\n        \"jsonPointers\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"status\": {\n    \"sync\": {\n      \"status\": \"Synced\",\n      \"revision\": \"string\"\n    },\n    \"health\": {\n      \"status\": \"Progressing\",\n      \"message\": \"string\"\n    },\n    \"operationState\": {\n      \"phase\": \"string\",\n      \"message\": \"string\",\n      \"startedAt\": \"2005-06-09T16:57:13.577Z\",\n      \"finishedAt\": \"2013-11-05T11:13:57.540Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c4d11f7-66a3-4c0d-b42d-f96a867f8fa1",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name",
+                    "rollback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<long>\",\n  \"prune\": \"<boolean>\",\n  \"dryRun\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1b588e70-2e20-45b2-bfad-8f33c35dc058",
+              "name": "Application not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":name",
+                    "rollback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the Argo CD application."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<long>\",\n  \"prune\": \"<boolean>\",\n  \"dryRun\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://localhost/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "926e1796-f84b-4327-99ca-12633c3b6d63",
+    "name": "Argo CD Applications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.\n\nContact Support:\n Name: Argo CD Community",
+      "type": "text/plain"
+    }
+  }
+}

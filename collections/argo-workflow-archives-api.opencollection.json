@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Argo CD Applications Workflow Archives API",
+    "version": "v2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow Archives",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo Workflows Argo List Archived Workflows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/archived-workflows",
+            "params": [
+              {
+                "name": "listOptions.labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "Label selector to filter archived workflows"
+              },
+              {
+                "name": "listOptions.limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "listOptions.continue",
+                "value": "",
+                "type": "query",
+                "description": "Continue token for pagination"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query",
+                "description": "Namespace to filter archived workflows"
+              }
+            ]
+          },
+          "docs": "Returns a list of archived workflows."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Get an Archived Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/archived-workflows/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path",
+                "description": "UID of the archived workflow"
+              }
+            ]
+          },
+          "docs": "Returns a specific archived workflow by UID."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Delete an Archived Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://localhost/api/v1/archived-workflows/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path",
+                "description": "UID of the archived workflow"
+              }
+            ]
+          },
+          "docs": "Deletes a specific archived workflow by UID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

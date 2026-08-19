@@ -1,0 +1,405 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Argo CD Applications Workflows API",
+    "version": "v2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Argo Workflows Argo List Workflows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/workflows/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "listOptions.labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "Label selector to filter workflows"
+              },
+              {
+                "name": "listOptions.fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "Field selector to filter workflows"
+              },
+              {
+                "name": "listOptions.limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of workflows to return"
+              },
+              {
+                "name": "listOptions.continue",
+                "value": "",
+                "type": "query",
+                "description": "Continue token for pagination"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response"
+              }
+            ]
+          },
+          "docs": "Returns a list of workflows in the specified namespace."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Create a Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://localhost/api/v1/workflows/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new workflow in the specified namespace."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Get a Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/workflows/:namespace/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the workflow"
+              },
+              {
+                "name": "getOptions.resourceVersion",
+                "value": "",
+                "type": "query",
+                "description": "Resource version for optimistic concurrency"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response"
+              }
+            ]
+          },
+          "docs": "Returns a specific workflow by name in the specified namespace."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Delete a Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://localhost/api/v1/workflows/:namespace/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the workflow"
+              },
+              {
+                "name": "deleteOptions.gracePeriodSeconds",
+                "value": "",
+                "type": "query",
+                "description": "Grace period for deletion in seconds"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Force deletion of the workflow"
+              }
+            ]
+          },
+          "docs": "Deletes a specific workflow by name in the specified namespace."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Retry a Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://localhost/api/v1/workflows/:namespace/:name/retry",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the workflow"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retries a failed or errored workflow."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Resubmit a Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://localhost/api/v1/workflows/:namespace/:name/resubmit",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the workflow"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resubmits a completed workflow as a new workflow."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Resume a Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://localhost/api/v1/workflows/:namespace/:name/resume",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the workflow"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resumes a suspended workflow."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Suspend a Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://localhost/api/v1/workflows/:namespace/:name/suspend",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the workflow"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Suspends a running workflow."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Stop a Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://localhost/api/v1/workflows/:namespace/:name/stop",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the workflow"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stops a running workflow."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Terminate a Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://localhost/api/v1/workflows/:namespace/:name/terminate",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the workflow"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Terminates a running workflow immediately."
+        },
+        {
+          "info": {
+            "name": "Argo Workflows Argo Get Workflow Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://localhost/api/v1/workflows/:namespace/:name/log",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Kubernetes namespace"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the workflow"
+              },
+              {
+                "name": "podName",
+                "value": "",
+                "type": "query",
+                "description": "Name of the pod to get logs from"
+              },
+              {
+                "name": "logOptions.container",
+                "value": "",
+                "type": "query",
+                "description": "Container name to get logs from"
+              },
+              {
+                "name": "logOptions.follow",
+                "value": "",
+                "type": "query",
+                "description": "Follow the log stream"
+              },
+              {
+                "name": "logOptions.sinceSeconds",
+                "value": "",
+                "type": "query",
+                "description": "Relative time in seconds to start streaming logs"
+              },
+              {
+                "name": "logOptions.tailLines",
+                "value": "",
+                "type": "query",
+                "description": "Number of lines from the end of the logs to show"
+              },
+              {
+                "name": "grep",
+                "value": "",
+                "type": "query",
+                "description": "Grep pattern to filter log lines"
+              }
+            ]
+          },
+          "docs": "Returns logs for a specific workflow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
