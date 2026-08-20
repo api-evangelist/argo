@@ -25,6 +25,14 @@ tags:
   - CI/CD
   - GitOps
   - Kubernetes
+  - Open-Source
+  - Progressive Delivery
+  - Workflow Engine
+tags_raw:
+  - CNCF
+  - CI/CD
+  - GitOps
+  - Kubernetes
   - Open Source
   - Progressive Delivery
   - Workflow Engine
@@ -41,6 +49,11 @@ apis:
     response to over 20 event types including webhooks, S3, cron, and messaging queues.
   humanURL: https://argoproj.github.io/argo-events/APIs/
   tags:
+  - Automation
+  - Event-Driven
+  - Event
+  - Kubernetes
+  tags_raw:
   - Automation
   - Event-Driven
   - Events
@@ -64,6 +77,12 @@ apis:
   tags:
   - Blue-Green
   - Canary
+  - Deployment
+  - Kubernetes
+  - Progressive Delivery
+  tags_raw:
+  - Blue-Green
+  - Canary
   - Deployments
   - Kubernetes
   - Progressive Delivery
@@ -80,6 +99,8 @@ apis:
   humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
   baseURL: https://localhost:2746/api/v1
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -101,6 +122,8 @@ apis:
   humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
   baseURL: https://localhost:2746/api/v1
   tags:
+  - Cluster
+  tags_raw:
   - Clusters
   properties:
   - type: OpenAPI
@@ -162,6 +185,8 @@ apis:
   humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
   baseURL: https://localhost:2746/api/v1
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -283,6 +308,8 @@ apis:
   humanURL: https://argo-workflows.readthedocs.io/en/latest/rest-api/
   baseURL: https://localhost:2746/api/v1
   tags:
+  - WorkflowTemplates
+  tags_raw:
   - Workflow Templates
   properties:
   - type: OpenAPI
