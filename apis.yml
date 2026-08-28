@@ -6,6 +6,19 @@ description: >-
   delivery), Argo Events (event-driven automation framework), and Argo Rollouts (progressive delivery with canary and
   blue-green strategies). Argo is a CNCF graduated project governed by the Linux Foundation.
 type: Index
+deliveryModel:
+  model: self-hosted
+  license: Apache-2.0
+  open_source: true
+  commercial: false
+  callable_host: false
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
