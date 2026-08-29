@@ -1,19 +1,24 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Argo CD Applications Cron Workflows API
-  description: The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.
-  version: v2.x
+  title: Argo Cron Workflows API
+  version: 3.5.0
   contact:
-    name: Argo CD Community
-    url: https://argo-cd.readthedocs.io/en/stable/
+    name: Argo Project
+    url: https://argoproj.github.io/
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  description: 'Operations tagged Cron Workflows across 2 of this provider''s published API definitions: argo-workflows-openapi.yml, openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://localhost/api/v1
-  description: Argo CD Server (default in-cluster address)
+- url: https://{host}:{port}/api/v1
+  description: Argo Workflows Server
+  variables:
+    host:
+      default: localhost
+    port:
+      default: '2746'
 security:
-- bearerAuth: []
+- BearerAuth: []
 tags:
 - name: Cron Workflows
   description: Operations for managing scheduled cron workflows
@@ -66,6 +71,14 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/v1
+      description: Argo Workflows Server
+      variables:
+        host:
+          default: localhost
+        port:
+          default: '2746'
   /cron-workflows/{namespace}/{name}:
     get:
       operationId: getCronWorkflow
@@ -130,6 +143,14 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/v1
+      description: Argo Workflows Server
+      variables:
+        host:
+          default: localhost
+        port:
+          default: '2746'
   /cron-workflows/{namespace}/{name}/resume:
     put:
       operationId: resumeCronWorkflow
@@ -150,6 +171,14 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/v1
+      description: Argo Workflows Server
+      variables:
+        host:
+          default: localhost
+        port:
+          default: '2746'
   /cron-workflows/{namespace}/{name}/suspend:
     put:
       operationId: suspendCronWorkflow
@@ -170,69 +199,16 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/v1
+      description: Argo Workflows Server
+      variables:
+        host:
+          default: localhost
+        port:
+          default: '2746'
 components:
   schemas:
-    CronWorkflowUpdateRequest:
-      type: object
-      properties:
-        namespace:
-          type: string
-        name:
-          type: string
-        cronWorkflow:
-          $ref: '#/components/schemas/CronWorkflow'
-    Arguments:
-      type: object
-      description: Arguments to pass to a template
-      properties:
-        parameters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Parameter'
-        artifacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Artifact'
-    CronWorkflowList:
-      type: object
-      properties:
-        apiVersion:
-          type: string
-        metadata:
-          type: object
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CronWorkflow'
-    DAGTask:
-      type: object
-      description: A task in a DAG template
-      properties:
-        name:
-          type: string
-        template:
-          type: string
-        arguments:
-          $ref: '#/components/schemas/Arguments'
-        dependencies:
-          type: array
-          items:
-            type: string
-        when:
-          type: string
-          description: Conditional expression for task execution
-        withItems:
-          type: array
-          items: {}
-        withParam:
-          type: string
-        continueOn:
-          type: object
-          properties:
-            error:
-              type: boolean
-            failed:
-              type: boolean
     CronWorkflowSpec:
       type: object
       description: Specification of a cron workflow
@@ -263,44 +239,6 @@ components:
           $ref: '#/components/schemas/WorkflowSpec'
         workflowMetadata:
           type: object
-    CronWorkflowStatus:
-      type: object
-      description: Status of a cron workflow
-      properties:
-        active:
-          type: array
-          items:
-            type: object
-        lastScheduledTime:
-          type: string
-          format: date-time
-        conditions:
-          type: array
-          items:
-            type: object
-    RetryStrategy:
-      type: object
-      description: Strategy for retrying failed steps
-      properties:
-        limit:
-          type: integer
-          description: Maximum number of retries
-        retryPolicy:
-          type: string
-          enum:
-          - Always
-          - OnFailure
-          - OnError
-          - OnTransientError
-        backoff:
-          type: object
-          properties:
-            duration:
-              type: string
-            factor:
-              type: integer
-            maxDuration:
-              type: string
     Artifact:
       type: object
       description: A workflow artifact
@@ -352,24 +290,33 @@ components:
                   type: integer
             zip:
               type: object
-    Outputs:
+    CronWorkflow:
       type: object
-      description: Outputs from a template
+      description: A scheduled workflow resource
       properties:
-        parameters:
+        apiVersion:
+          type: string
+          default: argoproj.io/v1alpha1
+        kind:
+          type: string
+          default: CronWorkflow
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/CronWorkflowSpec'
+        status:
+          $ref: '#/components/schemas/CronWorkflowStatus'
+    CronWorkflowList:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        metadata:
+          type: object
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/Parameter'
-        artifacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Artifact'
-        result:
-          type: string
-          description: Result output from a script template
-        exitCode:
-          type: string
-          description: Exit code of the container
+            $ref: '#/components/schemas/CronWorkflow'
     WorkflowSpec:
       type: object
       description: Specification of a workflow
@@ -449,6 +396,44 @@ components:
           description: Template to execute on workflow exit
         retryStrategy:
           $ref: '#/components/schemas/RetryStrategy'
+    CronWorkflowStatus:
+      type: object
+      description: Status of a cron workflow
+      properties:
+        active:
+          type: array
+          items:
+            type: object
+        lastScheduledTime:
+          type: string
+          format: date-time
+        conditions:
+          type: array
+          items:
+            type: object
+    RetryStrategy:
+      type: object
+      description: Strategy for retrying failed steps
+      properties:
+        limit:
+          type: integer
+          description: Maximum number of retries
+        retryPolicy:
+          type: string
+          enum:
+          - Always
+          - OnFailure
+          - OnError
+          - OnTransientError
+        backoff:
+          type: object
+          properties:
+            duration:
+              type: string
+            factor:
+              type: integer
+            maxDuration:
+              type: string
     Template:
       type: object
       description: A workflow template definition
@@ -571,24 +556,6 @@ components:
               type: object
               additionalProperties:
                 type: string
-    Parameter:
-      type: object
-      description: A workflow parameter
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        default:
-          type: string
-        enum:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        globalName:
-          type: string
     ObjectMeta:
       type: object
       description: Kubernetes object metadata
@@ -629,31 +596,80 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Artifact'
-    CronWorkflowCreateRequest:
+    Parameter:
+      type: object
+      description: A workflow parameter
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        default:
+          type: string
+        enum:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        globalName:
+          type: string
+    CronWorkflowUpdateRequest:
       type: object
       properties:
         namespace:
           type: string
+        name:
+          type: string
         cronWorkflow:
           $ref: '#/components/schemas/CronWorkflow'
-        createOptions:
-          type: object
-    CronWorkflow:
+    Outputs:
       type: object
-      description: A scheduled workflow resource
+      description: Outputs from a template
       properties:
-        apiVersion:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
+        result:
           type: string
-          default: argoproj.io/v1alpha1
-        kind:
+          description: Result output from a script template
+        exitCode:
           type: string
-          default: CronWorkflow
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/CronWorkflowSpec'
-        status:
-          $ref: '#/components/schemas/CronWorkflowStatus'
+          description: Exit code of the container
+    DAGTask:
+      type: object
+      description: A task in a DAG template
+      properties:
+        name:
+          type: string
+        template:
+          type: string
+        arguments:
+          $ref: '#/components/schemas/Arguments'
+        dependencies:
+          type: array
+          items:
+            type: string
+        when:
+          type: string
+          description: Conditional expression for task execution
+        withItems:
+          type: array
+          items: {}
+        withParam:
+          type: string
+        continueOn:
+          type: object
+          properties:
+            error:
+              type: boolean
+            failed:
+              type: boolean
     WorkflowStep:
       type: object
       description: A step in a steps template
@@ -678,6 +694,27 @@ components:
               type: boolean
             failed:
               type: boolean
+    CronWorkflowCreateRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        cronWorkflow:
+          $ref: '#/components/schemas/CronWorkflow'
+        createOptions:
+          type: object
+    Arguments:
+      type: object
+      description: Arguments to pass to a template
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
   parameters:
     Namespace:
       name: namespace
@@ -694,10 +731,10 @@ components:
       schema:
         type: string
   securitySchemes:
-    bearerAuth:
+    BearerAuth:
       type: http
       scheme: bearer
-      description: Bearer token obtained from the POST /session endpoint using username/password or from an external OIDC provider configured in Argo CD.
-externalDocs:
-  description: Argo CD API Documentation
-  url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+      description: Argo Workflows API token authentication
+x-refined-from:
+- argo-workflows-openapi.yml
+- openapi.yml

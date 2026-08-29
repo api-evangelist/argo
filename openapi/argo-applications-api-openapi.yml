@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Argo CD Applications API
   description: The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.
@@ -249,21 +249,74 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    appNameParam:
-      name: name
-      in: path
-      required: true
-      description: The name of the Argo CD application.
-      schema:
-        type: string
-    projectParam:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
   schemas:
+    Application:
+      type: object
+      description: An Argo CD Application represents a deployed set of Kubernetes resources managed through GitOps.
+      properties:
+        apiVersion:
+          type: string
+          description: API version, always argoproj.io/v1alpha1.
+        kind:
+          type: string
+          description: Resource kind, always Application.
+        metadata:
+          type: object
+          description: Kubernetes object metadata.
+          properties:
+            name:
+              type: string
+              description: Application name.
+            namespace:
+              type: string
+              description: Application namespace.
+        spec:
+          $ref: '#/components/schemas/ApplicationSpec'
+        status:
+          $ref: '#/components/schemas/ApplicationStatus'
+    ApplicationSpec:
+      type: object
+      description: Desired state specification for an Argo CD application.
+      required:
+      - destination
+      - project
+      - source
+      properties:
+        source:
+          $ref: '#/components/schemas/ApplicationSource'
+        destination:
+          $ref: '#/components/schemas/ApplicationDestination'
+        project:
+          type: string
+          description: Argo CD project this application belongs to.
+        syncPolicy:
+          $ref: '#/components/schemas/SyncPolicy'
+        ignoreDifferences:
+          type: array
+          description: Resource fields to ignore when computing sync status.
+          items:
+            type: object
+            properties:
+              group:
+                type: string
+                description: Kubernetes API group.
+              kind:
+                type: string
+                description: Kubernetes resource kind.
+              jsonPointers:
+                type: array
+                items:
+                  type: string
+                description: JSON Pointer paths to ignore.
+    ApplicationList:
+      type: object
+      description: A list of Argo CD applications.
+      properties:
+        items:
+          type: array
+          description: Array of application objects.
+          items:
+            $ref: '#/components/schemas/Application'
     SyncPolicy:
       type: object
       description: Policy controlling how and when the application is synchronized.
@@ -311,122 +364,6 @@ components:
                 maxDuration:
                   type: string
                   description: Maximum duration between retries.
-    Application:
-      type: object
-      description: An Argo CD Application represents a deployed set of Kubernetes resources managed through GitOps.
-      properties:
-        apiVersion:
-          type: string
-          description: API version, always argoproj.io/v1alpha1.
-        kind:
-          type: string
-          description: Resource kind, always Application.
-        metadata:
-          type: object
-          description: Kubernetes object metadata.
-          properties:
-            name:
-              type: string
-              description: Application name.
-            namespace:
-              type: string
-              description: Application namespace.
-        spec:
-          $ref: '#/components/schemas/ApplicationSpec'
-        status:
-          $ref: '#/components/schemas/ApplicationStatus'
-    SyncRequest:
-      type: object
-      description: Request body for triggering an application sync operation.
-      properties:
-        revision:
-          type: string
-          description: Specific Git revision to sync to. Defaults to the current target revision.
-        dryRun:
-          type: boolean
-          description: Preview sync without applying changes.
-        prune:
-          type: boolean
-          description: Delete resources no longer defined in the source.
-        strategy:
-          type: object
-          description: Sync strategy configuration.
-          properties:
-            apply:
-              type: object
-              description: Use kubectl apply sync strategy.
-              properties:
-                force:
-                  type: boolean
-                  description: Force resource updates through delete and recreate.
-            hook:
-              type: object
-              description: Use hook-based sync strategy.
-              properties:
-                force:
-                  type: boolean
-                  description: Force resource updates.
-        resources:
-          type: array
-          description: Specific resources to sync (partial sync).
-          items:
-            type: object
-            properties:
-              group:
-                type: string
-                description: Kubernetes API group.
-              kind:
-                type: string
-                description: Resource kind.
-              name:
-                type: string
-                description: Resource name.
-              namespace:
-                type: string
-                description: Resource namespace.
-    ApplicationList:
-      type: object
-      description: A list of Argo CD applications.
-      properties:
-        items:
-          type: array
-          description: Array of application objects.
-          items:
-            $ref: '#/components/schemas/Application'
-    ApplicationSpec:
-      type: object
-      description: Desired state specification for an Argo CD application.
-      required:
-      - destination
-      - project
-      - source
-      properties:
-        source:
-          $ref: '#/components/schemas/ApplicationSource'
-        destination:
-          $ref: '#/components/schemas/ApplicationDestination'
-        project:
-          type: string
-          description: Argo CD project this application belongs to.
-        syncPolicy:
-          $ref: '#/components/schemas/SyncPolicy'
-        ignoreDifferences:
-          type: array
-          description: Resource fields to ignore when computing sync status.
-          items:
-            type: object
-            properties:
-              group:
-                type: string
-                description: Kubernetes API group.
-              kind:
-                type: string
-                description: Kubernetes resource kind.
-              jsonPointers:
-                type: array
-                items:
-                  type: string
-                description: JSON Pointer paths to ignore.
     ApplicationSource:
       type: object
       description: Git or Helm chart source for the application manifests.
@@ -476,6 +413,20 @@ components:
               items:
                 type: string
               description: List of image overrides in name=tag format.
+    ApplicationDestination:
+      type: object
+      description: Target Kubernetes cluster and namespace for application deployment.
+      properties:
+        server:
+          type: string
+          description: Kubernetes API server URL of the target cluster. Use https://kubernetes.default.svc for the in-cluster target.
+          format: uri
+        name:
+          type: string
+          description: Name of the registered cluster. Mutually exclusive with server.
+        namespace:
+          type: string
+          description: Target namespace in the destination cluster.
     ApplicationStatus:
       type: object
       description: Observed state and operational status of an Argo CD application.
@@ -529,20 +480,69 @@ components:
               type: string
               format: date-time
               description: When the operation finished.
-    ApplicationDestination:
+    SyncRequest:
       type: object
-      description: Target Kubernetes cluster and namespace for application deployment.
+      description: Request body for triggering an application sync operation.
       properties:
-        server:
+        revision:
           type: string
-          description: Kubernetes API server URL of the target cluster. Use https://kubernetes.default.svc for the in-cluster target.
-          format: uri
-        name:
-          type: string
-          description: Name of the registered cluster. Mutually exclusive with server.
-        namespace:
-          type: string
-          description: Target namespace in the destination cluster.
+          description: Specific Git revision to sync to. Defaults to the current target revision.
+        dryRun:
+          type: boolean
+          description: Preview sync without applying changes.
+        prune:
+          type: boolean
+          description: Delete resources no longer defined in the source.
+        strategy:
+          type: object
+          description: Sync strategy configuration.
+          properties:
+            apply:
+              type: object
+              description: Use kubectl apply sync strategy.
+              properties:
+                force:
+                  type: boolean
+                  description: Force resource updates through delete and recreate.
+            hook:
+              type: object
+              description: Use hook-based sync strategy.
+              properties:
+                force:
+                  type: boolean
+                  description: Force resource updates.
+        resources:
+          type: array
+          description: Specific resources to sync (partial sync).
+          items:
+            type: object
+            properties:
+              group:
+                type: string
+                description: Kubernetes API group.
+              kind:
+                type: string
+                description: Resource kind.
+              name:
+                type: string
+                description: Resource name.
+              namespace:
+                type: string
+                description: Resource namespace.
+  parameters:
+    projectParam:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
+    appNameParam:
+      name: name
+      in: path
+      required: true
+      description: The name of the Argo CD application.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

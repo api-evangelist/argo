@@ -1,19 +1,24 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Argo CD Applications Info API
-  description: The Argo CD API provides REST endpoints for managing GitOps continuous delivery on Kubernetes. It enables creating and managing applications, projects, repositories, clusters, and certificates. The API supports syncing application state to match the desired state declared in Git, querying health and sync status, managing access control, and configuring notifications. All operations require authentication via bearer token obtained from the session endpoint.
-  version: v2.x
+  title: Argo Info API
+  version: 3.5.0
   contact:
-    name: Argo CD Community
-    url: https://argo-cd.readthedocs.io/en/stable/
+    name: Argo Project
+    url: https://argoproj.github.io/
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  description: 'Operations tagged Info across 2 of this provider''s published API definitions: argo-workflows-openapi.yml, openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://localhost/api/v1
-  description: Argo CD Server (default in-cluster address)
+- url: https://{host}:{port}/api/v1
+  description: Argo Workflows Server
+  variables:
+    host:
+      default: localhost
+    port:
+      default: '2746'
 security:
-- bearerAuth: []
+- BearerAuth: []
 tags:
 - name: Info
   description: Server information and version endpoints
@@ -35,6 +40,14 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/v1
+      description: Argo Workflows Server
+      variables:
+        host:
+          default: localhost
+        port:
+          default: '2746'
   /version:
     get:
       operationId: getVersion
@@ -52,6 +65,14 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://{host}:{port}/api/v1
+      description: Argo Workflows Server
+      variables:
+        host:
+          default: localhost
+        port:
+          default: '2746'
 components:
   schemas:
     Version:
@@ -91,10 +112,10 @@ components:
               url:
                 type: string
   securitySchemes:
-    bearerAuth:
+    BearerAuth:
       type: http
       scheme: bearer
-      description: Bearer token obtained from the POST /session endpoint using username/password or from an external OIDC provider configured in Argo CD.
-externalDocs:
-  description: Argo CD API Documentation
-  url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
+      description: Argo Workflows API token authentication
+x-refined-from:
+- argo-workflows-openapi.yml
+- openapi.yml

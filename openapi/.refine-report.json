@@ -1,41 +1,50 @@
 {
   "provider": "argo",
   "sources": [
-    "argo-applications-api-openapi.yml",
-    "argo-clusters-api-openapi.yml",
-    "argo-cron-workflows-api-openapi.yml",
-    "argo-info-api-openapi.yml",
-    "argo-projects-api-openapi.yml",
-    "argo-repositories-api-openapi.yml",
-    "argo-session-api-openapi.yml",
-    "argo-settings-api-openapi.yml",
-    "argo-version-api-openapi.yml",
-    "argo-workflow-archives-api-openapi.yml",
-    "argo-workflow-templates-api-openapi.yml",
-    "argo-workflows-api-openapi.yml",
-    "openapi.yml"
+    "_original/argo-cd-openapi.yml",
+    "_original/argo-workflows-openapi.yml",
+    "_original/openapi.yml"
   ],
   "outputs": [
     "argo-applications-api-openapi.yml",
     "argo-clusters-api-openapi.yml",
-    "argo-cron-workflows-api-openapi.yml",
-    "argo-info-api-openapi.yml",
     "argo-projects-api-openapi.yml",
     "argo-repositories-api-openapi.yml",
     "argo-session-api-openapi.yml",
     "argo-settings-api-openapi.yml",
     "argo-version-api-openapi.yml",
+    "argo-cron-workflows-api-openapi.yml",
+    "argo-info-api-openapi.yml",
     "argo-workflow-archives-api-openapi.yml",
     "argo-workflow-templates-api-openapi.yml",
     "argo-workflows-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi.yml"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "discovered stray spec: openapi.yml"
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "argo-cd-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "argo-workflows-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tag 'Cron Workflows' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied",
+    "tag 'Info' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied",
+    "tag 'Workflow Archives' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied",
+    "tag 'Workflow Templates' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied",
+    "tag 'Workflows' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied"
   ],
-  "skipped": []
+  "skipped": [
+    "argo-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-clusters-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-cron-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-repositories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-session-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-version-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-workflow-archives-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-workflow-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "argo-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
