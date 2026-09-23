@@ -1,6 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Argo Info API
+  title: Argo Workflows Info API
+  description: REST API for Argo Workflows, a Kubernetes-native workflow engine for orchestrating parallel jobs. Provides endpoints for managing workflows, workflow templates, cron workflows, and related resources.
   version: 3.5.0
   contact:
     name: Argo Project
@@ -8,7 +9,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
-  description: 'Operations tagged Info across 2 of this provider''s published API definitions: argo-workflows-openapi.yml, openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{host}:{port}/api/v1
   description: Argo Workflows Server
@@ -40,14 +40,6 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
-    servers:
-    - url: https://{host}:{port}/api/v1
-      description: Argo Workflows Server
-      variables:
-        host:
-          default: localhost
-        port:
-          default: '2746'
   /version:
     get:
       operationId: getVersion
@@ -65,16 +57,25 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
-    servers:
-    - url: https://{host}:{port}/api/v1
-      description: Argo Workflows Server
-      variables:
-        host:
-          default: localhost
-        port:
-          default: '2746'
 components:
   schemas:
+    InfoResponse:
+      type: object
+      properties:
+        managedNamespace:
+          type: string
+          description: The namespace managed by this Argo server
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              scope:
+                type: string
+              url:
+                type: string
     Version:
       type: object
       properties:
@@ -94,28 +95,8 @@ components:
           type: string
         platform:
           type: string
-    InfoResponse:
-      type: object
-      properties:
-        managedNamespace:
-          type: string
-          description: The namespace managed by this Argo server
-        links:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              scope:
-                type: string
-              url:
-                type: string
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       description: Argo Workflows API token authentication
-x-refined-from:
-- argo-workflows-openapi.yml
-- openapi.yml

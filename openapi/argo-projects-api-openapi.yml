@@ -105,15 +105,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    projectNameParam:
+      name: name
+      in: path
+      required: true
+      description: The name of the Argo CD project.
+      schema:
+        type: string
   schemas:
-    ProjectList:
-      type: object
-      description: A list of Argo CD projects.
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppProject'
     AppProject:
       type: object
       description: An Argo CD project providing logical grouping and RBAC for applications.
@@ -158,14 +158,14 @@ components:
                     type: string
                   kind:
                     type: string
-  parameters:
-    projectNameParam:
-      name: name
-      in: path
-      required: true
-      description: The name of the Argo CD project.
-      schema:
-        type: string
+    ProjectList:
+      type: object
+      description: A list of Argo CD projects.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppProject'
   securitySchemes:
     bearerAuth:
       type: http

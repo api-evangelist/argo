@@ -274,96 +274,6 @@ components:
           $ref: '#/components/schemas/ApplicationSpec'
         status:
           $ref: '#/components/schemas/ApplicationStatus'
-    ApplicationSpec:
-      type: object
-      description: Desired state specification for an Argo CD application.
-      required:
-      - destination
-      - project
-      - source
-      properties:
-        source:
-          $ref: '#/components/schemas/ApplicationSource'
-        destination:
-          $ref: '#/components/schemas/ApplicationDestination'
-        project:
-          type: string
-          description: Argo CD project this application belongs to.
-        syncPolicy:
-          $ref: '#/components/schemas/SyncPolicy'
-        ignoreDifferences:
-          type: array
-          description: Resource fields to ignore when computing sync status.
-          items:
-            type: object
-            properties:
-              group:
-                type: string
-                description: Kubernetes API group.
-              kind:
-                type: string
-                description: Kubernetes resource kind.
-              jsonPointers:
-                type: array
-                items:
-                  type: string
-                description: JSON Pointer paths to ignore.
-    ApplicationList:
-      type: object
-      description: A list of Argo CD applications.
-      properties:
-        items:
-          type: array
-          description: Array of application objects.
-          items:
-            $ref: '#/components/schemas/Application'
-    SyncPolicy:
-      type: object
-      description: Policy controlling how and when the application is synchronized.
-      properties:
-        automated:
-          type: object
-          description: Configuration for automatic synchronization.
-          properties:
-            prune:
-              type: boolean
-              description: Automatically delete resources removed from the source.
-              default: false
-            selfHeal:
-              type: boolean
-              description: Automatically sync when live state drifts from desired state.
-              default: false
-            allowEmpty:
-              type: boolean
-              description: Allows apps to have an empty source.
-              default: false
-        syncOptions:
-          type: array
-          description: List of sync option flags (e.g., CreateNamespace=true, PrunePropagationPolicy=foreground).
-          items:
-            type: string
-        retry:
-          type: object
-          description: Retry configuration for failed sync operations.
-          properties:
-            limit:
-              type: integer
-              format: int64
-              description: Maximum number of retry attempts. -1 for unlimited.
-            backoff:
-              type: object
-              description: Backoff strategy for retries.
-              properties:
-                duration:
-                  type: string
-                  description: Initial retry backoff duration.
-                factor:
-                  type: integer
-                  format: int64
-                  description: Multiplicative factor applied to duration on each retry.
-                maxDuration:
-                  type: string
-                  description: Maximum duration between retries.
     ApplicationSource:
       type: object
       description: Git or Helm chart source for the application manifests.
@@ -413,6 +323,53 @@ components:
               items:
                 type: string
               description: List of image overrides in name=tag format.
+    SyncPolicy:
+      type: object
+      description: Policy controlling how and when the application is synchronized.
+      properties:
+        automated:
+          type: object
+          description: Configuration for automatic synchronization.
+          properties:
+            prune:
+              type: boolean
+              description: Automatically delete resources removed from the source.
+              default: false
+            selfHeal:
+              type: boolean
+              description: Automatically sync when live state drifts from desired state.
+              default: false
+            allowEmpty:
+              type: boolean
+              description: Allows apps to have an empty source.
+              default: false
+        syncOptions:
+          type: array
+          description: List of sync option flags (e.g., CreateNamespace=true, PrunePropagationPolicy=foreground).
+          items:
+            type: string
+        retry:
+          type: object
+          description: Retry configuration for failed sync operations.
+          properties:
+            limit:
+              type: integer
+              format: int64
+              description: Maximum number of retry attempts. -1 for unlimited.
+            backoff:
+              type: object
+              description: Backoff strategy for retries.
+              properties:
+                duration:
+                  type: string
+                  description: Initial retry backoff duration.
+                factor:
+                  type: integer
+                  format: int64
+                  description: Multiplicative factor applied to duration on each retry.
+                maxDuration:
+                  type: string
+                  description: Maximum duration between retries.
     ApplicationDestination:
       type: object
       description: Target Kubernetes cluster and namespace for application deployment.
@@ -427,6 +384,55 @@ components:
         namespace:
           type: string
           description: Target namespace in the destination cluster.
+    SyncRequest:
+      type: object
+      description: Request body for triggering an application sync operation.
+      properties:
+        revision:
+          type: string
+          description: Specific Git revision to sync to. Defaults to the current target revision.
+        dryRun:
+          type: boolean
+          description: Preview sync without applying changes.
+        prune:
+          type: boolean
+          description: Delete resources no longer defined in the source.
+        strategy:
+          type: object
+          description: Sync strategy configuration.
+          properties:
+            apply:
+              type: object
+              description: Use kubectl apply sync strategy.
+              properties:
+                force:
+                  type: boolean
+                  description: Force resource updates through delete and recreate.
+            hook:
+              type: object
+              description: Use hook-based sync strategy.
+              properties:
+                force:
+                  type: boolean
+                  description: Force resource updates.
+        resources:
+          type: array
+          description: Specific resources to sync (partial sync).
+          items:
+            type: object
+            properties:
+              group:
+                type: string
+                description: Kubernetes API group.
+              kind:
+                type: string
+                description: Resource kind.
+              name:
+                type: string
+                description: Resource name.
+              namespace:
+                type: string
+                description: Resource namespace.
     ApplicationStatus:
       type: object
       description: Observed state and operational status of an Argo CD application.
@@ -480,40 +486,35 @@ components:
               type: string
               format: date-time
               description: When the operation finished.
-    SyncRequest:
+    ApplicationList:
       type: object
-      description: Request body for triggering an application sync operation.
+      description: A list of Argo CD applications.
       properties:
-        revision:
-          type: string
-          description: Specific Git revision to sync to. Defaults to the current target revision.
-        dryRun:
-          type: boolean
-          description: Preview sync without applying changes.
-        prune:
-          type: boolean
-          description: Delete resources no longer defined in the source.
-        strategy:
-          type: object
-          description: Sync strategy configuration.
-          properties:
-            apply:
-              type: object
-              description: Use kubectl apply sync strategy.
-              properties:
-                force:
-                  type: boolean
-                  description: Force resource updates through delete and recreate.
-            hook:
-              type: object
-              description: Use hook-based sync strategy.
-              properties:
-                force:
-                  type: boolean
-                  description: Force resource updates.
-        resources:
+        items:
           type: array
-          description: Specific resources to sync (partial sync).
+          description: Array of application objects.
+          items:
+            $ref: '#/components/schemas/Application'
+    ApplicationSpec:
+      type: object
+      description: Desired state specification for an Argo CD application.
+      required:
+      - destination
+      - project
+      - source
+      properties:
+        source:
+          $ref: '#/components/schemas/ApplicationSource'
+        destination:
+          $ref: '#/components/schemas/ApplicationDestination'
+        project:
+          type: string
+          description: Argo CD project this application belongs to.
+        syncPolicy:
+          $ref: '#/components/schemas/SyncPolicy'
+        ignoreDifferences:
+          type: array
+          description: Resource fields to ignore when computing sync status.
           items:
             type: object
             properties:
@@ -522,13 +523,12 @@ components:
                 description: Kubernetes API group.
               kind:
                 type: string
-                description: Resource kind.
-              name:
-                type: string
-                description: Resource name.
-              namespace:
-                type: string
-                description: Resource namespace.
+                description: Kubernetes resource kind.
+              jsonPointers:
+                type: array
+                items:
+                  type: string
+                description: JSON Pointer paths to ignore.
   parameters:
     projectParam:
       name: project

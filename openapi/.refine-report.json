@@ -2,8 +2,7 @@
   "provider": "argo",
   "sources": [
     "_original/argo-cd-openapi.yml",
-    "_original/argo-workflows-openapi.yml",
-    "_original/openapi.yml"
+    "_original/argo-workflows-openapi.yml"
   ],
   "outputs": [
     "argo-applications-api-openapi.yml",
@@ -23,17 +22,14 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "argo-cd-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "argo-workflows-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "tag 'Cron Workflows' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied",
-    "tag 'Info' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied",
-    "tag 'Workflow Archives' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied",
-    "tag 'Workflow Templates' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied",
-    "tag 'Workflows' spans 2 source specs (argo-workflows-openapi.yml, openapi.yml): per-path servers applied"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
+    "_original/openapi.yml: archived document superseded by a larger archived document",
     "argo-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "argo-clusters-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "argo-cron-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
