@@ -59,23 +59,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    InfoResponse:
-      type: object
-      properties:
-        managedNamespace:
-          type: string
-          description: The namespace managed by this Argo server
-        links:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              scope:
-                type: string
-              url:
-                type: string
     Version:
       type: object
       properties:
@@ -95,6 +78,23 @@ components:
           type: string
         platform:
           type: string
+    InfoResponse:
+      type: object
+      properties:
+        managedNamespace:
+          type: string
+          description: The namespace managed by this Argo server
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              scope:
+                type: string
+              url:
+                type: string
   securitySchemes:
     BearerAuth:
       type: http

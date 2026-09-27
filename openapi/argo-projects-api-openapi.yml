@@ -114,6 +114,14 @@ components:
       schema:
         type: string
   schemas:
+    ProjectList:
+      type: object
+      description: A list of Argo CD projects.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppProject'
     AppProject:
       type: object
       description: An Argo CD project providing logical grouping and RBAC for applications.
@@ -158,14 +166,6 @@ components:
                     type: string
                   kind:
                     type: string
-    ProjectList:
-      type: object
-      description: A list of Argo CD projects.
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppProject'
   securitySchemes:
     bearerAuth:
       type: http

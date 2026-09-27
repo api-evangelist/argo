@@ -40,9 +40,11 @@ tags:
   - CI/CD
   - GitOps
   - Kubernetes
-  - Open-Source
+  - Open Source
   - Progressive Delivery
   - Workflow Engine
+  - Cloud-Native
+  - Graduated
 tags_raw:
   - CNCF
   - CI/CD
@@ -51,6 +53,9 @@ tags_raw:
   - Open Source
   - Progressive Delivery
   - Workflow Engine
+  - Open-Source
+  - Cloud-Native
+  - Graduated
 url: https://raw.githubusercontent.com/api-evangelist/argo/refs/heads/main/apis.yml
 created: '2025-01-01'
 modified: '2026-05-19'

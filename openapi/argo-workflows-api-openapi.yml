@@ -371,10 +371,34 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: Kubernetes namespace
+      schema:
+        type: string
+    WorkflowName:
+      name: name
+      in: path
+      required: true
+      description: Name of the workflow
+      schema:
+        type: string
   schemas:
-    Inputs:
+    WorkflowResumeRequest:
       type: object
-      description: Inputs for a template
+      properties:
+        namespace:
+          type: string
+        name:
+          type: string
+        nodeFieldSelector:
+          type: string
+    Outputs:
+      type: object
+      description: Outputs from a template
       properties:
         parameters:
           type: array
@@ -384,34 +408,69 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Artifact'
-    ObjectMeta:
+        result:
+          type: string
+          description: Result output from a script template
+        exitCode:
+          type: string
+          description: Exit code of the container
+    WorkflowList:
       type: object
-      description: Kubernetes object metadata
+      properties:
+        apiVersion:
+          type: string
+        metadata:
+          type: object
+          properties:
+            resourceVersion:
+              type: string
+            continue:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+    Arguments:
+      type: object
+      description: Arguments to pass to a template
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
+    DAGTask:
+      type: object
+      description: A task in a DAG template
       properties:
         name:
           type: string
-        generateName:
+        template:
           type: string
-        namespace:
-          type: string
-        uid:
-          type: string
-        resourceVersion:
-          type: string
-        generation:
-          type: integer
-          format: int64
-        creationTimestamp:
-          type: string
-          format: date-time
-        labels:
-          type: object
-          additionalProperties:
+        arguments:
+          $ref: '#/components/schemas/Arguments'
+        dependencies:
+          type: array
+          items:
             type: string
-        annotations:
+        when:
+          type: string
+          description: Conditional expression for task execution
+        withItems:
+          type: array
+          items: {}
+        withParam:
+          type: string
+        continueOn:
           type: object
-          additionalProperties:
-            type: string
+          properties:
+            error:
+              type: boolean
+            failed:
+              type: boolean
     WorkflowSpec:
       type: object
       description: Specification of a workflow
@@ -491,33 +550,66 @@ components:
           description: Template to execute on workflow exit
         retryStrategy:
           $ref: '#/components/schemas/RetryStrategy'
-    WorkflowCreateRequest:
+    LogEntry:
       type: object
       properties:
-        namespace:
+        content:
           type: string
-        workflow:
-          $ref: '#/components/schemas/Workflow'
-        serverDryRun:
-          type: boolean
-        createOptions:
+        podName:
+          type: string
+    Parameter:
+      type: object
+      description: A workflow parameter
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        default:
+          type: string
+        enum:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        globalName:
+          type: string
+    RetryStrategy:
+      type: object
+      description: Strategy for retrying failed steps
+      properties:
+        limit:
+          type: integer
+          description: Maximum number of retries
+        retryPolicy:
+          type: string
+          enum:
+          - Always
+          - OnFailure
+          - OnError
+          - OnTransientError
+        backoff:
           type: object
-    Workflow:
+          properties:
+            duration:
+              type: string
+            factor:
+              type: integer
+            maxDuration:
+              type: string
+    Inputs:
       type: object
-      description: An Argo Workflow resource
+      description: Inputs for a template
       properties:
-        apiVersion:
-          type: string
-          default: argoproj.io/v1alpha1
-        kind:
-          type: string
-          default: Workflow
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/WorkflowSpec'
-        status:
-          $ref: '#/components/schemas/WorkflowStatus'
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
     Template:
       type: object
       description: A workflow template definition
@@ -640,24 +732,150 @@ components:
               type: object
               additionalProperties:
                 type: string
-    Outputs:
+    WorkflowRetryRequest:
       type: object
-      description: Outputs from a template
       properties:
+        namespace:
+          type: string
+        name:
+          type: string
+        restartSuccessful:
+          type: boolean
+        nodeFieldSelector:
+          type: string
         parameters:
           type: array
           items:
-            $ref: '#/components/schemas/Parameter'
-        artifacts:
+            type: string
+    WorkflowStep:
+      type: object
+      description: A step in a steps template
+      properties:
+        name:
+          type: string
+        template:
+          type: string
+        arguments:
+          $ref: '#/components/schemas/Arguments'
+        when:
+          type: string
+        withItems:
+          type: array
+          items: {}
+        withParam:
+          type: string
+        continueOn:
+          type: object
+          properties:
+            error:
+              type: boolean
+            failed:
+              type: boolean
+    ObjectMeta:
+      type: object
+      description: Kubernetes object metadata
+      properties:
+        name:
+          type: string
+        generateName:
+          type: string
+        namespace:
+          type: string
+        uid:
+          type: string
+        resourceVersion:
+          type: string
+        generation:
+          type: integer
+          format: int64
+        creationTimestamp:
+          type: string
+          format: date-time
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+    WorkflowStopRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        name:
+          type: string
+        nodeFieldSelector:
+          type: string
+        message:
+          type: string
+    NodeStatus:
+      type: object
+      description: Status of a workflow node
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+          enum:
+          - Pod
+          - Steps
+          - StepGroup
+          - DAG
+          - TaskGroup
+          - Retry
+          - Skipped
+          - Suspend
+        templateName:
+          type: string
+        phase:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        message:
+          type: string
+        children:
           type: array
           items:
-            $ref: '#/components/schemas/Artifact'
-        result:
+            type: string
+        inputs:
+          $ref: '#/components/schemas/Inputs'
+        outputs:
+          $ref: '#/components/schemas/Outputs'
+    Workflow:
+      type: object
+      description: An Argo Workflow resource
+      properties:
+        apiVersion:
           type: string
-          description: Result output from a script template
-        exitCode:
+          default: argoproj.io/v1alpha1
+        kind:
           type: string
-          description: Exit code of the container
+          default: Workflow
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/WorkflowSpec'
+        status:
+          $ref: '#/components/schemas/WorkflowStatus'
+    WorkflowResubmitRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+        name:
+          type: string
+        memoized:
+          type: boolean
     WorkflowStatus:
       type: object
       description: Status of a workflow execution
@@ -709,173 +927,17 @@ components:
               type: string
             key:
               type: string
-    NodeStatus:
-      type: object
-      description: Status of a workflow node
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        displayName:
-          type: string
-        type:
-          type: string
-          enum:
-          - Pod
-          - Steps
-          - StepGroup
-          - DAG
-          - TaskGroup
-          - Retry
-          - Skipped
-          - Suspend
-        templateName:
-          type: string
-        phase:
-          type: string
-        startedAt:
-          type: string
-          format: date-time
-        finishedAt:
-          type: string
-          format: date-time
-        message:
-          type: string
-        children:
-          type: array
-          items:
-            type: string
-        inputs:
-          $ref: '#/components/schemas/Inputs'
-        outputs:
-          $ref: '#/components/schemas/Outputs'
-    WorkflowRetryRequest:
+    WorkflowCreateRequest:
       type: object
       properties:
         namespace:
           type: string
-        name:
-          type: string
-        restartSuccessful:
+        workflow:
+          $ref: '#/components/schemas/Workflow'
+        serverDryRun:
           type: boolean
-        nodeFieldSelector:
-          type: string
-        parameters:
-          type: array
-          items:
-            type: string
-    RetryStrategy:
-      type: object
-      description: Strategy for retrying failed steps
-      properties:
-        limit:
-          type: integer
-          description: Maximum number of retries
-        retryPolicy:
-          type: string
-          enum:
-          - Always
-          - OnFailure
-          - OnError
-          - OnTransientError
-        backoff:
+        createOptions:
           type: object
-          properties:
-            duration:
-              type: string
-            factor:
-              type: integer
-            maxDuration:
-              type: string
-    WorkflowResubmitRequest:
-      type: object
-      properties:
-        namespace:
-          type: string
-        name:
-          type: string
-        memoized:
-          type: boolean
-    LogEntry:
-      type: object
-      properties:
-        content:
-          type: string
-        podName:
-          type: string
-    WorkflowStopRequest:
-      type: object
-      properties:
-        namespace:
-          type: string
-        name:
-          type: string
-        nodeFieldSelector:
-          type: string
-        message:
-          type: string
-    WorkflowResumeRequest:
-      type: object
-      properties:
-        namespace:
-          type: string
-        name:
-          type: string
-        nodeFieldSelector:
-          type: string
-    WorkflowList:
-      type: object
-      properties:
-        apiVersion:
-          type: string
-        metadata:
-          type: object
-          properties:
-            resourceVersion:
-              type: string
-            continue:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workflow'
-    WorkflowStep:
-      type: object
-      description: A step in a steps template
-      properties:
-        name:
-          type: string
-        template:
-          type: string
-        arguments:
-          $ref: '#/components/schemas/Arguments'
-        when:
-          type: string
-        withItems:
-          type: array
-          items: {}
-        withParam:
-          type: string
-        continueOn:
-          type: object
-          properties:
-            error:
-              type: boolean
-            failed:
-              type: boolean
-    Arguments:
-      type: object
-      description: Arguments to pass to a template
-      properties:
-        parameters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Parameter'
-        artifacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Artifact'
     Artifact:
       type: object
       description: A workflow artifact
@@ -927,68 +989,6 @@ components:
                   type: integer
             zip:
               type: object
-    Parameter:
-      type: object
-      description: A workflow parameter
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        default:
-          type: string
-        enum:
-          type: array
-          items:
-            type: string
-        description:
-          type: string
-        globalName:
-          type: string
-    DAGTask:
-      type: object
-      description: A task in a DAG template
-      properties:
-        name:
-          type: string
-        template:
-          type: string
-        arguments:
-          $ref: '#/components/schemas/Arguments'
-        dependencies:
-          type: array
-          items:
-            type: string
-        when:
-          type: string
-          description: Conditional expression for task execution
-        withItems:
-          type: array
-          items: {}
-        withParam:
-          type: string
-        continueOn:
-          type: object
-          properties:
-            error:
-              type: boolean
-            failed:
-              type: boolean
-  parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: Kubernetes namespace
-      schema:
-        type: string
-    WorkflowName:
-      name: name
-      in: path
-      required: true
-      description: Name of the workflow
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       type: http
