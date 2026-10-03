@@ -65,6 +65,14 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ClusterList:
+      type: object
+      description: A list of registered clusters.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cluster'
     Cluster:
       type: object
       description: A registered Kubernetes cluster deployment target.
@@ -100,14 +108,6 @@ components:
             applicationsCount:
               type: integer
               description: Number of applications targeting this cluster.
-    ClusterList:
-      type: object
-      description: A list of registered clusters.
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Cluster'
   securitySchemes:
     bearerAuth:
       type: http

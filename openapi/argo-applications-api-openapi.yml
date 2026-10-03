@@ -249,69 +249,21 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    appNameParam:
+      name: name
+      in: path
+      required: true
+      description: The name of the Argo CD application.
+      schema:
+        type: string
+    projectParam:
+      name: project
+      in: query
+      description: Filter by project name.
+      schema:
+        type: string
   schemas:
-    ApplicationList:
-      type: object
-      description: A list of Argo CD applications.
-      properties:
-        items:
-          type: array
-          description: Array of application objects.
-          items:
-            $ref: '#/components/schemas/Application'
-    ApplicationStatus:
-      type: object
-      description: Observed state and operational status of an Argo CD application.
-      properties:
-        sync:
-          type: object
-          description: Current sync status.
-          properties:
-            status:
-              type: string
-              description: Sync status (Synced, OutOfSync, Unknown).
-              enum:
-              - Synced
-              - OutOfSync
-              - Unknown
-            revision:
-              type: string
-              description: Deployed Git revision (commit SHA).
-        health:
-          type: object
-          description: Current health status.
-          properties:
-            status:
-              type: string
-              description: Health status (Healthy, Progressing, Degraded, Suspended, Missing, Unknown).
-              enum:
-              - Healthy
-              - Progressing
-              - Degraded
-              - Suspended
-              - Missing
-              - Unknown
-            message:
-              type: string
-              description: Human-readable health status message.
-        operationState:
-          type: object
-          description: State of the current or most recent operation.
-          properties:
-            phase:
-              type: string
-              description: Operation phase (Running, Failed, Succeeded, Error, Terminating).
-            message:
-              type: string
-              description: Human-readable operation status message.
-            startedAt:
-              type: string
-              format: date-time
-              description: When the operation started.
-            finishedAt:
-              type: string
-              format: date-time
-              description: When the operation finished.
     SyncRequest:
       type: object
       description: Request body for triggering an application sync operation.
@@ -361,6 +313,20 @@ components:
               namespace:
                 type: string
                 description: Resource namespace.
+    ApplicationDestination:
+      type: object
+      description: Target Kubernetes cluster and namespace for application deployment.
+      properties:
+        server:
+          type: string
+          description: Kubernetes API server URL of the target cluster. Use https://kubernetes.default.svc for the in-cluster target.
+          format: uri
+        name:
+          type: string
+          description: Name of the registered cluster. Mutually exclusive with server.
+        namespace:
+          type: string
+          description: Target namespace in the destination cluster.
     SyncPolicy:
       type: object
       description: Policy controlling how and when the application is synchronized.
@@ -442,6 +408,92 @@ components:
                 items:
                   type: string
                 description: JSON Pointer paths to ignore.
+    ApplicationList:
+      type: object
+      description: A list of Argo CD applications.
+      properties:
+        items:
+          type: array
+          description: Array of application objects.
+          items:
+            $ref: '#/components/schemas/Application'
+    ApplicationStatus:
+      type: object
+      description: Observed state and operational status of an Argo CD application.
+      properties:
+        sync:
+          type: object
+          description: Current sync status.
+          properties:
+            status:
+              type: string
+              description: Sync status (Synced, OutOfSync, Unknown).
+              enum:
+              - Synced
+              - OutOfSync
+              - Unknown
+            revision:
+              type: string
+              description: Deployed Git revision (commit SHA).
+        health:
+          type: object
+          description: Current health status.
+          properties:
+            status:
+              type: string
+              description: Health status (Healthy, Progressing, Degraded, Suspended, Missing, Unknown).
+              enum:
+              - Healthy
+              - Progressing
+              - Degraded
+              - Suspended
+              - Missing
+              - Unknown
+            message:
+              type: string
+              description: Human-readable health status message.
+        operationState:
+          type: object
+          description: State of the current or most recent operation.
+          properties:
+            phase:
+              type: string
+              description: Operation phase (Running, Failed, Succeeded, Error, Terminating).
+            message:
+              type: string
+              description: Human-readable operation status message.
+            startedAt:
+              type: string
+              format: date-time
+              description: When the operation started.
+            finishedAt:
+              type: string
+              format: date-time
+              description: When the operation finished.
+    Application:
+      type: object
+      description: An Argo CD Application represents a deployed set of Kubernetes resources managed through GitOps.
+      properties:
+        apiVersion:
+          type: string
+          description: API version, always argoproj.io/v1alpha1.
+        kind:
+          type: string
+          description: Resource kind, always Application.
+        metadata:
+          type: object
+          description: Kubernetes object metadata.
+          properties:
+            name:
+              type: string
+              description: Application name.
+            namespace:
+              type: string
+              description: Application namespace.
+        spec:
+          $ref: '#/components/schemas/ApplicationSpec'
+        status:
+          $ref: '#/components/schemas/ApplicationStatus'
     ApplicationSource:
       type: object
       description: Git or Helm chart source for the application manifests.
@@ -491,58 +543,6 @@ components:
               items:
                 type: string
               description: List of image overrides in name=tag format.
-    Application:
-      type: object
-      description: An Argo CD Application represents a deployed set of Kubernetes resources managed through GitOps.
-      properties:
-        apiVersion:
-          type: string
-          description: API version, always argoproj.io/v1alpha1.
-        kind:
-          type: string
-          description: Resource kind, always Application.
-        metadata:
-          type: object
-          description: Kubernetes object metadata.
-          properties:
-            name:
-              type: string
-              description: Application name.
-            namespace:
-              type: string
-              description: Application namespace.
-        spec:
-          $ref: '#/components/schemas/ApplicationSpec'
-        status:
-          $ref: '#/components/schemas/ApplicationStatus'
-    ApplicationDestination:
-      type: object
-      description: Target Kubernetes cluster and namespace for application deployment.
-      properties:
-        server:
-          type: string
-          description: Kubernetes API server URL of the target cluster. Use https://kubernetes.default.svc for the in-cluster target.
-          format: uri
-        name:
-          type: string
-          description: Name of the registered cluster. Mutually exclusive with server.
-        namespace:
-          type: string
-          description: Target namespace in the destination cluster.
-  parameters:
-    projectParam:
-      name: project
-      in: query
-      description: Filter by project name.
-      schema:
-        type: string
-    appNameParam:
-      name: name
-      in: path
-      required: true
-      description: The name of the Argo CD application.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
