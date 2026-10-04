@@ -111,6 +111,199 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Workflow:
+      type: object
+      description: An Argo Workflow resource
+      properties:
+        apiVersion:
+          type: string
+          default: argoproj.io/v1alpha1
+        kind:
+          type: string
+          default: Workflow
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/WorkflowSpec'
+        status:
+          $ref: '#/components/schemas/WorkflowStatus'
+    DAGTask:
+      type: object
+      description: A task in a DAG template
+      properties:
+        name:
+          type: string
+        template:
+          type: string
+        arguments:
+          $ref: '#/components/schemas/Arguments'
+        dependencies:
+          type: array
+          items:
+            type: string
+        when:
+          type: string
+          description: Conditional expression for task execution
+        withItems:
+          type: array
+          items: {}
+        withParam:
+          type: string
+        continueOn:
+          type: object
+          properties:
+            error:
+              type: boolean
+            failed:
+              type: boolean
+    Outputs:
+      type: object
+      description: Outputs from a template
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
+        result:
+          type: string
+          description: Result output from a script template
+        exitCode:
+          type: string
+          description: Exit code of the container
+    WorkflowSpec:
+      type: object
+      description: Specification of a workflow
+      properties:
+        entrypoint:
+          type: string
+          description: The name of the entrypoint template
+        arguments:
+          $ref: '#/components/schemas/Arguments'
+        templates:
+          type: array
+          description: List of workflow templates
+          items:
+            $ref: '#/components/schemas/Template'
+        serviceAccountName:
+          type: string
+          description: Service account to run workflow pods
+        volumes:
+          type: array
+          description: Volumes available to workflow steps
+          items:
+            type: object
+        activeDeadlineSeconds:
+          type: integer
+          format: int64
+          description: Duration in seconds before workflow times out
+        nodeSelector:
+          type: object
+          additionalProperties:
+            type: string
+        tolerations:
+          type: array
+          items:
+            type: object
+        parallelism:
+          type: integer
+          description: Maximum number of parallel running pods
+        ttlStrategy:
+          type: object
+          description: Strategy for cleaning up completed workflows
+          properties:
+            secondsAfterCompletion:
+              type: integer
+            secondsAfterSuccess:
+              type: integer
+            secondsAfterFailure:
+              type: integer
+        podGC:
+          type: object
+          description: Strategy for garbage collecting completed pods
+          properties:
+            strategy:
+              type: string
+              enum:
+              - OnPodCompletion
+              - OnPodSuccess
+              - OnWorkflowCompletion
+              - OnWorkflowSuccess
+        workflowTemplateRef:
+          type: object
+          description: Reference to a WorkflowTemplate
+          properties:
+            name:
+              type: string
+            clusterScope:
+              type: boolean
+        archiveLogs:
+          type: boolean
+          description: Whether to archive workflow logs
+        hooks:
+          type: object
+          description: Lifecycle hooks for the workflow
+          additionalProperties:
+            type: object
+        onExit:
+          type: string
+          description: Template to execute on workflow exit
+        retryStrategy:
+          $ref: '#/components/schemas/RetryStrategy'
+    WorkflowStatus:
+      type: object
+      description: Status of a workflow execution
+      properties:
+        phase:
+          type: string
+          enum:
+          - Pending
+          - Running
+          - Succeeded
+          - Failed
+          - Error
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        progress:
+          type: string
+          description: Progress of the workflow (e.g. 2/4)
+        message:
+          type: string
+        estimatedDuration:
+          type: integer
+        nodes:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/NodeStatus'
+        conditions:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              status:
+                type: string
+              message:
+                type: string
+        outputs:
+          $ref: '#/components/schemas/Outputs'
+        storedTemplates:
+          type: object
+        artifactRepositoryRef:
+          type: object
+          properties:
+            configMap:
+              type: string
+            key:
+              type: string
     RetryStrategy:
       type: object
       description: Strategy for retrying failed steps
@@ -134,6 +327,82 @@ components:
               type: integer
             maxDuration:
               type: string
+    WorkflowStep:
+      type: object
+      description: A step in a steps template
+      properties:
+        name:
+          type: string
+        template:
+          type: string
+        arguments:
+          $ref: '#/components/schemas/Arguments'
+        when:
+          type: string
+        withItems:
+          type: array
+          items: {}
+        withParam:
+          type: string
+        continueOn:
+          type: object
+          properties:
+            error:
+              type: boolean
+            failed:
+              type: boolean
+    ObjectMeta:
+      type: object
+      description: Kubernetes object metadata
+      properties:
+        name:
+          type: string
+        generateName:
+          type: string
+        namespace:
+          type: string
+        uid:
+          type: string
+        resourceVersion:
+          type: string
+        generation:
+          type: integer
+          format: int64
+        creationTimestamp:
+          type: string
+          format: date-time
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+    Inputs:
+      type: object
+      description: Inputs for a template
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
+    Arguments:
+      type: object
+      description: Arguments to pass to a template
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
     Parameter:
       type: object
       description: A workflow parameter
@@ -152,6 +421,114 @@ components:
           type: string
         globalName:
           type: string
+    WorkflowList:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        metadata:
+          type: object
+          properties:
+            resourceVersion:
+              type: string
+            continue:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+    NodeStatus:
+      type: object
+      description: Status of a workflow node
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+          enum:
+          - Pod
+          - Steps
+          - StepGroup
+          - DAG
+          - TaskGroup
+          - Retry
+          - Skipped
+          - Suspend
+        templateName:
+          type: string
+        phase:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
+        message:
+          type: string
+        children:
+          type: array
+          items:
+            type: string
+        inputs:
+          $ref: '#/components/schemas/Inputs'
+        outputs:
+          $ref: '#/components/schemas/Outputs'
+    Artifact:
+      type: object
+      description: A workflow artifact
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+          description: Path in the container where artifact is placed
+        from:
+          type: string
+          description: Source artifact reference
+        s3:
+          type: object
+          properties:
+            bucket:
+              type: string
+            key:
+              type: string
+            endpoint:
+              type: string
+        git:
+          type: object
+          properties:
+            repo:
+              type: string
+            revision:
+              type: string
+            depth:
+              type: integer
+        http:
+          type: object
+          properties:
+            url:
+              type: string
+            headers:
+              type: array
+              items:
+                type: object
+        archive:
+          type: object
+          properties:
+            none:
+              type: object
+            tar:
+              type: object
+              properties:
+                compressionLevel:
+                  type: integer
+            zip:
+              type: object
     Template:
       type: object
       description: A workflow template definition
@@ -274,383 +651,6 @@ components:
               type: object
               additionalProperties:
                 type: string
-    Inputs:
-      type: object
-      description: Inputs for a template
-      properties:
-        parameters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Parameter'
-        artifacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Artifact'
-    Outputs:
-      type: object
-      description: Outputs from a template
-      properties:
-        parameters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Parameter'
-        artifacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Artifact'
-        result:
-          type: string
-          description: Result output from a script template
-        exitCode:
-          type: string
-          description: Exit code of the container
-    WorkflowSpec:
-      type: object
-      description: Specification of a workflow
-      properties:
-        entrypoint:
-          type: string
-          description: The name of the entrypoint template
-        arguments:
-          $ref: '#/components/schemas/Arguments'
-        templates:
-          type: array
-          description: List of workflow templates
-          items:
-            $ref: '#/components/schemas/Template'
-        serviceAccountName:
-          type: string
-          description: Service account to run workflow pods
-        volumes:
-          type: array
-          description: Volumes available to workflow steps
-          items:
-            type: object
-        activeDeadlineSeconds:
-          type: integer
-          format: int64
-          description: Duration in seconds before workflow times out
-        nodeSelector:
-          type: object
-          additionalProperties:
-            type: string
-        tolerations:
-          type: array
-          items:
-            type: object
-        parallelism:
-          type: integer
-          description: Maximum number of parallel running pods
-        ttlStrategy:
-          type: object
-          description: Strategy for cleaning up completed workflows
-          properties:
-            secondsAfterCompletion:
-              type: integer
-            secondsAfterSuccess:
-              type: integer
-            secondsAfterFailure:
-              type: integer
-        podGC:
-          type: object
-          description: Strategy for garbage collecting completed pods
-          properties:
-            strategy:
-              type: string
-              enum:
-              - OnPodCompletion
-              - OnPodSuccess
-              - OnWorkflowCompletion
-              - OnWorkflowSuccess
-        workflowTemplateRef:
-          type: object
-          description: Reference to a WorkflowTemplate
-          properties:
-            name:
-              type: string
-            clusterScope:
-              type: boolean
-        archiveLogs:
-          type: boolean
-          description: Whether to archive workflow logs
-        hooks:
-          type: object
-          description: Lifecycle hooks for the workflow
-          additionalProperties:
-            type: object
-        onExit:
-          type: string
-          description: Template to execute on workflow exit
-        retryStrategy:
-          $ref: '#/components/schemas/RetryStrategy'
-    DAGTask:
-      type: object
-      description: A task in a DAG template
-      properties:
-        name:
-          type: string
-        template:
-          type: string
-        arguments:
-          $ref: '#/components/schemas/Arguments'
-        dependencies:
-          type: array
-          items:
-            type: string
-        when:
-          type: string
-          description: Conditional expression for task execution
-        withItems:
-          type: array
-          items: {}
-        withParam:
-          type: string
-        continueOn:
-          type: object
-          properties:
-            error:
-              type: boolean
-            failed:
-              type: boolean
-    Arguments:
-      type: object
-      description: Arguments to pass to a template
-      properties:
-        parameters:
-          type: array
-          items:
-            $ref: '#/components/schemas/Parameter'
-        artifacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Artifact'
-    NodeStatus:
-      type: object
-      description: Status of a workflow node
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        displayName:
-          type: string
-        type:
-          type: string
-          enum:
-          - Pod
-          - Steps
-          - StepGroup
-          - DAG
-          - TaskGroup
-          - Retry
-          - Skipped
-          - Suspend
-        templateName:
-          type: string
-        phase:
-          type: string
-        startedAt:
-          type: string
-          format: date-time
-        finishedAt:
-          type: string
-          format: date-time
-        message:
-          type: string
-        children:
-          type: array
-          items:
-            type: string
-        inputs:
-          $ref: '#/components/schemas/Inputs'
-        outputs:
-          $ref: '#/components/schemas/Outputs'
-    Workflow:
-      type: object
-      description: An Argo Workflow resource
-      properties:
-        apiVersion:
-          type: string
-          default: argoproj.io/v1alpha1
-        kind:
-          type: string
-          default: Workflow
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/WorkflowSpec'
-        status:
-          $ref: '#/components/schemas/WorkflowStatus'
-    WorkflowList:
-      type: object
-      properties:
-        apiVersion:
-          type: string
-        metadata:
-          type: object
-          properties:
-            resourceVersion:
-              type: string
-            continue:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workflow'
-    Artifact:
-      type: object
-      description: A workflow artifact
-      properties:
-        name:
-          type: string
-        path:
-          type: string
-          description: Path in the container where artifact is placed
-        from:
-          type: string
-          description: Source artifact reference
-        s3:
-          type: object
-          properties:
-            bucket:
-              type: string
-            key:
-              type: string
-            endpoint:
-              type: string
-        git:
-          type: object
-          properties:
-            repo:
-              type: string
-            revision:
-              type: string
-            depth:
-              type: integer
-        http:
-          type: object
-          properties:
-            url:
-              type: string
-            headers:
-              type: array
-              items:
-                type: object
-        archive:
-          type: object
-          properties:
-            none:
-              type: object
-            tar:
-              type: object
-              properties:
-                compressionLevel:
-                  type: integer
-            zip:
-              type: object
-    ObjectMeta:
-      type: object
-      description: Kubernetes object metadata
-      properties:
-        name:
-          type: string
-        generateName:
-          type: string
-        namespace:
-          type: string
-        uid:
-          type: string
-        resourceVersion:
-          type: string
-        generation:
-          type: integer
-          format: int64
-        creationTimestamp:
-          type: string
-          format: date-time
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-    WorkflowStep:
-      type: object
-      description: A step in a steps template
-      properties:
-        name:
-          type: string
-        template:
-          type: string
-        arguments:
-          $ref: '#/components/schemas/Arguments'
-        when:
-          type: string
-        withItems:
-          type: array
-          items: {}
-        withParam:
-          type: string
-        continueOn:
-          type: object
-          properties:
-            error:
-              type: boolean
-            failed:
-              type: boolean
-    WorkflowStatus:
-      type: object
-      description: Status of a workflow execution
-      properties:
-        phase:
-          type: string
-          enum:
-          - Pending
-          - Running
-          - Succeeded
-          - Failed
-          - Error
-        startedAt:
-          type: string
-          format: date-time
-        finishedAt:
-          type: string
-          format: date-time
-        progress:
-          type: string
-          description: Progress of the workflow (e.g. 2/4)
-        message:
-          type: string
-        estimatedDuration:
-          type: integer
-        nodes:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/NodeStatus'
-        conditions:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              status:
-                type: string
-              message:
-                type: string
-        outputs:
-          $ref: '#/components/schemas/Outputs'
-        storedTemplates:
-          type: object
-        artifactRepositoryRef:
-          type: object
-          properties:
-            configMap:
-              type: string
-            key:
-              type: string
   securitySchemes:
     BearerAuth:
       type: http
