@@ -1,0 +1,25 @@
+slug: argo
+provider: Argo
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Applications
+  spec_file: argo-applications-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.8
+  evidence: POST /applications/{name}/sync  syncApplication; POST /applications/{name}/rollback  rollbackApplication;
+    'supports syncing application state to match the desired state declared in Git'
+  reason: Argo CD application sync and rollback is GitOps delivery of software changes to running environments
+    — deployment orchestration. Some ambiguity vs IT application management, hence 0.8.

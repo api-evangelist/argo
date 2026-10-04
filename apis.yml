@@ -367,6 +367,9 @@ apis:
   - type: APIReference
     url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
 common:
+  - type: CapabilityMap
+    url: capabilities/argo-capability-edges.yml
+    name: Argo Business Capability Map
   - type: IssueTracker
     url: https://github.com/argoproj/argo-events/issues
   - type: Releases
