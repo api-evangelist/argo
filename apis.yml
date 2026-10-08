@@ -367,6 +367,12 @@ apis:
   - type: APIReference
     url: https://argo-cd.readthedocs.io/en/stable/developer-guide/api-docs/
 common:
+  - type: Plans
+    url: plans/argo-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/argo-rate-limits.yml
+  - type: FinOps
+    url: finops/argo-finops.yml
   - type: CapabilityMap
     url: capabilities/argo-capability-edges.yml
     name: Argo Business Capability Map
